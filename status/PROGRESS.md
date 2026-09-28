@@ -1,0 +1,46 @@
+# Progress
+
+**Chain status:** not started · **Tasks complete:** 0 / 147 · **Last commit:** scaffold
+
+Updated in the same commit as every completed task. A task is ticked only when its acceptance criteria were verified and evidenced in `logs/tasks/`.
+
+## Phases
+
+| Phase | Tasks | Focus | Status |
+|---|---|---|---|
+| [00 — Foundation](../plan/phase-00-foundation/) | T-001 … T-010 | repo hygiene, toolchain, scaffold, CI smoke | ⬜ 0/10 |
+| [01 — Core server](../plan/phase-01-core-server/) | T-011 … T-023 | foreground service, Ktor, port, bind modes, vault | ⬜ 0/13 |
+| [02 — Provider framework](../plan/phase-02-provider-framework/) | T-024 … T-036 | manifest registry, generic adapters, discovery, keys | ⬜ 0/13 |
+| [03 — Provider catalog](../plan/phase-03-provider-catalog/) | T-037 … T-054 | Tier 1 free gateways, Tier 2 majors, custom providers | ⬜ 0/18 |
+| [04 — Accounts & OAuth](../plan/phase-04-accounts-oauth/) | T-055 … T-065 | Google AI Pro, Perplexity Sonar, GitHub, HuggingFace | ⬜ 0/11 |
+| [05 — Wire protocols](../plan/phase-05-wire-protocols/) | T-066 … T-078 | OpenAI, Anthropic, Gemini, media, streaming, errors | ⬜ 0/13 |
+| [06 — Routing](../plan/phase-06-routing/) | T-079 … T-090 | candidates, strategies, quota, rotation, failover | ⬜ 0/12 |
+| [07 — UI](../plan/phase-07-ui/) | T-091 … T-106 | Compose shell, dashboard, providers, keys, settings | ⬜ 0/16 |
+| [08 — Local models](../plan/phase-08-local-models/) | T-107 … T-117 | llama.cpp via Termux, catalog, memory guard, specials | ⬜ 0/11 |
+| [09 — MCP & plugins](../plan/phase-09-mcp-plugins/) | T-118 … T-126 | discovery, registry, bridge, connectors | ⬜ 0/9 |
+| [10 — Logging & handover](../plan/phase-10-logging-handover/) | T-127 … T-135 | log writer, status automation, resume drills | ⬜ 0/9 |
+| [11 — Delivery](../plan/phase-11-delivery/) | T-136 … T-147 | hardening, acceptance run, CI release, docs | ⬜ 0/12 |
+
+## Completed tasks
+
+_None yet. The first task is [T-001](../plan/phase-00-foundation/T-001-repository-hygiene.md)._
+
+| Task | Title | Commit |
+|---|---|---|
+| — | — | — |
+
+## Component state
+
+Per-component detail lives in [`status/components/`](components/).
+
+| Component | State |
+|---|---|
+| core-server | ⬜ not started |
+| provider-layer | ⬜ not started |
+| accounts-oauth | ⬜ not started |
+| protocols | ⬜ not started |
+| routing | ⬜ not started |
+| ui | ⬜ not started |
+| local-models | ⬜ not started |
+| mcp | ⬜ not started |
+| delivery | ⬜ not started |
