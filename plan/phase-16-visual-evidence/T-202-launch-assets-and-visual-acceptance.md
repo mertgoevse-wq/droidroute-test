@@ -45,10 +45,11 @@ Verification is never skipped. If you substitute a skill, log it — see [handbo
 ## Steps
 
 1. Draw the mark from the chosen direction; test it at 48dp, 24dp and in monochrome before committing to it.
-2. Export every density and the adaptive layers; verify the icon masks correctly on a round-mask launcher.
-3. Build the own icon set for the product's concepts (signal path, provider, key, quota, local model, MCP) and check each at its smallest size.
-4. Produce the store-style graphics from real screenshots, never from mock-ups.
-5. Write the owner-facing design page and the residual list, then close A18 with links to every piece of evidence.
+2. Keep the drawings in [`design/`](../../design/README.md) obeying the same bans as the app — `tools/check_design_slop.py` checks the SVGs and the preview too, so a gradient in a mock-up fails the build like a gradient in a composable.
+3. Export every density and the adaptive layers; verify the icon masks correctly on a round-mask launcher.
+4. Build the own icon set for the product's concepts (signal path, provider, key, quota, local model, MCP) and check each at its smallest size.
+5. Produce the store-style graphics from real screenshots, never from mock-ups.
+6. Write the owner-facing design page and the residual list, then close A18 with links to every piece of evidence.
 
 ## Acceptance criteria
 
@@ -62,6 +63,7 @@ Verification is never skipped. If you substitute a skill, log it — see [handbo
 ```bash
 ./gradlew :app:assembleDebug
 python3 tools/analyse_shots.py
+python3 tools/check_design_slop.py
 ```
 
 ## Definition of done

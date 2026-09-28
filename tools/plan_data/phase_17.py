@@ -170,11 +170,11 @@ TASKS = [
     Task(
         id=207,
         slug="workflow-plugin-and-publish",
-        title="Reusable build workflow: consume it here, publish it separately",
+        title="Reusable build workflow: consume it here, publish it as `routin`",
         goal=(
             "Turn this repository's agent workflow into a reusable, installable artefact — skills, subagents, gate scripts and "
-            "templates — use it from this project, and publish it in its own private repository containing nothing "
-            "project-specific."
+            "templates — use it from this project, and publish it in its own private repository named `routin`, "
+            "containing nothing project-specific."
         ),
         deps=[166, 206],
         est="240-480 min",
@@ -185,10 +185,11 @@ TASKS = [
         deliverables=[
             "A workflow plugin (manifest + skills + subagents + gate scripts + templates) that installs into any project",
             "This repository consuming the plugin, with the duplicated parts removed and referenced instead",
-            "Its own private GitHub repository, containing the workflow only — asserted by a leak check",
+            "The private GitHub repository `routin`, containing the workflow only — asserted by a leak check",
         ],
         steps=[
-            "Separate the workflow from the project: the loop, the gates, the log protocol and the handover rules are generic; the design tokens, providers and acceptance criteria are not.",
+            "Separate the workflow from the project: the loop, the gates, the log protocol and the handover rules are generic; the design tokens, providers and acceptance criteria are not (TBC-11).",
+            "Create the repository as `routin`, private, with the local working copy under that name — not beside this project's files, so a stray path can never publish the wrong tree.",
             "Package the generic part as a plugin with a manifest, so another agent can install it rather than copy it.",
             "Make this repository consume the plugin and delete its own copies of anything the plugin now owns — two sources of truth is the failure mode to avoid.",
             "Prove it runs: install it in a scratch project and complete one small task with it, recording the run.",
@@ -197,14 +198,15 @@ TASKS = [
         accept=[
             "The plugin installs in a scratch project and completes a task end to end (recorded)",
             "This repository has no duplicate copy of anything the plugin owns",
-            "The plugin repository contains no project-specific file, name or secret (asserted by its own check)",
+            "`routin` is private and contains no project-specific file, name or secret (asserted by its own check)",
+            "`gh repo view mertgoevse-wq/routin --json name,visibility` reports `PRIVATE`",
             "Both repositories are private, and each documents how the other is updated",
         ],
         verify=[
             "python3 tools/check_plan_consistency.py",
             "gh repo view --json name,visibility",
         ],
-        state="The build workflow is reusable and published on its own, while this project consumes it instead of forking it.",
+        state="The build workflow is reusable and published on its own as `routin`, while this project consumes it instead of forking it.",
     ),
     Task(
         id=208,

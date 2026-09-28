@@ -232,6 +232,7 @@ TASKS = [
         ],
         steps=[
             "Draw the mark from the chosen direction; test it at 48dp, 24dp and in monochrome before committing to it.",
+            "Keep the drawings in [`design/`](../../design/README.md) obeying the same bans as the app — `tools/check_design_slop.py` checks the SVGs and the preview too, so a gradient in a mock-up fails the build like a gradient in a composable.",
             "Export every density and the adaptive layers; verify the icon masks correctly on a round-mask launcher.",
             "Build the own icon set for the product's concepts (signal path, provider, key, quota, local model, MCP) and check each at its smallest size.",
             "Produce the store-style graphics from real screenshots, never from mock-ups.",
@@ -246,6 +247,7 @@ TASKS = [
         verify=[
             "./gradlew :app:assembleDebug",
             "python3 tools/analyse_shots.py",
+            "python3 tools/check_design_slop.py",
         ],
         state="The product has its own visual identity and a documented, checkable evidence trail for it.",
     ),

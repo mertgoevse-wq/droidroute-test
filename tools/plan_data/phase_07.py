@@ -9,7 +9,7 @@ PHASE = Phase(
     summary="Compose shell, dashboard, provider and key management, routing controls, settings, onboarding.",
     design="""Every task in this phase produces something a person looks at, so the craft rules apply as strictly as the functional ones. Read [docs/14-design-system.md](../../docs/14-design-system.md) before writing a composable, and load the `design-craft` skill alongside the skills listed on the task.
 
-**The direction, in one line:** a graphite instrument panel with hairline borders, one brass accent for the single primary action, real status lamps, and the request path made visible. Not a dark SaaS dashboard, not glass, not gradients. The banned list is binding: [handbooks/07-anti-slop-rules.md](../../handbooks/07-anti-slop-rules.md) §11.
+**The direction, in one line:** a graphite instrument panel with hairline borders, one copper accent for the single primary action, real status lamps, and the request path made visible. Not a dark SaaS dashboard, not glass, not gradients. The mark is "Signal" and the asset sources live in [`design/`](../../design/README.md). The banned list is binding: [handbooks/07-anti-slop-rules.md](../../handbooks/07-anti-slop-rules.md) §11.
 
 Before writing any composable:
 
@@ -63,7 +63,7 @@ TASKS = [
         slug="theme-and-visuals",
         title="Theme, dark/light and typography",
         goal=(
-            "Implement the design system as tokens: the graphite surface scale, the four ink levels, the single brass accent, "
+            "Implement the design system as tokens: the graphite surface scale, the four ink levels, the single copper accent, "
             "the real status lamps, and the type, space and shape scales from docs/14-design-system.md §5–§7. This task creates "
             "`ui/theme/Tokens.kt`, which every later screen reads from."
         ),

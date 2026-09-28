@@ -110,7 +110,14 @@ This repo is not documentation *about* DroidRoute — it is the build plan. [`pl
 | [`handbooks/09-skill-resolution.md`](handbooks/09-skill-resolution.md) | which role label a task names means which installed skill, plugin or MCP server |
 | [`docs/12-omniroute-parity.md`](docs/12-omniroute-parity.md) | OmniRoute feature parity, and what DroidRoute does beyond it |
 | [`docs/13-competitive-landscape.md`](docs/13-competitive-landscape.md) | 9Router, CLIProxyAPI, LiteLLM and friends: what is absorbed, what is different, what is refused |
+| [`docs/14-design-system.md`](docs/14-design-system.md) | the design system: direction, tokens, measured contrast, states, motion |
+| [`design/preview.html`](design/preview.html) | **open this** — the living preview: palette, type, components, states, motion, icon set |
+| [`design/`](design/README.md) | the drawings: mark, adaptive icon, own icon set, Dashboard mock-up |
 | [`docs/droidroute-spec.md`](docs/droidroute-spec.md) | the original master specification |
+
+### What it will look like
+
+There is no app yet, so there are no screenshots yet — and no mock-up will be passed off as one. What exists is the decided system and the drawings that implement it: open [`design/preview.html`](design/preview.html) in a browser (its dark/light toggle and motion toggle both work), or look at [`design/mock/dashboard.svg`](design/mock/dashboard.svg). Screenshots of the real app are produced by [`T-197`](plan/phase-16-visual-evidence/T-197-screenshot-harness.md) and land in [`design/screenshots/`](design/) — the gallery in this README is generated from those files and CI fails when it drifts.
 
 ## Repository layout
 
@@ -121,6 +128,7 @@ handbooks/   agent handbook, subagent orchestration, skills catalog, git + loggi
 plan/        208 task files in 18 phases, plus INDEX.md
 status/      PROGRESS · NEXT · DECISIONS · ERRORS · TOOLING (generated inventory) · per-component state · daily summaries
 logs/        chain log, per-task logs, daily roll-ups (pruned weekly)
+design/      the drawings: mark, adaptive icon, own icon set, Dashboard mock-up, living preview (checked by the design gate)
 scripts/     step-commit, log-step, secrets preflight, tooling discovery, weekly cleanup, termux setup, local APK build
 tools/       plan generator + phase data (how the 208 task files are produced from the spec), link, skill, design and consistency checkers
 .github/     build-apk + repo-hygiene workflows, issue/PR templates

@@ -14,6 +14,7 @@ on:
       - 'plan/**'
       - 'scripts/**'
       - 'tools/**'
+      - 'design/**'
 
 permissions:
   contents: write
@@ -53,7 +54,7 @@ jobs:
       - name: Tooling inventory is current
         run: python3 scripts/discover_tooling.py --check
 
-      - name: Design gate bites (self-test) and passes (real scan)
+      - name: Design gate bites (self-test) and passes (sources and drawings)
         run: |
           python3 tools/check_design_slop.py --self-test
           python3 tools/check_design_slop.py
@@ -63,10 +64,12 @@ jobs:
 
       - name: Plan integrity
         run: |
+          # A floor, not a target: it catches a plan that was truncated or a generator
+          # that silently dropped a phase. Raise it as the plan grows.
           count=$(find plan -name 'T-*.md' | wc -l)
           echo "task files: $count"
-          if [ "$count" -lt 180 ]; then
-            echo "::error::expected at least 180 task files, found $count"
+          if [ "$count" -lt 205 ]; then
+            echo "::error::expected at least 205 task files, found $count"
             exit 1
           fi
           # every task file must carry the required sections

@@ -1,10 +1,10 @@
-# T-207 — Reusable build workflow: consume it here, publish it separately
+# T-207 — Reusable build workflow: consume it here, publish it as `routin`
 
 > Phase 17 · One-tap access, key issuing & tooling coverage · **Depends on:** T-166, T-206 · **Parallel-safe:** yes · **Est. agent time:** 240-480 min
 
 ## Goal
 
-Turn this repository's agent workflow into a reusable, installable artefact — skills, subagents, gate scripts and templates — use it from this project, and publish it in its own private repository containing nothing project-specific.
+Turn this repository's agent workflow into a reusable, installable artefact — skills, subagents, gate scripts and templates — use it from this project, and publish it in its own private repository named `routin`, containing nothing project-specific.
 
 ## Read first (context budget)
 
@@ -29,21 +29,23 @@ Verification is never skipped. If you substitute a skill, log it — see [handbo
 
 - A workflow plugin (manifest + skills + subagents + gate scripts + templates) that installs into any project
 - This repository consuming the plugin, with the duplicated parts removed and referenced instead
-- Its own private GitHub repository, containing the workflow only — asserted by a leak check
+- The private GitHub repository `routin`, containing the workflow only — asserted by a leak check
 
 ## Steps
 
-1. Separate the workflow from the project: the loop, the gates, the log protocol and the handover rules are generic; the design tokens, providers and acceptance criteria are not.
-2. Package the generic part as a plugin with a manifest, so another agent can install it rather than copy it.
-3. Make this repository consume the plugin and delete its own copies of anything the plugin now owns — two sources of truth is the failure mode to avoid.
-4. Prove it runs: install it in a scratch project and complete one small task with it, recording the run.
-5. Add a leak check to the plugin repository: no project name, no credential, no file from this project may appear in it.
+1. Separate the workflow from the project: the loop, the gates, the log protocol and the handover rules are generic; the design tokens, providers and acceptance criteria are not (TBC-11).
+2. Create the repository as `routin`, private, with the local working copy under that name — not beside this project's files, so a stray path can never publish the wrong tree.
+3. Package the generic part as a plugin with a manifest, so another agent can install it rather than copy it.
+4. Make this repository consume the plugin and delete its own copies of anything the plugin now owns — two sources of truth is the failure mode to avoid.
+5. Prove it runs: install it in a scratch project and complete one small task with it, recording the run.
+6. Add a leak check to the plugin repository: no project name, no credential, no file from this project may appear in it.
 
 ## Acceptance criteria
 
 - [ ] The plugin installs in a scratch project and completes a task end to end (recorded)
 - [ ] This repository has no duplicate copy of anything the plugin owns
-- [ ] The plugin repository contains no project-specific file, name or secret (asserted by its own check)
+- [ ] `routin` is private and contains no project-specific file, name or secret (asserted by its own check)
+- [ ] `gh repo view mertgoevse-wq/routin --json name,visibility` reports `PRIVATE`
 - [ ] Both repositories are private, and each documents how the other is updated
 
 ## Verification
@@ -78,12 +80,12 @@ Protocols: [handbooks/04-git-protocol.md](../../handbooks/04-git-protocol.md) ·
 
 - `scripts/log-step.sh T-207 "<action>" "<result>"` after every meaningful step
 - `scripts/log-step.sh T-207 "test" "<command>" "pass" --actor verify` for each verification run
-- Once every criterion above is ticked: `scripts/step-commit.sh "T-207: Reusable build workflow: consume it here, publish it separately"`
+- Once every criterion above is ticked: `scripts/step-commit.sh "T-207: Reusable build workflow: consume it here, publish it as `routin`"`
 - Update [status/PROGRESS.md](../../status/PROGRESS.md) and [status/NEXT.md](../../status/NEXT.md) in the same commit
 
 ## State after success
 
-The build workflow is reusable and published on its own, while this project consumes it instead of forking it.
+The build workflow is reusable and published on its own as `routin`, while this project consumes it instead of forking it.
 
 ## Stop conditions
 

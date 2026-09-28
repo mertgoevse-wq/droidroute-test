@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" width="840" height="600"
+     role="img" aria-label="Adaptive launcher icon: background layer, foreground layer, monochrome layer and three mask previews">
+  <title>DroidRoute adaptive launcher icon</title>
+  <desc>Android adaptive icons are 108dp with a 66dp safe zone; everything outside the safe zone may be masked away. Background layer: flat graphite. Foreground layer: the Signal mark inside the safe zone. Monochrome layer: the mark alone, tinted by the launcher. Proof row shows the mark under a round, a squircle and a rounded-square mask.</desc>
+
+  <rect width="420" height="300" fill="#0E1217"/>
+  <text x="20" y="26" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="600">Adaptive launcher icon — 108dp, 66dp safe zone</text>
+
+  <!-- 1. background layer -->
+  <g transform="translate(20,44)">
+    <rect x="0" y="0" width="90" height="90" rx="10" fill="#151A1F"/>
+    <rect x="0" y="0" width="90" height="90" rx="10" fill="none" stroke="#2C3238"/>
+    <text x="45" y="108" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">background</text>
+    <text x="45" y="120" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">#151A1F flat</text>
+  </g>
+
+  <!-- 2. foreground layer, with the safe zone drawn -->
+  <g transform="translate(126,44)">
+    <rect x="0" y="0" width="90" height="90" rx="10" fill="#151A1F"/>
+    <rect x="12" y="12" width="66" height="66" fill="none" stroke="#DE8F57" stroke-width="1" stroke-dasharray="3 3" opacity="0.75"/>
+    <g transform="translate(27,27) scale(1.5)" fill="none">
+      <circle cx="12" cy="12" r="7" stroke="#DE8F57" stroke-width="2"/>
+      <line x1="2" y1="12" x2="22" y2="12" stroke="#E5E8EB" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="17" cy="12" r="2.6" fill="#DE8F57" stroke="none"/>
+    </g>
+    <text x="45" y="108" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">foreground</text>
+    <text x="45" y="120" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">mark in safe zone</text>
+  </g>
+
+  <!-- 3. monochrome layer -->
+  <g transform="translate(232,44)">
+    <rect x="0" y="0" width="90" height="90" rx="10" fill="#151A1F"/>
+    <g transform="translate(27,27) scale(1.5)" fill="none" stroke="#E5E8EB">
+      <circle cx="12" cy="12" r="7" stroke-width="2"/>
+      <line x1="2" y1="12" x2="22" y2="12" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="17" cy="12" r="2.6" fill="#E5E8EB" stroke="none"/>
+    </g>
+    <text x="45" y="108" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">monochrome</text>
+    <text x="45" y="120" fill="#898E94" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">launcher tints it</text>
+  </g>
+
+  <!-- 4. mask proof -->
+  <g transform="translate(338,44)">
+    <text x="0" y="-6" fill="#898E94" font-family="ui-monospace, monospace" font-size="9">mask proof</text>
+    <g transform="translate(0,0)">
+      <circle cx="24" cy="24" r="24" fill="#151A1F"/>
+      <g transform="translate(8,12) scale(1.333)" fill="none">
+        <circle cx="12" cy="12" r="7" stroke="#DE8F57" stroke-width="2"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="#E5E8EB" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="17" cy="12" r="2.6" fill="#DE8F57" stroke="none"/>
+      </g>
+    </g>
+    <g transform="translate(0,56)">
+      <rect x="0" y="0" width="48" height="48" rx="16" fill="#151A1F"/>
+      <g transform="translate(8,12) scale(1.333)" fill="none">
+        <circle cx="12" cy="12" r="7" stroke="#DE8F57" stroke-width="2"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="#E5E8EB" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="17" cy="12" r="2.6" fill="#DE8F57" stroke="none"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- rules -->
+  <g transform="translate(20,168)">
+    <line x1="0" y1="0" x2="380" y2="0" stroke="#2C3238"/>
+    <text x="0" y="20" fill="#B4B8BC" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="600">Rules for the icon</text>
+    <text x="0" y="40" fill="#898E94" font-family="ui-monospace, monospace" font-size="9.5">1 · no gradient, no shadow, no glow on any layer</text>
+    <text x="0" y="56" fill="#898E94" font-family="ui-monospace, monospace" font-size="9.5">2 · the mark stays inside the 66dp safe zone with 6dp of air</text>
+    <text x="0" y="72" fill="#898E94" font-family="ui-monospace, monospace" font-size="9.5">3 · monochrome layer uses one colour only, geometry identical</text>
+    <text x="0" y="88" fill="#898E94" font-family="ui-monospace, monospace" font-size="9.5">4 · legible at 24dp before it is used at 108dp</text>
+    <text x="0" y="112" fill="#797E84" font-family="ui-monospace, monospace" font-size="9.5">source: docs/14-design-system.md §15.1 · colours: measured table in §5.7</text>
+  </g>
+</svg>

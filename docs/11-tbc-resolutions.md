@@ -145,6 +145,23 @@ Consequence for the product: DroidRoute itself does the same thing at runtime (`
 
 The genuinely phone-specific work — battery/thermal/network-aware routing (T-176), offline-first mode (T-175), conversation affinity (T-174), self-update with signature verification (T-180, T-181), an offline model catalog (T-179), mobile-data budgeting (T-178) and the Android surfaces (T-177) — exists precisely because every competitor is a server-side service.
 
+## TBC-11 — Where the reusable build workflow is published
+
+**Decision: the workflow gets its own private repository, named `routin`.**
+
+The owner asked for one thing explicitly: the *workflow* — how an agent builds an app here — should be reusable without the project. The name is `routin`, private, and it holds nothing about DroidRoute.
+
+| Concern | Answer |
+|---|---|
+| Repository | `routin` (private). Local working copy named `routin`, never beside the project's own files |
+| What belongs to it | the loop (task → verify → log → commit), the gate scripts, the log and handover protocol, the subagent definitions, the plan schema and generator, the bootstrap, the templates an agent reads first |
+| What does not | design tokens, provider manifests, port numbers, acceptance criteria, the word DroidRoute, the code word, any credential, any file from this project |
+| How it is consumed | as an installable plugin with a manifest — *installed*, not copied, so there is exactly one source of truth per artefact |
+| How the two stay honest | `routin` carries a leak check that fails on a project name, a secret or a project file; this repository has no duplicate of anything `routin` owns |
+| Which task builds it | T-207 in `plan/phase-17-access-and-tooling/` |
+
+The split is the reason T-207 exists at all: the generic loop is the only part of this repository another project would want, and keeping it here would mean every future project forks the workflow instead of installing it.
+
 ---
 
 ## Consequences for the task plan
@@ -158,3 +175,4 @@ The genuinely phone-specific work — battery/thermal/network-aware routing (T-1
 - `plan/phase-12-parity-power/` carries the OmniRoute parity work and the owner's extras (TBC-9), including the build-agent tooling wiring (TBC-8, T-166).
 - `plan/phase-13-competitive-edge/` carries the competitor absorption and the Android-only differentiators (TBC-10): any-provider detection, migration importers, local-first providers, extra wire surfaces, subscription login adapters, tool-output filters, response-style presets, conversation affinity, offline-first mode, phone-aware routing, Android surfaces, mobile-data accounting, the offline model catalog, self-update, signed catalog packs, debug capture, QR config portability and the native benchmark.
 - `handbooks/09-skill-resolution.md` carries the mapping from the role labels used in `plan/` to the installed skills, plugins and MCP servers (TBC-8).
+- `plan/phase-17-access-and-tooling/` carries the one-tap start, the device-code sign-in, the local-only key issuing, the tooling coverage report and the reusable workflow published as `routin` (TBC-11).

@@ -4,9 +4,9 @@
 
 **One direction, decided once, applied everywhere.**
 
-`Direction: Graphit-Instrumententafel · Akzent: Messing · Signatur: der Signalweg`
+`Direction: Graphit-Instrumententafel · Akzent: Kupfer · Marke: „Signal“ · Signatur: der Signalweg`
 
-Rules that bind agents: [`handbooks/07-anti-slop-rules.md`](../handbooks/07-anti-slop-rules.md) §11–§14
+Rules that bind agents: [`handbooks/07-anti-slop-rules.md`](../handbooks/07-anti-slop-rules.md) §11–§14 · Drawings: [`design/README.md`](../design/README.md)
 Gate: `python3 tools/check_design_slop.py` · Tasks: [`plan/phase-07-ui/`](../plan/phase-07-ui/), [`plan/phase-14-design-audit/`](../plan/phase-14-design-audit/)
 
 </div>
@@ -44,6 +44,7 @@ Audit method: the design-skill library index (`~/.claude/design-skill-library`) 
 | What is forbidden, for every agent, always | [`handbooks/07-anti-slop-rules.md`](../handbooks/07-anti-slop-rules.md) §11–§14 |
 | Which skill to load for design work | [`handbooks/09-skill-resolution.md`](../handbooks/09-skill-resolution.md) → `android-compose-ui` |
 | Where it is built | [`plan/phase-07-ui/`](../plan/phase-07-ui/), [`plan/phase-14-design-audit/`](../plan/phase-14-design-audit/) |
+| Which drawing implements it | [`design/`](../design/README.md) — logo, own icon set, dashboard mock, living preview |
 | Is it still true | `python3 tools/check_design_slop.py` (CI) |
 
 No theme package writes its own design note. Token names and values live here and in `ui/theme/Tokens.kt`; if the two disagree, the Kotlin is wrong.
@@ -57,7 +58,7 @@ DroidRoute is a **switchboard**. Requests arrive, are examined, and are switched
 | Axis | Decision | Consequence |
 |---|---|---|
 | **Domain vocabulary** | switchboard, patch panel, line, lane, signal, relay, patch cable, circuit, toll, meter, timetable, relief (Ablösung), slot | Labels use the product's real nouns; the router's own terms (`provider`, `key`, `quota`, `breaker`) stay in English |
-| **Colour world** | dark bakelite panel, engraved labels, signal lamps (green / amber / red), brass terminals, manila timetable paper, cable jackets in muted slate and olive | graphite structure + one brass accent + real lamp colours |
+| **Colour world** | dark bakelite panel, engraved labels, signal lamps (green / amber / red), copper terminals, manila timetable paper, cable jackets in muted slate and olive | graphite structure + one copper accent + real lamp colours |
 | **Material** | flat panel, hairline engraved lines, no glass, no glow | depth strategy = **borders only** (§7) |
 | **Feel** | a working instrument panel at night: calm, legible, precise — never a consumer app and never a brochure | dense by default, generous only around the focal element |
 | **One visual thesis** | *the request path is visible* | the signature element is the routing itself, not a logo |
@@ -82,7 +83,7 @@ Named so they cannot sneak back in:
 | Default | Replaced by |
 |---|---|
 | Dark SaaS dashboard: four equal KPI cards in a row | one live signal path as the focal element, with the single most important number beside it at display size and the rest demoted to a labelled list |
-| Gradient or glass hero, coloured card fills | flat surfaces, hairline borders, one brass accent used only for the primary action |
+| Gradient or glass hero, coloured card fills | flat surfaces, hairline borders, one copper accent used only for the primary action |
 | Equal bottom navigation, every screen the same shape | five destinations kept, but each screen states its own focal element and its own density (§8) |
 | Rainbow multi-series chart | one accent + one comparison hue, direct labels, zero-baseline bars, unknown rendered as unknown (§9) |
 | Bundled "tech" webfont for personality | platform type at a real scale, plus platform **monospace with tabular figures** for numbers — a decision with a reason (§6) |
@@ -114,24 +115,37 @@ Steps are ~3.5 points of lightness: visible when stacked, invisible in isolation
 
 ### 5.3 Text — four levels, always three levers
 
-| Token | OKLCH | Level |
-|---|---|---|
-| `ink` | `oklch(0.930 0.005 250)` | primary — never pure white |
-| `ink-2` | `oklch(0.780 0.008 250)` | secondary / supporting |
-| `ink-3` | `oklch(0.660 0.010 250)` | tertiary / labels |
-| `ink-muted` | `oklch(0.545 0.010 250)` | metadata, disabled |
+| Token | OKLCH | Hex (dark) | Level |
+|---|---|---|---|
+| `ink` | `oklch(0.930 0.005 250)` | `#E5E8EB` | primary — never pure white |
+| `ink-2` | `oklch(0.780 0.008 250)` | `#B4B8BC` | secondary / supporting |
+| `ink-3` | `oklch(0.660 0.010 250)` | `#8E9398` | tertiary / labels |
+| `ink-muted` | `oklch(0.645 0.010 250)` | `#898E94` | metadata — the lowest level usable for real text |
+| `ink-disabled` | `oklch(0.510 0.010 250)` | `#62676C` | disabled only; exempt from the contrast floor, and never used for information |
 
 Hierarchy comes from **size + weight + colour together**. A single 14sp size holds three tiers: `value 600/ink`, `label 500/ink-3`, `meta 400/ink-muted`.
 
-### 5.4 Accent — exactly one, and it is not a status colour
+### 5.4 Accent — copper, exactly one, and never a status colour
+
+The owner chose **copper** over brass: warmer, slightly darker, more earth than instrument-panel shine.
 
 | Token | OKLCH | Role |
 |---|---|---|
-| `accent` | `oklch(0.800 0.115 080)` | brass. The one primary action per screen, focus-adjacent emphasis, the active destination |
-| `accent-ink` | `oklch(0.220 0.020 080)` | text/icons **on** an accent fill |
-| `accent-quiet` | `oklch(0.300 0.035 080)` | accent-tinted container when a filled control would be too loud |
+| `accent` | `oklch(0.720 0.120 055)` | copper. The one primary action per screen, the active destination, a 1dp emphasis stroke |
+| `accent-ink` | `oklch(0.200 0.020 055)` | text/icons **on** a copper fill |
+| `accent-quiet` | `oklch(0.290 0.040 055)` | copper-tinted container when a filled control would be too loud |
 
-Rules: one accent per screen; the accent never appears on a status chip, a lamp or a chart series (see §5.5); ~10 % of pixels at most.
+Rules: one accent per screen; ~10 % of pixels at most; never on a status chip, a lamp or a chart series.
+
+**Copper sits near two status hues, and that is handled by material, not by hope.** Copper (`055`), warn (`075`) and err (`025`) are 20–30° apart — close enough that colour alone must never be the difference:
+
+| | Copper is allowed to be | Copper is never |
+|---|---|---|
+| Form | a filled control with dark text, an underline, a 1dp stroke, the active destination | a lamp, a dot, a filled pill that carries state |
+| Pairing | always with a verb ("Verbinden", "Weiter") | always without a word |
+| Place | one per screen, near the primary action | inside a status list, a chart, or next to a lamp |
+
+Status colours keep the shape-and-word rule from §5.5, so the three are distinguishable to a colour-blind reader as well. T-188 measures every copper/status pair side by side in both modes before this is considered settled, and the values above are the starting point for that measurement, not the conclusion.
 
 ### 5.5 Status — real lamps, never colour alone
 
@@ -143,15 +157,49 @@ Rules: one accent per screen; the accent never appears on a status chip, a lamp 
 | `info` | `oklch(0.760 0.070 240)` | neutral system fact |
 | `unknown` | `ink-3` + hatch pattern | value not known — **never** rendered as a neutral ok |
 
-Every status is carried by **colour + shape + label** together: a filled circle, a half-filled circle, a bar, a triangle — plus the word. `warn` sitting near the brass accent is deliberate and safe because the accent never marks state, and every lamp carries a shape and a word.
+Every status is carried by **colour + shape + label** together: a filled circle, a half-filled circle, a bar, a triangle — plus the word. `warn` sitting near the copper accent is safe because the accent never marks state and never appears as a lamp (§5.4), and every lamp carries a shape and a word.
 
 Constraints: body text ≥ 4.5:1, large text and UI components ≥ 3:1, no meaning conveyed by hue alone, all pairs verified during T-188 with recorded ratios.
 
 ### 5.6 Light mode ("Timetable")
 
-`canvas oklch(0.975 0.004 250)` · `surface-1 oklch(1.0 0 0)` · `inset oklch(0.960 0.004 250)` · `ink oklch(0.220 0.012 250)` · `ink-2 oklch(0.380 0.012 250)` · `ink-3 oklch(0.480 0.012 250)` · accents and status colours keep their hue with lightness shifted for ≥ 4.5:1 on light surfaces. Same hierarchy, inverted values, same single hue.
+| Token | OKLCH | Hex |
+|---|---|---|
+| `canvas` | `oklch(0.975 0.004 250)` | `#F5F7F9` |
+| `surface-1` | `oklch(1.000 0.000 000)` | `#FFFFFF` |
+| `inset` | `oklch(0.960 0.004 250)` | `#F0F2F4` |
+| `ink` | `oklch(0.220 0.012 250)` | `#161B20` |
+| `ink-2` | `oklch(0.380 0.012 250)` | `#3E4349` |
+| `ink-3` | `oklch(0.480 0.010 250)` | `#595E63` |
+| `ink-muted` | `oklch(0.520 0.010 250)` | `#65696F` |
+| `accent` | `oklch(0.545 0.140 055)` | `#AC5500` |
+| `accent-ink` | `oklch(0.995 0.008 055)` | `#FFFCF8` |
+| `ok` / `warn` / `err` / `info` | `0.545 0.135 155` / `0.600 0.150 075` / `0.560 0.190 025` / `0.520 0.120 240` | `#00864B` / `#B37000` / `#CC3336` / `#0070A6` |
 
-### 5.7 Dynamic colour
+Same hierarchy, inverted values, same single hue.
+
+### 5.7 Measured contrast (this is the evidence, not a promise)
+
+Every pair below was converted OKLCH → sRGB and measured with the WCAG relative-luminance formula on 2026-09-28, because the first version of this section *asserted* contrast and the assertion was wrong: the light-mode accent-ink pair measured 3.97:1 and light `warn` measured 2.98:1. Both were fixed by moving the token, not by moving the text — which is the rule in §12.
+
+| Foreground | Backgrounds | Measured (dark) | Measured (light) | Floor |
+|---|---|---|---|---|
+| `ink` | canvas / surface-1 / surface-2 / surface-3 / inset | 12.24 – 15.95 | 16.14 | 4.5 |
+| `ink-2` | same | 7.55 – 9.83 | 9.29 | 4.5 |
+| `ink-3` | same | 4.86 – 6.33 | 6.10 | 4.5 |
+| `ink-muted` | same | 4.56 – 5.94 | 5.14 | 4.5 |
+| `accent` | canvas / surface-1 / surface-2 | 6.31 – 7.31 | 4.82 – 5.18 | 3.0 |
+| `accent-ink` | accent | 7.06 | 5.07 | 4.5 |
+| `ok` / `warn` / `err` / `info` | canvas / surface-2 | 5.25 – 10.27 | 3.74 – 5.43 | 3.0 |
+
+Zero failures. Two consequences that are now rules:
+
+- `ink-muted` was raised to `0.645` in dark mode so that metadata text passes **on every surface**, not only on the canvas. A level that only works on one background is a trap.
+- `ink-disabled` was split out of it. Disabled controls are exempt from the contrast floor; information is not. Conflating the two is how a hint becomes unreadable.
+
+T-188 re-measures on the rendered app, at the real text positions, in both modes and at 200 % font scale. This table is the starting point it checks against.
+
+### 5.8 Dynamic colour
 
 **Off by default.** `dynamicColour` becomes an opt-in setting for the owner, documented as "use my wallpaper colours". The designed scheme is always the shipped default, because an app whose identity is the wallpaper has no identity to verify.
 
@@ -259,11 +307,13 @@ Run before showing any UI work. A screen that fails one is not finished, whateve
 ## 13. The gate
 
 ```bash
-python3 tools/check_design_slop.py          # scan the UI sources
+python3 tools/check_design_slop.py          # scan the UI sources and the drawings in design/
 python3 tools/check_design_slop.py --self-test   # prove the gate itself still bites
 ```
 
 It fails on: a banned aesthetic (glass, blur, neumorphism, skeuomorphic gradients), decorative shadow/elevation, gradient brushes, hardcoded `Color(0x…)` outside `ui/theme/Tokens.kt`, spacing or radius values off the scales in §7, user-facing string literals in composables, and a missing state family for a screen that loads data. It is wired into CI (`.github/workflows/repo-hygiene.yml`), and it runs against a fixture in `--self-test` so a gate that has stopped working is itself a failure.
+
+**The drawings are checked too.** The same run parses every `design/**/*.svg` as XML and applies the banned-aesthetic rules to the SVGs and to `design/preview.html` — gradient, filter, shadow and blur are refused there exactly as in a composable. Rationale: the mock-ups are what an agent copies when it implements the next screen, so a preview allowed to use a gradient would teach the wrong thing faster than a document could forbid it. `design/README.md` §2 states the rule; this is the enforcement.
 
 Design work is not "done" because the gate passes. The gate catches what a machine can catch; §11 catches the rest.
 
@@ -271,6 +321,58 @@ Design work is not "done" because the gate passes. The gate catches what a machi
 
 <div align="center">
 
-*DroidRoute should look like an instrument, not like a generated dashboard.*
+## 15. Mark, assets and motion
+
+### 15.1 The mark: Signal
+
+Chosen by the owner from four proposals (Signal, Weiche, Klinke, D als Schaltweg). An **open ring with one line through it** - a point passing through a gate. It is the smallest possible statement of what the product does, and it survives every size the platform demands.
+
+Construction on a 24x24 grid: ring of radius 7 with a 2dp stroke, a 2dp line through it, and a 2dp-diameter point on the line. Nothing else - no second shape, no letter, no enclosure.
+
+| Variant | Rule |
+|---|---|
+| On graphite | copper ring and point, `ink` line - the one place the accent carries the brand |
+| Monochrome | single `ink` colour, same geometry; the point stays a distinct shape so it survives a tinted launcher |
+| Adaptive icon | background layer = graphite flat fill, foreground layer = the mark inside the 66dp safe zone, monochrome layer = the mark alone |
+
+Prohibited for the mark: gradient, drop shadow, glow, outline-on-outline, text inside the ring, a second accent colour, perspective. A mark that needs an effect to read is a failed mark.
+
+The test before it is used anywhere: legible at 24dp, correct on graphite **and** on paper, correct inverted, correct in monochrome, and clean under a round mask.
+
+### 15.2 Assets: where they live
+
+
+| Path | Contains | Source of truth for |
+|---|---|---|
+| `design/logo/` | `signal-mark.svg`, `signal-adaptive-icon.svg` | the drawings |
+| `design/icons/` | `droidroute-icons.svg` - the own set, as symbols with shared path data | the drawings |
+| `design/mock/` | `dashboard.svg`, plus later mock-ups | layout intent, not implementation |
+| `design/preview.html` | the living preview: tokens, type scale, components, motion, icon grid | what the system looks like assembled |
+| `design/screenshots/` | the real captures, filled by T-197 | evidence |
+| `design/analysis/`, `design/review/` | machine analysis and the visual Q&A documents, filled by T-198/T-199 | findings |
+
+This document owns the rules; `design/` owns the drawings. If a drawing contradicts the rules, the drawing is wrong.
+
+**Icon set.** Nine own icons cover the product's own concepts; everything else comes from Material Symbols. Own: signal path, provider, key, quota window, local model, MCP bridge, tunnel, cost, log stream. Grid 24x24, 2dp stroke, round caps and joins, no fills except a lamp dot, optically corrected (a circle is drawn slightly larger than a square of the same size). Own icons exist because the product's concepts have no standard glyph - not to avoid a dependency.
+
+### 15.3 Motion: the Instrument level
+
+The owner chose the middle level. Everything below is the complete allowed set; anything not listed is not allowed without a reason recorded in the task log.
+
+| Moment | Motion | Duration | Why it earns its place |
+|---|---|---|---|
+| A request is in flight | the point travels the signal path | 240 ms | shows where the request is, and where it stopped |
+| A lamp changes state | colour + scale from 0.95 to 1 with a fade | 180 ms | shows that the gateway heard the change |
+| A number changes | count-up in tabular monospace | 400 ms max | the movement matches the change; tabular figures stop the layout shifting |
+| A sheet or dialog opens | slide/fade, origin-aware for popovers, centred for dialogs | 220 ms in, 180 ms out | shows where the panel came from and where it goes back to |
+| Reduced motion is on | the path is static with the failing hop marked; numbers jump | - | the information is identical, only the movement is gone |
+
+Curve: `CubicBezierEasing(0.23f, 1f, 0.32f, 1f)` for entering and interactive motion, `CubicBezierEasing(0.77f, 0f, 0.175f, 1f)` for movement across the screen. Never the built-in ease-in: it delays the first frame, which is the frame the eye is watching.
+
+Forbidden at this level: looping or ambient motion, a pulse or shimmer that waits for attention, parallax and depth effects, charts that grow in, stagger on list content, screen-transition choreography beyond the platform default, and any animation that runs on a repeated action (a command used a hundred times a day gets none).
+
+Every animation states, in the task log, what it explains: state, causality, continuity or spatial change. "It feels nicer" is not one of the four.
+
+
 
 </div>

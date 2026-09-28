@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="de" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DroidRoute — Design-Vorschau</title>
+<meta name="description" content="Lebende Vorschau des DroidRoute-Designsystems: Farben, Typo, Abstände, Komponenten, Zustände, Animation und Icon-Satz.">
+<style>
+/* ============================================================
+   Tokens. Source of truth is docs/14-design-system.md §5–§7.
+   Nothing in this file may invent a value that is not there.
+   ============================================================ */
+:root{
+  --canvas:#0E1217; --s1:#151A1F; --s2:#1C2126; --s3:#22272C; --inset:#080C10;
+  --ink:#E5E8EB; --ink2:#B4B8BC; --ink3:#8E9398; --inkmuted:#898E94; --inkdisabled:#62676C;
+  --accent:#DE8F57; --accentink:#1D140D; --accentquiet:#3B2617;
+  --ok:#71C38F; --warn:#F0B55D; --err:#E66E68; --info:#88B8DA;
+  --border:rgba(229,232,235,.12); --hair:rgba(229,232,235,.08);
+  --spine:rgba(229,232,235,.28);
+
+  --s-1:4px;  --s-2:8px;  --s-3:12px; --s-4:16px;
+  --s-5:24px; --s-6:32px; --s-7:48px;
+
+  --r-control:4px; --r-card:8px; --r-sheet:12px;
+  --ease-in:cubic-bezier(.23,1,.32,1);   /* enters, interactive */
+  --ease-move:cubic-bezier(.77,0,.175,1);/* moves across the screen */
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --ui:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+html[data-mode="light"]{
+  --canvas:#F5F7F9; --s1:#FFFFFF; --s2:#FFFFFF; --s3:#FFFFFF; --inset:#F0F2F4;
+  --ink:#161B20; --ink2:#3E4349; --ink3:#595E63; --inkmuted:#65696F; --inkdisabled:#8A8F94;
+  --accent:#AC5500; --accentink:#FFFCF8; --accentquiet:#F3E3D3;
+  --ok:#00864B; --warn:#B37000; --err:#CC3336; --info:#0070A6;
+  --border:rgba(22,27,32,.12); --hair:rgba(22,27,32,.10);
+  --spine:rgba(22,27,32,.28);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:var(--ui); font-size:14px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+code,kbd,.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+h1{font-size:28px; font-weight:600; letter-spacing:-.02em; margin:0}
+h2{font-size:22px; font-weight:600; letter-spacing:-.01em; margin:0}
+h3{font-size:18px; font-weight:500; color:var(--ink2); margin:0}
+p{margin:var(--s-2) 0 0; color:var(--ink2)}
+.rule{border:0; border-top:1px solid var(--hair); margin:0}
+
+.wrap{max-width:1080px; margin:0 auto; padding:var(--s-5) var(--s-5) var(--s-7)}
+
+/* ---------- chrome: the preview's own bar, not part of the product ---------- */
+.bar{
+  position:sticky; top:0; z-index:10; background:var(--canvas);
+  border-bottom:1px solid var(--hair);
+}
+.bar .inner{
+  max-width:1080px; margin:0 auto; padding:var(--s-3) var(--s-5);
+  display:flex; align-items:center; gap:var(--s-3); flex-wrap:wrap;
+}
+.bar .mark{display:flex; align-items:center; gap:var(--s-2)}
+.bar .mark svg{display:block}
+.bar .who{font-weight:600}
+.bar .spacer{flex:1}
+.toggle{
+  font:inherit; font-size:12px; font-weight:500; color:var(--ink2);
+  background:var(--s2); border:1px solid var(--border); border-radius:var(--r-control);
+  padding:5px 10px; cursor:pointer;
+}
+.toggle:hover{color:var(--ink)}
+.toggle[aria-pressed="true"]{border-color:var(--accent); color:var(--ink)}
+
+/* ---------- sections ---------- */
+section{padding-top:var(--s-7)}
+.eyebrow{
+  font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--inkmuted); margin-bottom:var(--s-3);
+}
+.lead{max-width:62ch}
+.grid{display:grid; gap:var(--s-4)}
+.g-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g-3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+/* ---------- surfaces ---------- */
+.card{background:var(--s1); border:1px solid var(--border); border-radius:var(--r-card); padding:var(--s-4)}
+.card.tight{padding:var(--s-3)}
+.note{color:var(--inkmuted); font-size:12px; margin-top:var(--s-3)}
+.pill{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--s2); border:1px solid var(--border); border-radius:var(--r-control);
+  padding:4px 8px; font-size:11px; font-weight:500; color:var(--ink2);
+}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)}
+.dot.err{background:var(--err)} .dot.info{background:var(--info)}
+.dot.off{background:var(--inkdisabled)}
+.dot.unknown{background:none; border:1.5px solid var(--ink3)}
+
+/* ---------- swatches ---------- */
+.sw{display:flex; align-items:center; gap:var(--s-3); padding:var(--s-2) 0; border-top:1px solid var(--hair)}
+.sw:first-child{border-top:0}
+.sw .chip{width:38px;height:38px;border-radius:var(--r-control);border:1px solid var(--border);flex:none}
+.sw .name{font-size:12px;font-weight:500}
+.sw .hex{font-size:11px;color:var(--inkmuted);font-family:var(--mono)}
+
+/* ---------- type ---------- */
+.type-row{display:flex; align-items:baseline; gap:var(--s-4); padding:var(--s-3) 0; border-top:1px solid var(--hair)}
+.type-row:first-child{border-top:0}
+.type-meta{font-family:var(--mono); font-size:11px; color:var(--inkmuted); width:140px; flex:none}
+
+/* ---------- buttons ---------- */
+.btn{
+  font:inherit; font-size:14px; font-weight:500; border-radius:var(--r-control);
+  padding:9px 16px; border:1px solid transparent; cursor:pointer;
+  display:inline-flex; align-items:center; gap:var(--s-2);
+}
+.btn.primary{background:var(--accent); color:var(--accentink)}
+.btn.secondary{background:transparent; border-color:var(--border); color:var(--ink)}
+.btn.quiet{background:var(--accentquiet); color:var(--accent); border-color:transparent}
+.btn.danger{background:transparent; border-color:var(--err); color:var(--err)}
+.btn[disabled]{background:var(--s2); color:var(--inkdisabled); border-color:var(--border); cursor:not-allowed}
+.btn:focus-visible,a:focus-visible,.toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* ---------- field ---------- */
+.field{display:flex; flex-direction:column; gap:6px; max-width:340px}
+.field label{font-size:14px; font-weight:500; color:var(--ink3)}
+.field input{
+  font:inherit; font-family:var(--mono); font-size:13px; color:var(--ink);
+  background:var(--inset); border:1px solid var(--border); border-radius:var(--r-control);
+  padding:9px 12px;
+}
+.field input:focus{outline:none; border-color:var(--accent)}
+.field .hint{font-size:12px; color:var(--inkmuted)}
+.field.bad input{border-color:var(--err)} .field.bad .hint{color:var(--err)}
+
+/* ---------- list ---------- */
+.list{border:1px solid var(--border); border-radius:var(--r-card); overflow:hidden; background:var(--s1)}
+.row{display:flex; align-items:center; gap:var(--s-3); padding:12px 16px; border-top:1px solid var(--hair)}
+.row:first-child{border-top:0}
+.row .t{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.row .m{font-family:var(--mono); font-size:12px; color:var(--inkmuted); flex:none}
+.row .m.bad{color:var(--err)}
+
+/* ---------- lamps, with the word (§5.5) ---------- */
+.lamps{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--s-2)}
+.lamp{display:flex; align-items:center; gap:var(--s-2); font-size:12px; color:var(--ink2)}
+
+/* ---------- signal path (§4.2) ---------- */
+.path{position:relative; padding-left:56px; min-height:300px}
+.spine{position:absolute; left:19px; top:6px; bottom:6px; width:2px; background:var(--spine)}
+.spine .trail{position:absolute; left:0; top:0; width:2px; height:0; background:var(--accent)}
+.hop{position:relative; padding:0 0 var(--s-5) 0}
+.hop .node{
+  position:absolute; left:-42px; top:2px; width:14px; height:14px; border-radius:50%;
+  background:var(--canvas); border:2px solid var(--spine);
+}
+.hop.switch .node{border-radius:2px; left:-43px; width:16px; height:16px; border-color:var(--accent)}
+.hop.ok .node{border-color:var(--ok)}
+.hop.bad .node{border-color:var(--err)}
+.hop .name{font-weight:500}
+.hop .sub{font-family:var(--mono); font-size:12px; color:var(--inkmuted)}
+.hop.bad .sub{color:var(--err)}
+.hop .lamp{position:absolute; left:-72px; top:4px; width:9px; height:9px; border-radius:50%}
+.hop.ok .lamp{background:var(--ok)} .hop.bad .lamp{background:var(--err)}
+.hop.switch .lamp{background:var(--ok)}
+.marker{
+  position:absolute; left:14px; top:6px; width:12px; height:12px; border-radius:50%;
+  background:var(--accent);
+}
+html[data-motion="on"] .path.live .marker{animation:travel 2600ms var(--ease-move) infinite}
+html[data-motion="on"] .path.live .spine .trail{animation:trail 2600ms var(--ease-move) infinite}
+@keyframes travel{
+  0%{top:6px}
+  14%{top:6px}
+  22%{top:78px}
+  40%{top:78px}
+  48%{top:150px}
+  66%{top:150px}
+  74%{top:222px}
+  92%{top:222px}
+  100%{top:222px}
+}
+@keyframes trail{0%{height:0}22%{height:72px}48%{height:144px}74%{height:216px}100%{height:216px}}
+html[data-motion="off"] .path.live .marker{top:222px; background:var(--err)}
+
+/* ---------- chart, including the honest unknown (§9) ---------- */
+.chart{display:flex; align-items:flex-end; gap:6px; height:132px; border-bottom:1px solid var(--border); padding-bottom:0}
+.chart .bar{flex:1; background:var(--accent); border-radius:2px 2px 0 0; min-height:2px}
+.chart .bar.cmp{background:var(--s3); border:1px solid var(--border); border-bottom:0}
+.chart .bar.unknown{
+  background:repeating-linear-gradient(45deg,transparent 0 4px,var(--hair) 4px 8px);
+  border:1px dashed var(--inkdisabled); border-bottom:0;
+}
+.axis{display:flex; gap:6px; margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--inkmuted)}
+.axis span{flex:1; text-align:center}
+.legend{display:flex; gap:var(--s-4); margin-top:var(--s-3); font-size:12px; color:var(--ink2); flex-wrap:wrap}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:6px;vertical-align:-1px}
+
+/* ---------- log ---------- */
+.log{background:var(--inset); border:1px solid var(--border); border-radius:var(--r-card); padding:var(--s-3); font-family:var(--mono); font-size:12px; line-height:1.7; overflow-x:auto}
+.log .lvl{font-weight:600}
+.log .i{color:var(--info)} .log .w{color:var(--warn)} .log .e{color:var(--err)} .log .t{color:var(--inkmuted)}
+
+/* ---------- states ---------- */
+.state{border:1px solid var(--border); border-radius:var(--r-card); background:var(--s1); padding:var(--s-4); min-height:150px}
+.sk{height:10px; border-radius:3px; background:var(--s3); margin-top:8px}
+html[data-motion="on"] .sk{animation:breathe 1400ms var(--ease-in) infinite alternate}
+@keyframes breathe{from{opacity:.5}to{opacity:1}}
+.empty{text-align:center; padding:var(--s-4) 0}
+
+/* ---------- icons ---------- */
+.icons{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:var(--s-3)}
+.icon{display:flex; flex-direction:column; align-items:center; gap:6px; padding:var(--s-3); border:1px solid var(--hair); border-radius:var(--r-card)}
+.icon svg{display:block}
+.icon span{font-family:var(--mono); font-size:10px; color:var(--inkmuted); text-align:center}
+
+/* ---------- motion table ---------- */
+table{width:100%; border-collapse:collapse; font-size:13px}
+th,td{text-align:left; padding:10px 12px; border-top:1px solid var(--hair); vertical-align:top}
+th{font-size:11px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--inkmuted); border-top:0}
+td.mono{font-family:var(--mono); font-size:12px; color:var(--inkmuted)}
+
+footer{padding-top:var(--s-7); color:var(--inkmuted); font-size:12px}
+.kv{display:flex; gap:var(--s-2); flex-wrap:wrap; margin-top:var(--s-3)}
+
+@media (prefers-reduced-motion: reduce){
+  html[data-motion="on"] .path.live .marker,
+  html[data-motion="on"] .path.live .spine .trail,
+  html[data-motion="on"] .sk{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="inner">
+    <span class="mark" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-linecap="round">
+        <circle cx="12" cy="12" r="7" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="var(--ink)" stroke-width="2"/>
+        <circle cx="17" cy="12" r="2.6" fill="var(--accent)"/>
+      </svg>
+    </span>
+    <span class="who">DroidRoute</span>
+    <span class="mono" style="font-size:11px;color:var(--inkmuted)">Design-Vorschau</span>
+    <span class="spacer"></span>
+    <button class="toggle" id="mode" aria-pressed="false">Hell</button>
+    <button class="toggle" id="motion" aria-pressed="true">Animation an</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ======================= 1. Richtung ======================= -->
+  <section>
+    <div class="eyebrow">Richtung</div>
+    <h1>Graphit-Instrumententafel, ein Kupfer-Akzent, eine Signatur</h1>
+    <p class="lead">
+      Diese Seite ist keine Marketing-Seite. Sie zeigt das System aus
+      <span class="mono">docs/14-design-system.md</span> zusammengebaut: Farben, Typografie,
+      Abstände, Komponenten, Zustände, Bewegung. Jede Zahl hier ist aus dem Dokument
+      übernommen und im Dokument gemessen — was hier fehlt, existiert nicht.
+    </p>
+    <div class="kv">
+      <span class="pill"><i class="dot ok"></i>Kupfer als einziger Akzent</span>
+      <span class="pill"><i class="dot unknown"></i>Tiefe nur über Rahmen</span>
+      <span class="pill"><i class="dot warn"></i>Zahlen in Tabellen-Monospace</span>
+      <span class="pill"><i class="dot info"></i>Unbekannt wird als unbekannt gezeichnet</span>
+    </div>
+    <p class="note">
+      Das Produkt selbst spricht mit dem Besitzer Deutsch, seine eigenen Fachbegriffe
+      (<span class="mono">provider</span>, <span class="mono">key</span>,
+      <span class="mono">quota</span>, <span class="mono">breaker</span>) bleiben englisch.
+      Diese Vorschau ist deshalb deutsch.
+    </p>
+  </section>
+
+  <!-- ======================= 2. Farbe ======================= -->
+  <section>
+    <div class="eyebrow">§5 · Farbe</div>
+    <h2>Eine Fläche pro Tiefe, ein Akzent, echte Lampen</h2>
+    <p class="lead">
+      Vier Flächen, die sich nur in der Helligkeit unterscheiden. Kupfer trägt die Marke
+      und nie einen Zustand. Zustände haben eigene Farben und immer ein Wort daneben.
+      Gemessene Kontraste stehen in §5.7 — hier ist nur, wie sie aussehen.
+    </p>
+
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card">
+        <h3 style="margin-bottom:var(--s-2)">Flächen und Tinte</h3>
+        <div id="sw-surfaces"></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:var(--s-2)">Akzent und Lampen</h3>
+        <div id="sw-accent"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:var(--s-4)">
+      <h3>Zustand trägt nie allein die Farbe</h3>
+      <div class="lamps" style="margin-top:var(--s-3)">
+        <span class="lamp"><i class="dot ok"></i>ok — läuft</span>
+        <span class="lamp"><i class="dot warn"></i>warn — knapp</span>
+        <span class="lamp"><i class="dot err"></i>err — 429</span>
+        <span class="lamp"><i class="dot info"></i>info — Hinweis</span>
+        <span class="lamp"><i class="dot off"></i>disabled — kein Wert</span>
+        <span class="lamp"><i class="dot unknown"></i>unknown — unbekannt</span>
+      </div>
+      <p class="note">
+        Fläche, Rahmen und Textstufe sind die Hierarchie. Die Lampe ist der Zusatz —
+        entfernt man sie, bleibt jede Information lesbar. Das ist die Regel aus §5.5.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= 3. Typografie ======================= -->
+  <section>
+    <div class="eyebrow">§6 · Typografie</div>
+    <h2>Basis 14 sp, Faktor 1.25, Zahlen tabellarisch</h2>
+    <p class="lead">
+      Ein <span class="mono">display</span> und ein <span class="mono">h1</span> pro Bildschirm,
+      höchstens. Jede bewegliche Zahl läuft in Monospace mit
+      <span class="mono">tnum</span>, damit beim Zählen nichts springt.
+    </p>
+    <div class="card" style="margin-top:var(--s-5)">
+      <div class="type-row"><span class="type-meta">display · 34 · 600</span><span style="font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1">12.480</span></div>
+      <div class="type-row"><span class="type-meta">h1 · 28 · 600</span><span style="font-size:28px;font-weight:600;letter-spacing:-.02em">Dashboard</span></div>
+      <div class="type-row"><span class="type-meta">h2 · 22 · 600</span><span style="font-size:22px;font-weight:600">Anbieter</span></div>
+      <div class="type-row"><span class="type-meta">h3 · 18 · 500</span><span style="font-size:18px;font-weight:500;color:var(--ink2)">Signalweg</span></div>
+      <div class="type-row"><span class="type-meta">body · 14 · 400</span><span style="color:var(--ink2)">Die Anfrage läuft über groq; die zweite Linie bleibt bereit.</span></div>
+      <div class="type-row"><span class="type-meta">label · 14 · 500</span><span style="font-weight:500;color:var(--ink3)">Kontingent pro Tag</span></div>
+      <div class="type-row"><span class="type-meta">meta · 12 · 400</span><span style="font-family:var(--mono);font-size:12px;color:var(--inkmuted)">req_01J8XQ · 412 ms · 1.204 tok</span></div>
+      <div class="type-row"><span class="type-meta">micro · 11 · 500</span><span style="font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)">Zuletzt</span></div>
+    </div>
+  </section>
+
+  <!-- ======================= 4. Abstand und Form ======================= -->
+  <section>
+    <div class="eyebrow">§7 · Abstand und Form</div>
+    <h2>Ungleicher Rhythmus, vier Radien, keine Schatten</h2>
+    <p class="lead">
+      Enge Gruppen, weite Abstände zwischen Gruppen. Gleiche Abstände überall ist der
+      Klang von „nichts entschieden“. Tiefe entsteht ausschließlich über Fläche und Rahmen.
+    </p>
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card">
+        <h3>Abstandsskala</h3>
+        <div style="margin-top:var(--s-3)">
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">4 · micro</span><span style="height:10px;background:var(--accent);width:4px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">8 · micro</span><span style="height:10px;background:var(--accent);width:8px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">12 · comp</span><span style="height:10px;background:var(--accent);width:12px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">16 · comp</span><span style="height:10px;background:var(--accent);width:16px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">24 · section</span><span style="height:10px;background:var(--accent);width:24px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">32 · section</span><span style="height:10px;background:var(--accent);width:32px"></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:4px 0"><span class="mono" style="font-size:11px;color:var(--inkmuted);width:52px">48 · major</span><span style="height:10px;background:var(--accent);width:48px"></span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Form und Tiefe</h3>
+        <div style="display:flex;gap:var(--s-4);align-items:flex-end;margin-top:var(--s-3)">
+          <div style="text-align:center"><div style="width:56px;height:40px;border:1px solid var(--border);border-radius:4px;background:var(--s2)"></div><span class="mono" style="font-size:10px;color:var(--inkmuted)">4 control</span></div>
+          <div style="text-align:center"><div style="width:56px;height:40px;border:1px solid var(--border);border-radius:8px;background:var(--s2)"></div><span class="mono" style="font-size:10px;color:var(--inkmuted)">8 card</span></div>
+          <div style="text-align:center"><div style="width:56px;height:40px;border:1px solid var(--border);border-radius:12px;background:var(--s2)"></div><span class="mono" style="font-size:10px;color:var(--inkmuted)">12 sheet</span></div>
+        </div>
+        <p class="note">
+          Kein Schatten, kein Glas, keine Unschärfe, kein Farbverlauf — nicht einmal hier.
+          Verschachtelte Radien sind konzentrisch: <span class="mono">außen = innen + Abstand</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 5. Komponenten ======================= -->
+  <section>
+    <div class="eyebrow">Komponenten</div>
+    <h2>Die Bausteine, inklusive der unangenehmen Zustände</h2>
+
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card">
+        <h3>Aktionen</h3>
+        <div style="display:flex;gap:var(--s-2);flex-wrap:wrap;margin-top:var(--s-3)">
+          <button class="btn primary">Gratis starten</button>
+          <button class="btn secondary">Anbieter prüfen</button>
+          <button class="btn quiet">Als Kombination speichern</button>
+          <button class="btn danger">Schlüssel widerrufen</button>
+          <button class="btn primary" disabled>Nicht bereit</button>
+        </div>
+        <p class="note">Genau eine primäre Aktion pro Bildschirm. Der deaktivierte Zustand ist gedämpft — nicht unsichtbar.</p>
+      </div>
+
+      <div class="card">
+        <h3>Eingabe</h3>
+        <div style="display:flex;flex-direction:column;gap:var(--s-4);margin-top:var(--s-3)">
+          <div class="field">
+            <label for="f1">Kontingent pro Tag</label>
+            <input id="f1" value="100000" inputmode="numeric">
+            <span class="hint">Zahl in Token, nicht in Anfragen.</span>
+          </div>
+          <div class="field bad">
+            <label for="f2">Basis-Adresse</label>
+            <input id="f2" value="http://127.0.0.1" aria-invalid="true">
+            <span class="hint">Port fehlt. Beispiel: http://127.0.0.1:8787</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g-2" style="margin-top:var(--s-4)">
+      <div class="card tight">
+        <h3 style="margin:var(--s-2) var(--s-2) var(--s-2)">Liste, linke Kante bleibt gerade</h3>
+        <div class="list">
+          <div class="row"><i class="dot ok"></i><span class="t">groq · llama-3.3-70b</span><span class="m">12 ms</span></div>
+          <div class="row"><i class="dot ok"></i><span class="t">local · qwen2.5-7b-instruct</span><span class="m">31 ms</span></div>
+          <div class="row"><i class="dot err"></i><span class="t">gemini · 2.0-flash</span><span class="m bad">429</span></div>
+          <div class="row"><i class="dot unknown"></i><span class="t">openrouter · Kontingent</span><span class="m">unbekannt</span></div>
+        </div>
+        <p class="note" style="margin:var(--s-3) var(--s-2) 0">Unbekannt bekommt ein Wort, keine neutrale Farbe, die die Lücke versteckt.</p>
+      </div>
+
+      <div class="card">
+        <h3>Zwei Serien, nicht zehn</h3>
+        <div class="chart" style="margin-top:var(--s-3)">
+          <div class="bar" style="height:34%"></div>
+          <div class="bar" style="height:52%"></div>
+          <div class="bar" style="height:41%"></div>
+          <div class="bar cmp" style="height:28%"></div>
+          <div class="bar" style="height:66%"></div>
+          <div class="bar" style="height:74%"></div>
+          <div class="bar unknown" style="height:48%"></div>
+          <div class="bar" style="height:58%"></div>
+        </div>
+        <div class="axis"><span>00</span><span>03</span><span>06</span><span>09</span><span>12</span><span>15</span><span>18</span><span>21</span></div>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i>Anfragen</span>
+          <span><i style="background:var(--s3);border:1px solid var(--border)"></i>Fehler</span>
+          <span><i style="border:1px dashed var(--inkdisabled)"></i>unbekannt — keine Daten, keine erfundene Null</span>
+        </div>
+        <p class="note">Null-Basis, direkte Beschriftung statt Legende wo möglich, keine Verlaufsfüllung, kein Schatten unterm Diagramm.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:var(--s-4)">
+      <h3>Protokoll: eine Zeile pro Datensatz, Stufe als Wort</h3>
+      <div class="log" style="margin-top:var(--s-3)">
+        <div><span class="t">12:04:18.882</span> <span class="lvl i">INFO </span> <span class="t">route.pick</span> model=llama-3.3-70b provider=groq reason=lowest_latency <span class="t">req=01J8XQ</span></div>
+        <div><span class="t">12:04:19.014</span> <span class="lvl i">INFO </span> <span class="t">upstream.200</span> status=200 ms=12 tok=342 <span class="t">req=01J8XQ</span></div>
+        <div><span class="t">12:05:02.771</span> <span class="lvl w">WARN </span> <span class="t">quota.near_limit</span> provider=gemini remaining=0.04 <span class="t">req=01J8XR</span></div>
+        <div><span class="t">12:05:02.902</span> <span class="lvl e">ERROR</span> <span class="t">upstream.429</span> provider=gemini failover=groq <span class="t">req=01J8XR</span></div>
+      </div>
+      <p class="note">Monospace, Zeilenumbruch statt stillem Abschneiden, jede Ausgabe wird beim Export erneut redigiert.</p>
+    </div>
+  </section>
+
+  <!-- ======================= 6. Signalweg ======================= -->
+  <section>
+    <div class="eyebrow">§4.2 · Die Signatur</div>
+    <h2>Der Signalweg — das eine Element, das nur dieses Produkt haben kann</h2>
+    <p class="lead">
+      Der Weg der Anfrage selbst ist die Marke: Client, die DroidRoute-Weiche, die
+      Anbieterlinien. Eine Lampe pro Endpunkt, deren Farbe der echte Gesundheitszustand ist,
+      und ein Kupferpunkt, der wandert, solange eine Anfrage unterwegs ist. Scheitert sie,
+      bleibt der Punkt <em>am gescheiterten Sprung</em> stehen und der Sprung trägt den Grund.
+    </p>
+
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card">
+        <div class="path live" id="path">
+          <div class="spine"><div class="trail"></div></div>
+          <div class="marker" aria-hidden="true"></div>
+
+          <div class="hop ok">
+            <i class="lamp" aria-hidden="true"></i><span class="node" aria-hidden="true"></span>
+            <div class="name">Client</div>
+            <div class="sub">Termux · curl</div>
+          </div>
+          <div class="hop switch">
+            <i class="lamp" aria-hidden="true"></i><span class="node" aria-hidden="true"></span>
+            <div class="name">DroidRoute</div>
+            <div class="sub">127.0.0.1:8787 · aktiv</div>
+          </div>
+          <div class="hop ok">
+            <i class="lamp" aria-hidden="true"></i><span class="node" aria-hidden="true"></span>
+            <div class="name">groq · llama-3.3-70b</div>
+            <div class="sub">aktiv · 12 ms · 342 tok</div>
+          </div>
+          <div class="hop bad">
+            <i class="lamp" aria-hidden="true"></i><span class="node" aria-hidden="true"></span>
+            <div class="name">gemini · 2.0-flash</div>
+            <div class="sub">Kontingent erschöpft — über groq weitergeleitet</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--s-2);margin-top:var(--s-3)">
+          <button class="btn secondary" id="replay">Bewegung erneut zeigen</button>
+        </div>
+        <p class="note">
+          Hier läuft die Bewegung absichtlich in einer Schleife, damit man sie sehen kann.
+          Im Produkt läuft sie <strong>nur, solange eine Anfrage unterwegs ist</strong> —
+          Dauerbewegung ist in §15.3 verboten. Bei reduzierter Bewegung steht der Punkt
+          still am gescheiterten Sprung, und die Information bleibt vollständig.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Warum das kein Logo ist</h3>
+        <p>
+          Ein Logo wäre austauschbar. Der Signalweg ist die Funktion: er zeigt, welcher
+          Anbieter gewählt wurde, warum, wo die Anfrage steht und welcher Sprung sie
+          verloren hat — dieselben Angaben, die
+          <span class="mono">/v1/routing/explain</span> zurückgibt. Ein grüner Punkt darf
+          nicht grün sein, weil grün gut aussieht; er darf es sein, weil eine
+          Gesundheitsprüfung es sagt.
+        </p>
+        <h3 style="margin-top:var(--s-4)">Die vier Prüfungen aus §11</h3>
+        <table>
+          <tr><th style="width:110px">Test</th><th>Frage</th></tr>
+          <tr><td>Tausch</td><td>Kann ein anderes Produkt das unverändert ausliefern?</td></tr>
+          <tr><td>Zusammenkneifen</td><td>Ist die Hierarchie erkennbar, wenn man die Augen zusammenkneift?</td></tr>
+          <tr><td>Signatur</td><td>Gibt es genau ein Element, das nur hier existieren kann?</td></tr>
+          <tr><td>Token</td><td>Lässt sich jeder Wert auf das System zurückführen?</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 7. Zustände ======================= -->
+  <section>
+    <div class="eyebrow">§10 · Zustände</div>
+    <h2>Ein Bildschirm ist ohne seine Zustände nicht fertig</h2>
+    <p class="lead">
+      Der Standardweg wird immer gebaut, die anderen nie — dabei ist ein Gateway ohne
+      Verkehr genau der leere Fall. Vier davon, wie sie aussehen.
+    </p>
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="state">
+        <span class="pill"><i class="dot unknown"></i>leer</span>
+        <div class="empty">
+          <p style="margin:0">Noch keine Anfrage über diesen Port.</p>
+          <p style="margin:6px 0 0;color:var(--inkmuted);font-size:12px">Starte eine Anfrage gegen <span class="mono">127.0.0.1:8787/v1/chat/completions</span> oder tippe auf „Gratis starten“.</p>
+          <div style="margin-top:var(--s-4)"><button class="btn primary">Gratis starten</button></div>
+        </div>
+        <p class="note">Der leere Zustand nennt die nächste Aktion, nicht vier Nullen.</p>
+      </div>
+      <div class="state">
+        <span class="pill"><i class="dot info"></i>lädt — Form des echten Inhalts</span>
+        <div style="margin-top:var(--s-3)">
+          <div class="sk" style="width:62%"></div>
+          <div class="sk" style="width:88%"></div>
+          <div class="sk" style="width:74%"></div>
+          <div class="sk" style="width:40%;margin-top:16px"></div>
+          <div class="sk" style="width:56%"></div>
+        </div>
+      </div>
+      <div class="state">
+        <span class="pill"><i class="dot err"></i>Fehler — in der Sprache der API</span>
+        <p style="color:var(--ink)">Der Anbieter hat die Anfrage abgelehnt.</p>
+        <p class="mono" style="font-size:12px;color:var(--err)">upstream.429 · gemini · Kontingent erschöpft</p>
+        <p style="font-size:12px;color:var(--inkmuted)">Die letzte erfolgreiche Antwort bleibt sichtbar, markiert als <em>nicht aktuell</em>.</p>
+      </div>
+      <div class="state">
+        <span class="pill"><i class="dot warn"></i>offline — weiterhin nützlich</span>
+        <p style="color:var(--ink)">Keine Verbindung. Der lokale Pfad läuft weiter.</p>
+        <p style="font-size:12px;color:var(--inkmuted)">Lokale Modelle und der Zwischenspeicher bleiben erreichbar; entfernte Anbieter sind als nicht verfügbar markiert — nicht ausgeblendet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 8. Bewegung ======================= -->
+  <section>
+    <div class="eyebrow">§15.3 · Bewegung, Stufe „Instrument“</div>
+    <h2>Nur Bewegung, die etwas erklärt</h2>
+    <p class="lead">
+      Die vollständige erlaubte Liste. Alles, was hier nicht steht, ist verboten, solange
+      es keinen im Aufgabenprotokoll notierten Grund gibt. Jede Bewegung sagt, was sie
+      erklärt: Zustand, Ursache, Kontinuität oder räumliche Veränderung. „Fühlt sich
+      schöner an“ ist keiner dieser vier Gründe.
+    </p>
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card" style="padding:0">
+        <table>
+          <tr><th>Moment</th><th>Bewegung</th><th>Dauer</th></tr>
+          <tr><td>Anfrage unterwegs</td><td>Punkt läuft den Signalweg</td><td class="mono">240 ms</td></tr>
+          <tr><td>Lampe wechselt</td><td>Farbe + Skala 0.95 → 1 mit Blende</td><td class="mono">180 ms</td></tr>
+          <tr><td>Zahl ändert sich</td><td>Hochzählen, tabellarisch</td><td class="mono">≤ 400 ms</td></tr>
+          <tr><td>Sheet öffnet</td><td>Gleiten + Blende, herkunftsbezogen</td><td class="mono">220 ms rein / 180 ms raus</td></tr>
+          <tr><td>Reduziert</td><td>Weg steht, gescheiterter Sprung markiert</td><td class="mono">—</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Kurven</h3>
+        <svg viewBox="0 0 220 110" width="220" height="110" role="img" aria-label="Zwei Beschleunigungskurven">
+          <line x1="10" y1="100" x2="210" y2="100" stroke="var(--border)"/>
+          <line x1="10" y1="100" x2="10" y2="10" stroke="var(--border)"/>
+          <path d="M10 100 C 56 10 68 10 110 10" fill="none" stroke="var(--accent)" stroke-width="2"/>
+          <text x="112" y="26" fill="var(--ink2)" font-family="var(--mono)" font-size="9">eingehend · .23 1 .32 1</text>
+          <path d="M10 100 C 160 100 178 10 210 10" fill="none" stroke="var(--info)" stroke-width="2"/>
+          <text x="118" y="96" fill="var(--ink2)" font-family="var(--mono)" font-size="9">über den Schirm · .77 0 .175 1</text>
+          <line x1="10" y1="100" x2="210" y2="10" stroke="var(--inkdisabled)" stroke-dasharray="3 3"/>
+          <text x="120" y="58" fill="var(--inkdisabled)" font-family="var(--mono)" font-size="9">verboten: ease-in</text>
+        </svg>
+        <p class="note">
+          Nie das eingebaute <span class="mono">ease-in</span>: es verzögert das erste
+          Bild — genau das Bild, auf das das Auge schaut.
+        </p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:var(--s-4)">
+      <h3>Verboten auf dieser Stufe</h3>
+      <p>
+        Dauerbewegung oder Umgebungsbewegung · Puls oder Schimmer, der auf sich aufmerksam
+        macht · Parallaxe und Tiefeneffekte · Diagramme, die hineinwachsen · Staffelung von
+        Listeninhalten · Bildschirmwechsel-Choreografie über die Plattform hinaus · jede
+        Bewegung bei einer wiederholten Aktion — ein Befehl, den man hundertmal am Tag
+        benutzt, bekommt keine.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= 9. Icons ======================= -->
+  <section>
+    <div class="eyebrow">§15.1 / §15.2 · Marke und Icon-Satz</div>
+    <h2>Ein Zeichen, neun eigene Icons, Material für den Rest</h2>
+    <p class="lead">
+      24×24-Raster, 2 dp Strich, runde Enden. Eigene Icons nur für Begriffe, die kein
+      Standardzeichen haben — nicht, um eine Abhängigkeit zu vermeiden. Alles andere ist
+      Material Symbols.
+    </p>
+
+    <div class="grid g-2" style="margin-top:var(--s-5)">
+      <div class="card" style="display:flex;gap:var(--s-5);align-items:center;flex-wrap:wrap">
+        <div style="text-align:center">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke-linecap="round" role="img" aria-label="Marke Signal, 72 dp">
+            <circle cx="12" cy="12" r="7" stroke="var(--accent)" stroke-width="2"/>
+            <line x1="2" y1="12" x2="22" y2="12" stroke="var(--ink)" stroke-width="2"/>
+            <circle cx="17" cy="12" r="2.6" fill="var(--accent)"/>
+          </svg>
+          <div class="mono" style="font-size:10px;color:var(--inkmuted);margin-top:6px">72 dp</div>
+        </div>
+        <div style="text-align:center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-linecap="round" role="img" aria-label="Marke Signal, 32 dp">
+            <circle cx="12" cy="12" r="7" stroke="var(--accent)" stroke-width="2"/>
+            <line x1="2" y1="12" x2="22" y2="12" stroke="var(--ink)" stroke-width="2"/>
+            <circle cx="17" cy="12" r="2.6" fill="var(--accent)"/>
+          </svg>
+          <div class="mono" style="font-size:10px;color:var(--inkmuted);margin-top:6px">32 dp</div>
+        </div>
+        <div style="text-align:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-linecap="round" role="img" aria-label="Marke Signal, 24 dp">
+            <circle cx="12" cy="12" r="7" stroke="var(--accent)" stroke-width="2"/>
+            <line x1="2" y1="12" x2="22" y2="12" stroke="var(--ink)" stroke-width="2"/>
+            <circle cx="17" cy="12" r="2.6" fill="var(--accent)"/>
+          </svg>
+          <div class="mono" style="font-size:10px;color:var(--inkmuted);margin-top:6px">24 dp — die Prüfung</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Grenzen der Marke</h3>
+        <p>
+          Verboten: Verlauf, Schlagschatten, Leuchten, Umriss-auf-Umriss, Text im Ring,
+          ein zweiter Akzent, Perspektive. Eine Marke, die einen Effekt braucht, um zu
+          lesen zu sein, ist gescheitert. Geprüft wird vor jeder Verwendung: lesbar bei
+          24 dp, korrekt auf Graphit <em>und</em> auf Papier, korrekt invertiert, korrekt
+          einfarbig, sauber unter einer runden Maske.
+        </p>
+      </div>
+    </div>
+
+    <div class="icons" style="margin-top:var(--s-4)">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="17" cy="12" r="2.4" fill="var(--accent)" stroke="none"/></svg><span>signal path</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6.5" width="17" height="11" rx="2.5"/><line x1="12" y1="6.5" x2="12" y2="17.5"/><circle cx="16" cy="12" r="1.6" fill="var(--accent)" stroke="none"/><circle cx="8" cy="12" r="1.6" fill="var(--accent)" stroke="none"/></svg><span>provider</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="12" r="3.5"/><line x1="11" y1="12" x2="21" y2="12"/><line x1="16.5" y1="12" x2="16.5" y2="15"/><line x1="20" y1="12" x2="20" y2="15"/></svg><span>key</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 15.5 A8 8 0 1 1 19.5 15.5"/><line x1="12" y1="12" x2="16.5" y2="8.5"/><circle cx="12" cy="12" r="1.5" fill="var(--accent)" stroke="none"/></svg><span>quota</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><rect x="10.5" y="10.5" width="3" height="3" rx=".5"/><line x1="12" y1="3" x2="12" y2="6.5"/><line x1="12" y1="17.5" x2="12" y2="21"/><line x1="3" y1="12" x2="6.5" y2="12"/><line x1="17.5" y1="12" x2="21" y2="12"/></svg><span>local model</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5 H5.5 V19.5 H9"/><path d="M15 4.5 H18.5 V19.5 H15"/><line x1="7" y1="12" x2="17" y2="12"/><circle cx="12" cy="12" r="1.7" fill="var(--accent)" stroke="none"/></svg><span>MCP</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 18.5 A8.5 8.5 0 0 1 20.5 18.5"/><line x1="8" y1="18.5" x2="16" y2="18.5"/><line x1="3.5" y1="18.5" x2="3.5" y2="21"/><line x1="20.5" y1="18.5" x2="20.5" y2="21"/></svg><span>tunnel</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="6.5" x2="12" y2="17.5"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg><span>cost</span></div>
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="16" y2="12"/><line x1="4" y1="17" x2="18" y2="17"/><circle cx="21" cy="12" r="1.4" fill="var(--accent)" stroke="none"/></svg><span>log stream</span></div>
+    </div>
+    <p class="note">
+      Die Zeichnungen liegen als SVG-Quellen in
+      <span class="mono">design/logo/</span> und <span class="mono">design/icons/</span>;
+      die Android-Vector-Drawables werden daraus in T-202 abgeleitet.
+    </p>
+  </section>
+
+  <footer>
+    <hr class="rule">
+    <p style="margin-top:var(--s-4)">
+      Diese Vorschau ist ein Artefakt, keine Quelle der Wahrheit. Die Regeln stehen in
+      <span class="mono">docs/14-design-system.md</span>, die Verbote in
+      <span class="mono">handbooks/07-anti-slop-rules.md</span> §11–§14, die Zeichnungen in
+      <span class="mono">design/</span>.
+    </p>
+    <div class="kv">
+      <span class="pill mono">python3 tools/check_design_slop.py</span>
+      <span class="pill mono">docs/14-design-system.md</span>
+      <span class="pill mono">design/mock/dashboard.svg</span>
+      <span class="pill mono">plan/phase-14-design-audit/</span>
+    </div>
+    <p class="note">
+      Grenzen dieser Seite: sie zeigt keine echte App, keine Datenbank, kein 200-%-Schriftbild
+      und keine Tastaturbedienung. Das prüfen T-197 bis T-199 an echten Aufnahmen.
+    </p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root = document.documentElement;
+
+  /* ---- palette, read live from the tokens ---- */
+  var groups = {
+    'sw-surfaces': [
+      ['canvas','Fläche 0 · canvas'], ['s1','Fläche 1 · Karte'], ['s2','Fläche 2 · Chip'],
+      ['s3','Fläche 3 · erhöht'], ['inset','Fläche · inset'],
+      ['ink','Tinte · primär'], ['ink2','Tinte · sekundär'], ['ink3','Tinte · tertiär'],
+      ['inkmuted','Tinte · Metadaten'], ['inkdisabled','Tinte · deaktiviert']
+    ],
+    'sw-accent': [
+      ['accent','Akzent · Kupfer'], ['accentink','Tinte auf Kupfer'], ['accentquiet','Akzent · leise'],
+      ['ok','Lampe · ok'], ['warn','Lampe · warn'], ['err','Lampe · err'], ['info','Lampe · info']
+    ]
+  };
+
+  function hex(token){
+    return getComputedStyle(root).getPropertyValue('--' + token).trim();
+  }
+
+  function swatch(token, label){
+    var v = hex(token);
+    return '<div class="sw">' +
+      '<span class="chip" style="background:' + v + '"></span>' +
+      '<span><span class="name">' + label + '</span><br>' +
+      '<span class="hex">' + v + ' · var(--' + token + ')</span></span>' +
+      '</div>';
+  }
+
+  function paint(){
+    Object.keys(groups).forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = groups[id].map(function(g){ return swatch(g[0], g[1]); }).join('');
+    });
+  }
+  paint();
+
+  /* ---- mode toggle ---- */
+  var modeBtn = document.getElementById('mode');
+  modeBtn.addEventListener('click', function(){
+    var light = root.getAttribute('data-mode') === 'light';
+    root.setAttribute('data-mode', light ? 'dark' : 'light');
+    modeBtn.setAttribute('aria-pressed', String(!light));
+    modeBtn.textContent = light ? 'Hell' : 'Dunkel';
+    paint();
+  });
+
+  /* ---- motion toggle + replay ---- */
+  var motionBtn = document.getElementById('motion');
+  function setMotion(on){
+    root.setAttribute('data-motion', on ? 'on' : 'off');
+    motionBtn.setAttribute('aria-pressed', String(on));
+    motionBtn.textContent = on ? 'Animation an' : 'Animation aus';
+  }
+  motionBtn.addEventListener('click', function(){
+    setMotion(root.getAttribute('data-motion') !== 'on');
+  });
+  document.getElementById('replay').addEventListener('click', function(){
+    var p = document.getElementById('path');
+    setMotion(true);
+    var clone = p.cloneNode(true);
+    p.parentNode.replaceChild(clone, p);
+    document.getElementById('replay').blur();
+  });
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    setMotion(false);
+  }
+})();
+</script>
+</body>
+</html>

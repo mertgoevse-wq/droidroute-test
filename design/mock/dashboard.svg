@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 930" width="880" height="930"
+     role="img" aria-label="The DroidRoute Dashboard drawn in both modes, annotated with the tokens it uses">
+  <title>DroidRoute Dashboard — layout intent, dark and light</title>
+  <desc>Two phone-width panels showing the same state so the tokens can be compared. The focal element is the Signalweg: client, the DroidRoute switch and two provider lines, with a copper point in flight and the failed hop naming its reason. Below the Signalweg sits one hero number and a demoted list of recent requests. This is layout intent drawn from docs/14-design-system.md, not a screenshot.</desc>
+
+  <rect width="880" height="930" fill="#080C10"/>
+
+  <text x="40" y="30" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="15" font-weight="600">Dashboard — layout intent</text>
+  <text x="40" y="48" fill="#898E94" font-family="ui-monospace, monospace" font-size="10">not a screenshot · screenshots are produced by the harness (T-197) · colours from docs/14 §5, sizes §6/§7, motion §15.3</text>
+
+  <!-- ============================= DARK ============================= -->
+  <rect x="40" y="64" width="360" height="720" rx="12" fill="#0E1217" stroke="#E5E8EB" stroke-opacity="0.12"/>
+  <text x="56" y="92" fill="#898E94" font-family="ui-monospace, monospace" font-size="9.5">dark · canvas #0E1217</text>
+
+  <text x="56" y="118" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="28" font-weight="600" letter-spacing="-0.02em">Dashboard</text>
+  <text x="384" y="118" fill="#898E94" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">lokal · :8787</text>
+
+  <rect x="56" y="132" width="186" height="26" rx="4" fill="#1C2126" stroke="#E5E8EB" stroke-opacity="0.12"/>
+  <circle cx="70" cy="145" r="3.5" fill="#71C38F"/>
+  <text x="80" y="149" fill="#B4B8BC" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500">Lokal · gratis aktiv</text>
+
+  <text x="56" y="196" fill="#898E94" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">SIGNALWEG</text>
+
+  <rect x="56" y="208" width="304" height="212" rx="8" fill="#151A1F" stroke="#E5E8EB" stroke-opacity="0.08"/>
+
+  <!-- client -->
+  <circle cx="84" cy="236" r="5" fill="#0E1217" stroke="#71C38F" stroke-width="2"/>
+  <text x="104" y="232" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">Client</text>
+  <text x="104" y="248" fill="#898E94" font-family="ui-monospace, monospace" font-size="12">Termux · curl</text>
+  <circle cx="340" cy="236" r="4" fill="#71C38F"/>
+  <line x1="84" y1="241" x2="84" y2="279" stroke="#E5E8EB" stroke-opacity="0.28" stroke-width="2"/>
+
+  <!-- the switch -->
+  <rect x="79" y="279" width="10" height="10" rx="2" fill="#0E1217" stroke="#DE8F57" stroke-width="2"/>
+  <text x="104" y="280" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">DroidRoute</text>
+  <text x="104" y="296" fill="#898E94" font-family="ui-monospace, monospace" font-size="12">127.0.0.1:8787 · aktiv</text>
+  <circle cx="340" cy="284" r="4" fill="#71C38F"/>
+
+  <!-- spine with the point in flight -->
+  <line x1="84" y1="289" x2="84" y2="300" stroke="#DE8F57" stroke-width="2"/>
+  <circle cx="84" cy="306" r="4" fill="#DE8F57"/>
+  <line x1="84" y1="310" x2="84" y2="327" stroke="#E5E8EB" stroke-opacity="0.28" stroke-width="2"/>
+
+  <!-- provider, serving -->
+  <circle cx="84" cy="332" r="5" fill="#0E1217" stroke="#71C38F" stroke-width="2"/>
+  <text x="104" y="328" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">groq · llama-3.3-70b</text>
+  <text x="104" y="344" fill="#898E94" font-family="ui-monospace, monospace" font-size="12">aktiv · 12 ms</text>
+  <circle cx="340" cy="332" r="4" fill="#71C38F"/>
+  <line x1="84" y1="337" x2="84" y2="375" stroke="#E5E8EB" stroke-opacity="0.28" stroke-width="2"/>
+
+  <!-- provider, refused -->
+  <circle cx="84" cy="380" r="5" fill="#0E1217" stroke="#E66E68" stroke-width="2"/>
+  <text x="104" y="376" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">gemini · 2.0-flash</text>
+  <text x="104" y="392" fill="#E66E68" font-family="ui-monospace, monospace" font-size="12">Kontingent erschöpft — 2. Linie aktiv</text>
+  <circle cx="340" cy="380" r="4" fill="#E66E68"/>
+
+  <!-- hero number, then the rest, demoted -->
+  <text x="56" y="500" fill="#898E94" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">HEUTE</text>
+  <text x="56" y="536" fill="#E5E8EB" font-family="ui-monospace, monospace" font-size="34" font-weight="600">12.480</text>
+  <text x="176" y="536" fill="#898E94" font-family="ui-sans-serif, system-ui" font-size="12">Anfragen</text>
+  <text x="56" y="556" fill="#898E94" font-family="ui-monospace, monospace" font-size="12">0,42 EUR geschätzt · p95 412 ms · 0 Fehler</text>
+
+  <text x="56" y="592" fill="#898E94" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">ZULETZT</text>
+  <rect x="56" y="602" width="304" height="126" rx="8" fill="#151A1F" stroke="#E5E8EB" stroke-opacity="0.08"/>
+  <text x="72" y="628" fill="#B4B8BC" font-family="ui-sans-serif, system-ui" font-size="14">chat.completions</text>
+  <text x="344" y="628" fill="#898E94" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">groq · 12 ms</text>
+  <line x1="72" y1="644" x2="344" y2="644" stroke="#E5E8EB" stroke-opacity="0.08"/>
+  <text x="72" y="670" fill="#B4B8BC" font-family="ui-sans-serif, system-ui" font-size="14">embeddings</text>
+  <text x="344" y="670" fill="#898E94" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">local · 31 ms</text>
+  <line x1="72" y1="686" x2="344" y2="686" stroke="#E5E8EB" stroke-opacity="0.08"/>
+  <text x="72" y="712" fill="#B4B8BC" font-family="ui-sans-serif, system-ui" font-size="14">chat.completions</text>
+  <text x="344" y="712" fill="#E66E68" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">gemini · 429</text>
+
+  <line x1="40" y1="740" x2="400" y2="740" stroke="#E5E8EB" stroke-opacity="0.08"/>
+  <circle cx="76" cy="756" r="4" fill="#DE8F57"/>
+  <circle cx="148" cy="756" r="4" fill="#8E9398"/>
+  <circle cx="220" cy="756" r="4" fill="#8E9398"/>
+  <circle cx="292" cy="756" r="4" fill="#8E9398"/>
+  <circle cx="364" cy="756" r="4" fill="#8E9398"/>
+  <g font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" text-anchor="middle">
+    <text x="76" y="776" fill="#DE8F57">Dashboard</text>
+    <text x="148" y="776" fill="#8E9398">Anbieter</text>
+    <text x="220" y="776" fill="#8E9398">Routing</text>
+    <text x="292" y="776" fill="#8E9398">Lokal</text>
+    <text x="364" y="776" fill="#8E9398">Logs</text>
+  </g>
+
+  <!-- ============================= LIGHT ============================= -->
+  <rect x="470" y="64" width="360" height="720" rx="12" fill="#F5F7F9" stroke="#161B20" stroke-opacity="0.14"/>
+  <text x="486" y="92" fill="#65696F" font-family="ui-monospace, monospace" font-size="9.5">light · canvas #F5F7F9 · same state, on purpose</text>
+
+  <text x="486" y="118" fill="#161B20" font-family="ui-sans-serif, system-ui" font-size="28" font-weight="600" letter-spacing="-0.02em">Dashboard</text>
+  <text x="814" y="118" fill="#65696F" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">lokal · :8787</text>
+
+  <rect x="486" y="132" width="186" height="26" rx="4" fill="#F0F2F4" stroke="#161B20" stroke-opacity="0.12"/>
+  <circle cx="500" cy="145" r="3.5" fill="#00864B"/>
+  <text x="510" y="149" fill="#3E4349" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500">Lokal · gratis aktiv</text>
+
+  <text x="486" y="196" fill="#65696F" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">SIGNALWEG</text>
+
+  <rect x="486" y="208" width="304" height="212" rx="8" fill="#FFFFFF" stroke="#161B20" stroke-opacity="0.12"/>
+
+  <circle cx="514" cy="236" r="5" fill="#F5F7F9" stroke="#00864B" stroke-width="2"/>
+  <text x="534" y="232" fill="#161B20" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">Client</text>
+  <text x="534" y="248" fill="#65696F" font-family="ui-monospace, monospace" font-size="12">Termux · curl</text>
+  <circle cx="770" cy="236" r="4" fill="#00864B"/>
+  <line x1="514" y1="241" x2="514" y2="279" stroke="#161B20" stroke-opacity="0.28" stroke-width="2"/>
+
+  <rect x="509" y="279" width="10" height="10" rx="2" fill="#F5F7F9" stroke="#AC5500" stroke-width="2"/>
+  <text x="534" y="280" fill="#161B20" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">DroidRoute</text>
+  <text x="534" y="296" fill="#65696F" font-family="ui-monospace, monospace" font-size="12">127.0.0.1:8787 · aktiv</text>
+  <circle cx="770" cy="284" r="4" fill="#00864B"/>
+
+  <line x1="514" y1="289" x2="514" y2="300" stroke="#AC5500" stroke-width="2"/>
+  <circle cx="514" cy="306" r="4" fill="#AC5500"/>
+  <line x1="514" y1="310" x2="514" y2="327" stroke="#161B20" stroke-opacity="0.28" stroke-width="2"/>
+
+  <circle cx="514" cy="332" r="5" fill="#F5F7F9" stroke="#00864B" stroke-width="2"/>
+  <text x="534" y="328" fill="#161B20" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">groq · llama-3.3-70b</text>
+  <text x="534" y="344" fill="#65696F" font-family="ui-monospace, monospace" font-size="12">aktiv · 12 ms</text>
+  <circle cx="770" cy="332" r="4" fill="#00864B"/>
+  <line x1="514" y1="337" x2="514" y2="375" stroke="#161B20" stroke-opacity="0.28" stroke-width="2"/>
+
+  <circle cx="514" cy="380" r="5" fill="#F5F7F9" stroke="#CC3336" stroke-width="2"/>
+  <text x="534" y="376" fill="#161B20" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500">gemini · 2.0-flash</text>
+  <text x="534" y="392" fill="#CC3336" font-family="ui-monospace, monospace" font-size="12">Kontingent erschöpft — 2. Linie aktiv</text>
+  <circle cx="770" cy="380" r="4" fill="#CC3336"/>
+
+  <text x="486" y="500" fill="#65696F" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">HEUTE</text>
+  <text x="486" y="536" fill="#161B20" font-family="ui-monospace, monospace" font-size="34" font-weight="600">12.480</text>
+  <text x="606" y="536" fill="#65696F" font-family="ui-sans-serif, system-ui" font-size="12">Anfragen</text>
+  <text x="486" y="556" fill="#65696F" font-family="ui-monospace, monospace" font-size="12">0,42 EUR geschätzt · p95 412 ms · 0 Fehler</text>
+
+  <text x="486" y="592" fill="#65696F" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" letter-spacing="0.06em">ZULETZT</text>
+  <rect x="486" y="602" width="304" height="126" rx="8" fill="#FFFFFF" stroke="#161B20" stroke-opacity="0.12"/>
+  <text x="502" y="628" fill="#3E4349" font-family="ui-sans-serif, system-ui" font-size="14">chat.completions</text>
+  <text x="774" y="628" fill="#65696F" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">groq · 12 ms</text>
+  <line x1="502" y1="644" x2="774" y2="644" stroke="#161B20" stroke-opacity="0.10"/>
+  <text x="502" y="670" fill="#3E4349" font-family="ui-sans-serif, system-ui" font-size="14">embeddings</text>
+  <text x="774" y="670" fill="#65696F" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">local · 31 ms</text>
+  <line x1="502" y1="686" x2="774" y2="686" stroke="#161B20" stroke-opacity="0.10"/>
+  <text x="502" y="712" fill="#3E4349" font-family="ui-sans-serif, system-ui" font-size="14">chat.completions</text>
+  <text x="774" y="712" fill="#CC3336" font-family="ui-monospace, monospace" font-size="12" text-anchor="end">gemini · 429</text>
+
+  <line x1="470" y1="740" x2="830" y2="740" stroke="#161B20" stroke-opacity="0.10"/>
+  <circle cx="506" cy="756" r="4" fill="#AC5500"/>
+  <circle cx="578" cy="756" r="4" fill="#595E63"/>
+  <circle cx="650" cy="756" r="4" fill="#595E63"/>
+  <circle cx="722" cy="756" r="4" fill="#595E63"/>
+  <circle cx="794" cy="756" r="4" fill="#595E63"/>
+  <g font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" text-anchor="middle">
+    <text x="506" y="776" fill="#AC5500">Dashboard</text>
+    <text x="578" y="776" fill="#595E63">Anbieter</text>
+    <text x="650" y="776" fill="#595E63">Routing</text>
+    <text x="722" y="776" fill="#595E63">Lokal</text>
+    <text x="794" y="776" fill="#595E63">Logs</text>
+  </g>
+
+  <!-- ============================= caption ============================= -->
+  <line x1="40" y1="812" x2="840" y2="812" stroke="#22272C"/>
+  <text x="40" y="836" fill="#E5E8EB" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="600">What to look at, and where in the system it is decided</text>
+
+  <g font-family="ui-monospace, monospace" font-size="11">
+    <text x="40" y="862" fill="#B4B8BC">1  Fokus zuerst: der Signalweg, dann die Zahl. Vier gleich große Karten wären der Fehler.</text>
+    <text x="40" y="882" fill="#B4B8BC">2  Der laufende Punkt ist Kupfer (#DE8F57) — eine Aussage über den Weg, kein Status.</text>
+    <text x="40" y="902" fill="#B4B8BC">3  Der fehlgeschlagene Sprung nennt seinen Grund, rot statt grau zu werden.</text>
+    <text x="470" y="862" fill="#B4B8BC">4  Tiefe nur über Rahmen: kein Schatten, kein Glas, keine Unschärfe.</text>
+    <text x="470" y="882" fill="#B4B8BC">5  Zahlen in Tabellen-Monospace, damit beim Zählen nichts springt.</text>
+    <text x="470" y="902" fill="#B4B8BC">6  Beide Modi zeigen denselben Zustand, damit sich Token vergleichen lassen.</text>
+    <text x="40" y="922" fill="#62676C">limits: no motion shown, no keyboard, no 200 % font scale, one screen only. Those are covered by T-197 to T-199.</text>
+  </g>
+</svg>

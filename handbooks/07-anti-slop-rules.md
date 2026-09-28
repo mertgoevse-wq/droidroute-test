@@ -55,7 +55,7 @@ Binding for every agent, every task, every commit. Each rule names the violation
 ## 11. No borrowed aesthetics (visual)
 
 **Violation:** glassmorphism, Liquid Glass, frosted or blurred shells, neumorphism, brutalism, skeuomorphic controls, generic AI gradients (violet→blue and friends), glow or coloured drop shadows, a 3D-style button, emoji standing in for an icon, an underlined "interchangeable buzzword" headline.
-**Correct:** the direction in [`docs/14-design-system.md`](../docs/14-design-system.md) §4 — flat graphite surfaces, hairline borders, one brass accent, real status lamps. A technique is not banned in isolation: it is banned when its only job is to look designed.
+**Correct:** the direction in [`docs/14-design-system.md`](../docs/14-design-system.md) §4 — flat graphite surfaces, hairline borders, one copper accent, real status lamps. A technique is not banned in isolation: it is banned when its only job is to look designed.
 
 **The test that decides it:** replace our type and layout with a stock template — does anything change? If nothing changes, nothing was decided. Full gates in `docs/14` §11.
 

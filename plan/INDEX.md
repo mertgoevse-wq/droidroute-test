@@ -360,7 +360,7 @@ One-tap free start, device-code sign-in, local-only key issuing for DroidRoute i
 | [T-204](phase-17-access-and-tooling/T-204-device-code-sign-in.md) | One-tap sign-in with the device code flow | T-057, T-171 | yes |
 | [T-205](phase-17-access-and-tooling/T-205-local-only-key-issuing.md) | DroidRoute key issuing, readable by nobody | T-016, T-021, T-099, T-165, T-193 | yes |
 | [T-206](phase-17-access-and-tooling/T-206-tooling-coverage-proof.md) | Proof that every applicable skill, plugin and MCP server is used | T-166, T-190 | yes |
-| [T-207](phase-17-access-and-tooling/T-207-workflow-plugin-and-publish.md) | Reusable build workflow: consume it here, publish it separately | T-166, T-206 | yes |
+| [T-207](phase-17-access-and-tooling/T-207-workflow-plugin-and-publish.md) | Reusable build workflow: consume it here, publish it as `routin` | T-166, T-206 | yes |
 | [T-208](phase-17-access-and-tooling/T-208-clone-from-scratch-freeze.md) | Clone-from-scratch verification and freeze | T-202, T-205, T-207 | yes |
 ## Generated file
 

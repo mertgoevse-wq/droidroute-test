@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Design gate — the mechanical part of docs/14-design-system.md.
 
-    python3 tools/check_design_slop.py              # scan the UI sources
+    python3 tools/check_design_slop.py              # scan the UI sources and the drawings
     python3 tools/check_design_slop.py --self-test   # prove the gate still bites
     python3 tools/check_design_slop.py --path <dir>  # scan somewhere else
 
@@ -12,6 +12,8 @@ the rest, and a passing gate is not evidence that a screen is good):
 2. Unmanaged values   — hardcoded colours, off-scale dp, stray radii
 3. Untranslated text  — user-facing string literals inside composables
 4. Missing states     — a screen that collects state but never names loading/empty/error
+5. Drawings           — design/**/*.svg must parse as XML, and every drawing must obey
+                        the same bans as the app (design/README.md §2, docs/14 §11)
 
 A line carrying ``design-allow: <reason>`` is exempt, so a genuine exception is
 visible in the diff instead of hiding in a threshold.
@@ -24,10 +26,13 @@ import re
 import shutil
 import sys
 import tempfile
+import xml.dom.minidom
+import xml.parsers.expat
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SCAN = ROOT / "app" / "src" / "main" / "kotlin"
+DESIGN_DIR = ROOT / "design"
 TOKENS_FILE = "Tokens.kt"
 ALLOW = "design-allow:"
 
@@ -53,6 +58,19 @@ TEXT_LITERAL = re.compile(r"""\bText\s*\(\s*(?:text\s*=\s*)?"([^"\\]{2,})" """.s
 
 # 4 — missing states --------------------------------------------------------
 STATE_MARKERS = ("loading", "empty", "error")
+
+# 5 — the drawings ----------------------------------------------------------
+# A drawing may not show what the app may not build. Same bans, applied to the
+# artefacts in design/ — otherwise the previews would quietly teach the wrong
+# thing to whoever implements the next screen.
+BANNED_ASSET = [
+    (r"<(?:linear|radial|conic)Gradient\b", "gradient element — banned in drawings (design/README.md §2)"),
+    (r"<filter\b|feGaussianBlur|feDropShadow", "filter or shadow — depth is borders-only (docs/14 §7)"),
+    # `filter: blur(4px)` is a defect; `element.blur()` is a DOM call. The dot is the difference.
+    (r"(?<![\w.-])(?:backdrop-)?blur\s*\(", "blur — banned aesthetic (docs/14 §11)"),
+    (r"box-shadow|text-shadow", "shadow — depth is borders-only (docs/14 §7)"),
+]
+ASSET_SUFFIXES = {".svg", ".html"}
 
 
 def scan_text(text: str, rel: str) -> list[str]:
@@ -110,6 +128,41 @@ def scan(target: Path) -> tuple[list[str], int]:
     return problems, len(files)
 
 
+def scan_asset_text(text: str, rel: str, *, is_svg: bool) -> list[str]:
+    """Return one message per violation in a single drawing."""
+    problems: list[str] = []
+    if is_svg:
+        # An SVG that is not well-formed XML does not render as a file, only as an
+        # inline fragment — the kind of defect that survives to a release unnoticed.
+        try:
+            xml.dom.minidom.parseString(text)
+        except xml.parsers.expat.ExpatError as error:  # pragma: no cover - fixture covers it
+            problems.append(f"{rel}: not well-formed XML ({error})")
+    for number, line in enumerate(text.splitlines(), start=1):
+        if ALLOW in line:
+            continue
+        for pattern, why in BANNED_ASSET:
+            if re.search(pattern, line):
+                problems.append(f"{rel}:{number}: {why}")
+    return problems
+
+
+def scan_design(target: Path) -> tuple[list[str], int]:
+    """Check every drawing: parse the vectors, ban the same aesthetics as the app."""
+    if not target.exists():
+        return [], 0
+    files = sorted(p for p in target.rglob("*") if p.is_file() and p.suffix in ASSET_SUFFIXES)
+    problems: list[str] = []
+    for path in files:
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:  # pragma: no cover
+            continue
+        rel = str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+        problems.extend(scan_asset_text(text, rel, is_svg=path.suffix == ".svg"))
+    return problems, len(files)
+
+
 BAD_FIXTURE = """
 package com.droidroute.ui.demo
 import androidx.compose.ui.graphics.Color
@@ -142,8 +195,26 @@ fun DemoCard(uiState: DemoState) {
 """
 
 
+BAD_ASSET = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- ---------- a separator XML does not allow ---------- -->
+  <defs>
+    <linearGradient id="g"><stop offset="0" stop-color="#fff"/></linearGradient>
+    <filter id="f"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="24" height="24" filter="url(#f)"/>
+</svg>
+"""
+
+GOOD_ASSET = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- a compliant drawing: geometry only, borders only -->
+  <circle cx="12" cy="12" r="7" stroke="#DE8F57" stroke-width="2"/>
+  <line x1="2" y1="12" x2="22" y2="12" stroke="#E5E8EB" stroke-width="2"/>
+</svg>
+"""
+
+
 def self_test() -> int:
-    """Prove the gate still bites: the bad fixture must fail, the good one must pass."""
+    """Prove the gate still bites: the bad fixtures must fail, the good ones must pass."""
     work = Path(tempfile.mkdtemp(prefix="design-slop-"))
     try:
         (work / "ui").mkdir()
@@ -153,19 +224,42 @@ def self_test() -> int:
         (work / "ui" / "Bad.kt").unlink()
         (work / "ui" / "Good.kt").write_text(GOOD_FIXTURE, encoding="utf-8")
         good, _ = scan(work / "ui")
+
+        (work / "assets").mkdir()
+        (work / "assets" / "bad.svg").write_text(BAD_ASSET, encoding="utf-8")
+        bad_assets, _ = scan_design(work / "assets")
+
+        (work / "assets" / "bad.svg").unlink()
+        (work / "assets" / "good.svg").write_text(GOOD_ASSET, encoding="utf-8")
+        good_assets, _ = scan_design(work / "assets")
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
+    failures: list[str] = []
     if not bad:
-        print("SELF-TEST FAILED  the gate found nothing in a file that violates every rule")
-        return 1
+        failures.append("the gate found nothing in a Kotlin file that violates every rule")
     if good:
-        print("SELF-TEST FAILED  the gate flagged a compliant file:")
-        for line in good:
+        failures.append("the gate flagged a compliant Kotlin file:")
+        failures.extend(f"  {line}" for line in good)
+    if len(bad_assets) < 3:
+        failures.append(
+            "the gate missed part of a drawing that has a broken comment, a gradient and a filter "
+            f"(found {len(bad_assets)})"
+        )
+    if good_assets:
+        failures.append("the gate flagged a compliant drawing:")
+        failures.extend(f"  {line}" for line in good_assets)
+
+    if failures:
+        print("SELF-TEST FAILED")
+        for line in failures:
             print(f"  {line}")
         return 1
 
-    print(f"self-test ok — {len(bad)} violations detected in the bad fixture, 0 in the good one")
+    print(
+        f"self-test ok — {len(bad)} violations in the bad Kotlin fixture, 0 in the good one; "
+        f"{len(bad_assets)} in the bad drawing, 0 in the good one"
+    )
     return 0
 
 
@@ -179,23 +273,26 @@ def main() -> int:
         return self_test()
 
     problems, scanned = scan(args.path)
+    asset_problems, assets = scan_design(DESIGN_DIR)
+    problems.extend(asset_problems)
+
+    source_label = args.path.relative_to(ROOT) if args.path.is_relative_to(ROOT) else args.path
     if scanned == 0:
         print(
-            f"no Kotlin sources under {args.path.relative_to(ROOT) if args.path.is_relative_to(ROOT) else args.path} "
-            "— nothing to check. The gate becomes evidence when phase 07 lands; "
+            f"no Kotlin sources under {source_label} — nothing to check there. "
+            "The source gate becomes evidence when phase 07 lands; "
             "run --self-test to confirm it still bites."
         )
-        return 0
 
     for line in problems:
         print(f"FAIL  {line}")
 
     if problems:
-        print(f"\n{len(problems)} design violation(s) across {scanned} file(s)")
+        print(f"\n{len(problems)} design violation(s) across {scanned} source and {assets} drawing file(s)")
         print("rules: docs/14-design-system.md · handbooks/07-anti-slop-rules.md §11–§14")
         return 1
 
-    print(f"design gate clean — {scanned} file(s) scanned")
+    print(f"design gate clean — {scanned} source file(s) and {assets} drawing(s) checked")
     return 0
 
 
