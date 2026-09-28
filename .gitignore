@@ -1,0 +1,55 @@
+# --- Android / Gradle -------------------------------------------------------
+build/
+.gradle/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+local.properties
+captures/
+.cxx/
+
+# --- IDE --------------------------------------------------------------------
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# --- Secrets (never committed) ---------------------------------------------
+.env
+.env.*
+!.env.example
+secrets/
+*.key
+*.pem
+*.p12
+*.keystore
+*.jks
+*.jwk
+keystore.properties
+api-keys.json
+vault-export*.json
+
+# --- Local models and big binaries -----------------------------------------
+*.gguf
+*.ggml
+*.onnx
+*.bin
+models/
+runtimes/
+
+# --- Logs -------------------------------------------------------------------
+# Task, daily and chain logs ARE committed (they are the audit trail and the
+# handover evidence). Only the pruned archive and compressed old logs are local.
+logs/archive/
+*.log.gz
+
+# --- OS / temp --------------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.orig
+*.rej

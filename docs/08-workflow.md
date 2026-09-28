@@ -1,0 +1,80 @@
+# Build Workflow (One-Shot, Autonomous, Resumable)
+
+This repository is not documentation *about* a build — it *is* the build plan. A single agent session (Claude Code or Freebuff) executes `plan/` from T-001 to T-147 without human intervention.
+
+## The task loop
+
+```
+for task in plan/**/T-*.md in numeric order:
+    1. read the task file, its dependencies, and status/NEXT.md
+    2. verify prerequisites are actually done (files exist, tests pass)
+    3. run the task's skills IN PARALLEL as subagents (minimum 2, see below)
+    4. integrate the subagents' work in the main context
+    5. run the task's verification commands
+    6. log every meaningful step            → scripts/log-step.sh
+    7. tick acceptance criteria; if all pass:
+         update status/PROGRESS.md + status/NEXT.md
+         scripts/step-commit.sh "T-0xx: <title>"
+    8. if acceptance fails:
+         one repair attempt, then append to status/ERRORS.md and STOP the chain
+```
+
+Tasks marked **parallel-safe: yes** may be speculated on ahead of time, but the *chain* stays sequential: a later task's commit never lands before its dependency's commit.
+
+## Minimum two skills, in parallel, via subagents
+
+For **every** task:
+
+- The task file lists ≥ 2 suggested skills with a stated role for each (e.g. one implements, one writes tests, one checks security).
+- The main agent spawns these as **parallel subagents** wherever the work is separable. Typical split: *implementation* / *tests & verification* / *docs & logging*.
+- The suggestion is a default, not a cage — the agent may substitute skills if the task clearly needs different ones, **but never drops below two parallel workstreams or below one verification workstream.**
+- Subagents must not touch the same file simultaneously. If two workstreams would collide, they are serialised and the reason is recorded in the task's log.
+
+The skills available to the host are inventoried in `handbooks/03-skills-catalog.md`; the runtime inventory can be read from `GET /plugins` once the app exists.
+
+## Logging (all of it)
+
+- Every meaningful step writes a line: timestamp (ISO-8601, local + UTC offset), task id, actor (main agent or subagent name), action, result, files touched, duration.
+- Per-task log: `logs/tasks/T-0xx.log`. Day roll-up: `logs/daily/YYYY-MM-DD.log`. Chain-level: `logs/chain.log`.
+- Format is line-oriented JSON so it can be grepped *and* parsed. Full detail goes to the logs; the human-readable summary is `status/PROGRESS.md`.
+- Redaction always applies (`docs/05-security.md`) — a log is pushed to GitHub, so a key must never reach it.
+- Old logs are pruned weekly by `scripts/weekly-cleanup.sh` (default: keep 14 days of daily logs and the last 60 task logs; never prune `chain.log`), so the repository stays lean.
+
+## Git protocol
+
+| Rule | Detail |
+|---|---|
+| Commit per task | one commit per completed task, message `T-0xx: <title>` plus 1–3 body lines (what changed, how verified) |
+| Always stage + commit + push | after acceptance passes, no exceptions, no prompting |
+| Backup point before each task | a lightweight tag `checkpoint/T-0xx` pushed before the task starts, so any task can be reverted in isolation |
+| Branch | `main` only; the agent does not open PRs against itself |
+| Never force-push | history is the handover mechanism; rewriting it destroys the audit trail |
+| Push failure | commit locally, append the error to `status/ERRORS.md`, retry at the next task boundary, continue working |
+
+`scripts/step-commit.sh` performs: preflight secrets check → `git add -A` → commit → tag if requested → `git push` → log the result. It is the only sanctioned way to commit.
+
+## Resume protocol (any model can take over)
+
+A fresh agent must be able to continue with **no chat history**:
+
+1. Read `status/PROGRESS.md` (done), `status/NEXT.md` (do this next), `status/DECISIONS.md` (why things are as they are), `status/ERRORS.md` (known breakage).
+2. Read `logs/chain.log` tail (what happened last).
+3. Verify the working tree is clean; if not, inspect the uncommitted diff before touching anything.
+4. Resume at the task named in `status/NEXT.md`, or later if its dependencies are already satisfied.
+
+Fully autonomous mode is allowed. The owner may also pause at any task boundary — nothing about the design depends on the session staying alive.
+
+## Anti-slop rules (binding)
+
+1. **No placeholder implementations.** No `TODO`, no `NotImplementedError`, no stub returning fake data — unless the task *is* to create a documented stub, in which case it must be explicit and tracked.
+2. **No invented API endpoints or URLs.** If a provider's base URL or field name is unknown, the task says so and fetches it from the provider's documentation; a guessed URL is a bug.
+3. **No unrequested scope.** Do not refactor neighbouring code, rename other people's identifiers, or "improve" unrelated files. Each commit contains only what the task describes.
+4. **No unverified completion.** Ticking an acceptance criterion requires the verification command to have been run, with the command and its result in the task log.
+5. **No silent failures.** Every swallowed exception must be logged with a reason, or it is not swallowed.
+6. **No duplicated truth.** A rule lives in exactly one document; other places link to it.
+7. **No filler prose.** Docs state facts, decisions and rules. Marketing adjectives are removed on sight.
+8. **Verify before claim.** If a claim cannot be checked in this environment, it is marked as unverified in the log rather than asserted.
+
+## Definition of done for the whole chain
+
+The chain is finished when every acceptance criterion in `docs/10-acceptance.md` is met, `status/PROGRESS.md` shows 147/147, and a fresh agent reading only `README.md` + `status/` can operate the app.
