@@ -91,7 +91,7 @@ These are requirements from the interview that OmniRoute does not offer at all:
 | Native Android app, not a desktop/PWA server | Kotlin + Compose with a foreground service | T-007, T-091 |
 | Keys stored hardware-encrypted, revealed once, then masked `first5••••last5` | Keystore vault and a dedicated key UX | T-006, T-099 |
 | Local models of any size, with honest RAM warnings instead of an artificial cap | llama.cpp via Termux, memory guard, curated catalogue | T-107…T-117 |
-| 135+ project files that let an agent rebuild/resume the whole product autonomously | 190-task plan across 15 phases, plus handbooks and status automation | `plan/`, `handbooks/`, `KICKOFF.md` |
+| 135+ project files that let an agent rebuild/resume the whole product autonomously | 208-task plan across 18 phases, plus handbooks, bootstrap and status automation | `plan/`, `handbooks/`, `scripts/bootstrap.sh`, `KICKOFF.md` |
 | Minimum two skills per task, run in parallel via subagents | `handbooks/02`, `.claude/agents/`, `.claude/skills/` | T-001…T-165 (every task) |
 | Every step logged, committed and pushed; any model can take over | logging standard, step commits, handover bundle, resume drills | T-127…T-135 |
 | Global + project discovery of plugins, MCP servers and skills | `scripts/discover_tooling.py`, `status/TOOLING.md` | T-166 |
@@ -99,6 +99,9 @@ These are requirements from the interview that OmniRoute does not offer at all:
 | Everything the other routers do, with the gaps named | `docs/13-competitive-landscape.md` | T-167 … T-184 |
 | An interface built from a written design system, with a gate that fails the build on banned aesthetics | `docs/14-design-system.md`, `tools/check_design_slop.py` | T-185 … T-190 |
 | One code word that hands the whole build to an agent | `KICKOFF.md` | — |
+| Security and privacy audit with a test per threat | `docs/16-threat-model.md`, `docs/17-security-audit.md` | T-191 … T-196 |
+| Screenshots analysed by a machine, a README gallery CI keeps true, a launch video from the real product | `design/`, `tools/analyse_shots.py`, `plugin:brag` | T-197 … T-202 |
+| Free start with one tap, DroidRoute keys that nobody can read back, tooling coverage as a reviewed decision | `KICKOFF.md`, `status/TOOLING-COVERAGE.md` | T-203 … T-208 |
 | Routing decision explainable from the phone | `/v1/routing/explain` and the explain viewer | T-089, T-101 |
 
 ## How this list is maintained

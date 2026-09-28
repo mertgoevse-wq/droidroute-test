@@ -1,6 +1,6 @@
 # Progress
 
-**Chain status:** not started · **Tasks complete:** 0 / 190 · **Last commit:** scaffold
+**Chain status:** not started · **Tasks complete:** 0 / 208 · **Last commit:** scaffold
 
 Updated in the same commit as every completed task. A task is ticked only when its acceptance criteria were verified and evidenced in `logs/tasks/`.
 
@@ -23,6 +23,9 @@ Updated in the same commit as every completed task. A task is ticked only when i
 | [12 — OmniRoute parity & power features](../plan/phase-12-parity-power/) | T-148 … T-166 | combos, 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring (v0.2) | ⬜ 0/19 |
 | [13 — Competitive absorption & Android edge](../plan/phase-13-competitive-edge/) | T-167 … T-184 | any-provider detection, importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-aware routing, self-update (v0.3) | ⬜ 0/18 |
 | [14 — Design audit & release polish](../plan/phase-14-design-audit/) | T-185 … T-190 | token conformance, a proven gate, craft review, measured contrast, state completeness, design acceptance | ⬜ 0/6 |
+| [15 — Security & privacy audit](../plan/phase-15-security-audit/) | T-191 … T-196 | threat model, static analysis, vault crypto, network exposure, components and data at rest, signing and audit trail | ⬜ 0/6 |
+| [16 — Visual evidence & launch](../plan/phase-16-visual-evidence/) | T-197 … T-202 | screenshot harness, automatic visual analysis, visual Q&A, README gallery, launch video, launch assets | ⬜ 0/6 |
+| [17 — One-tap access, key issuing & tooling coverage](../plan/phase-17-access-and-tooling/) | T-203 … T-208 | free start, device-code sign-in, local-only key issuing, tooling coverage, reusable workflow plugin, clone freeze | ⬜ 0/6 |
 
 ## Completed tasks
 
@@ -55,3 +58,6 @@ Per-component detail lives in [`status/components/`](components/).
 | delivery | ⬜ not started |
 | competitive-edge | ⬜ not started |
 | design | ⬜ not started |
+| security | ⬜ not started |
+| visual-evidence | ⬜ not started |
+| access-tooling | ⬜ not started |

@@ -3,7 +3,7 @@
     "platform": "linux",
     "machine": "aarch64",
     "home": "/home/mert",
-    "project": "/home/mert/loki.route"
+    "repo": "https://github.com/mertgoevse-wq/droidroute"
   },
   "global_skills_dir": "/home/mert/.claude/skills",
   "global_skills": [
@@ -256,7 +256,7 @@
       "website"
     ]
   },
-  "project_skills_dir": "/home/mert/loki.route/.claude/skills",
+  "project_skills_dir": ".claude/skills",
   "project_skills": [
     "droidroute-compose-ui",
     "droidroute-provider-manifest",
@@ -1387,5 +1387,5 @@
   "mcp_servers": {},
   "legacy_inventory_present": true,
   "claude_agents_global_dir": false,
-  "fingerprint": "893d348102416020"
+  "fingerprint": "8a6329e375bf1af1"
 }

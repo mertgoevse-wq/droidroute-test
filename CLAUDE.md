@@ -18,7 +18,7 @@
 
 **Shell continuity.** Termux has no persistent daemon across sessions — assume nothing about the previous session except what is in `git log`, `logs/`, and `status/`.
 
-**Context budget.** Do not read all 190 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
+**Context budget.** Do not read all 208 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
 
 ## The loop in Claude Code terms
 

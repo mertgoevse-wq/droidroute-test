@@ -1,4 +1,4 @@
-# Build plan — 190 tasks
+# Build plan — 208 tasks
 
 The execution order is the numeric order of the task ids. Each task is one commit
 and one log file. Rules: [AGENTS.md](../AGENTS.md) · process: [docs/08-workflow.md](../docs/08-workflow.md) ·
@@ -23,6 +23,9 @@ resume: [handbooks/06-resume-protocol.md](../handbooks/06-resume-protocol.md).
 | [12 — OmniRoute parity & power features](phase-12-parity-power/) | T-148 … T-166 | 19 | Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring. |
 | [13 — Competitive absorption & Android edge](phase-13-competitive-edge/) | T-167 … T-184 | 18 | Any-provider detection, migration importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-awareness, self-update. |
 | [14 — Design audit & release polish](phase-14-design-audit/) | T-185 … T-190 | 6 | Token conformance, a proven gate, screen-by-screen craft review, measured contrast and accessibility, state completeness, design acceptance. |
+| [15 — Security & privacy audit](phase-15-security-audit/) | T-191 … T-196 | 6 | Threat model and test mapping, static analysis and licences, vault crypto review, network exposure, component and data-at-rest review, signing and audit trail. |
+| [16 — Visual evidence & launch](phase-16-visual-evidence/) | T-197 … T-202 | 6 | Screenshot harness, automatic visual analysis, visual Q&A loop, README gallery, launch video via brag, launch assets. |
+| [17 — One-tap access, key issuing & tooling coverage](phase-17-access-and-tooling/) | T-203 … T-208 | 6 | One-tap free start, device-code sign-in, local-only key issuing for DroidRoute itself, tooling coverage proof, the reusable workflow plugin, and the clone-from-scratch freeze. |
 
 ## All tasks
 
@@ -320,6 +323,45 @@ Token conformance, a proven gate, screen-by-screen craft review, measured contra
 | [T-188](phase-14-design-audit/T-188-contrast-and-accessibility-evidence.md) | Measured contrast, motion and accessibility evidence | T-106 | yes |
 | [T-189](phase-14-design-audit/T-189-state-completeness-pass.md) | State completeness pass (loading, empty, error, partial, offline) | T-187 | yes |
 | [T-190](phase-14-design-audit/T-190-design-acceptance.md) | Design acceptance and the closing statement | T-186, T-188, T-189 | yes |
+
+### Phase 15 — Security & privacy audit
+
+Threat model and test mapping, static analysis and licences, vault crypto review, network exposure, component and data-at-rest review, signing and audit trail.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-191](phase-15-security-audit/T-191-threat-model.md) | Threat model and test mapping | T-014, T-021, T-165 | yes |
+| [T-192](phase-15-security-audit/T-192-static-analysis-and-dependencies.md) | Static analysis, dependencies and licences | T-009, T-136, T-144 | yes |
+| [T-193](phase-15-security-audit/T-193-vault-crypto-review.md) | Secret storage and vault crypto review | T-006, T-159, T-165 | yes |
+| [T-194](phase-15-security-audit/T-194-network-exposure-audit.md) | Network surface and exposure audit | T-014, T-021, T-165 | yes |
+| [T-195](phase-15-security-audit/T-195-component-intent-and-at-rest-review.md) | Components, intents and data at rest | T-098, T-099, T-103, T-104 | yes |
+| [T-196](phase-15-security-audit/T-196-signing-supply-chain-audit-trail.md) | Signing, CI permissions and the audit trail | T-144, T-165, T-180 | yes |
+
+### Phase 16 — Visual evidence & launch
+
+Screenshot harness, automatic visual analysis, visual Q&A loop, README gallery, launch video via brag, launch assets.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-197](phase-16-visual-evidence/T-197-screenshot-harness.md) | Deterministic screenshot harness | T-106, T-190 | yes |
+| [T-198](phase-16-visual-evidence/T-198-automatic-visual-analysis.md) | Automatic visual analysis of every screenshot | T-197 | yes |
+| [T-199](phase-16-visual-evidence/T-199-visual-qa-loop.md) | Visual Q&A loop with findings and fixes | T-197, T-198 | yes |
+| [T-200](phase-16-visual-evidence/T-200-readme-gallery.md) | README gallery that cannot go stale | T-197, T-199 | yes |
+| [T-201](phase-16-visual-evidence/T-201-launch-video-brag.md) | Launch video with the brag plugin | T-200 | yes |
+| [T-202](phase-16-visual-evidence/T-202-launch-assets-and-visual-acceptance.md) | Launch assets and visual acceptance | T-201 | yes |
+
+### Phase 17 — One-tap access, key issuing & tooling coverage
+
+One-tap free start, device-code sign-in, local-only key issuing for DroidRoute itself, tooling coverage proof, the reusable workflow plugin, and the clone-from-scratch freeze.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-203](phase-17-access-and-tooling/T-203-one-tap-free-start.md) | One-tap free start with no account | T-096, T-105, T-169 | yes |
+| [T-204](phase-17-access-and-tooling/T-204-device-code-sign-in.md) | One-tap sign-in with the device code flow | T-057, T-171 | yes |
+| [T-205](phase-17-access-and-tooling/T-205-local-only-key-issuing.md) | DroidRoute key issuing, readable by nobody | T-016, T-021, T-099, T-165, T-193 | yes |
+| [T-206](phase-17-access-and-tooling/T-206-tooling-coverage-proof.md) | Proof that every applicable skill, plugin and MCP server is used | T-166, T-190 | yes |
+| [T-207](phase-17-access-and-tooling/T-207-workflow-plugin-and-publish.md) | Reusable build workflow: consume it here, publish it separately | T-166, T-206 | yes |
+| [T-208](phase-17-access-and-tooling/T-208-clone-from-scratch-freeze.md) | Clone-from-scratch verification and freeze | T-202, T-205, T-207 | yes |
 ## Generated file
 
 This index and every task file are produced by `tools/generate_plan.py` from `tools/plan_data/`.

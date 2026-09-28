@@ -4,7 +4,7 @@ Any agentic tool that builds this project reads this file. `CLAUDE.md` is the Cl
 
 ## 1. What this repository is
 
-The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **190 task files** across 15 phases. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
+The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **208 task files** across 18 phases. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
 
 ## 2. Boot sequence (no chat history assumed)
 

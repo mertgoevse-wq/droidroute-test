@@ -2,7 +2,7 @@
 
 A Task carries only the substance (goal, steps, acceptance, evidence). The
 structure — headings, links, commit protocol — is stamped by the renderer in
-``tools/generate_plan.py`` so that all 190 files stay identical in shape.
+``tools/generate_plan.py`` so that all 208 files stay identical in shape.
 """
 
 from dataclasses import dataclass, field

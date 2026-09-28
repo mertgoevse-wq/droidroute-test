@@ -72,6 +72,9 @@ Four matching subagents live in `.claude/agents/`: `implementer`, `verifier`, `c
 | 12 OmniRoute parity | `droidroute-routing`, `ai-governors` | `droidroute-verification`, `optimize` |
 | 13 Competitive edge | `droidroute-provider-manifest`, `android-platform` | `droidroute-verification`, `android-profiler`, `android-intent-security` |
 | 14 Design audit | `design-craft` | `design-a11y`, `droidroute-verification` |
+| 15 Security audit | `security-audit` | `android-intent-security`, `droidroute-verification` |
+| 16 Visual evidence | `visual-qa`, `design-craft` | `launch-video` (`plugin:brag`), `ci-cd-github-actions` |
+| 17 Access & tooling | `droidroute-skill-scout`, `security-audit` | `git-workflow`, `droidroute-verification` |
 
 ## Choosing well
 

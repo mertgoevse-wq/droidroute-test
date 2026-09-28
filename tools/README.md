@@ -1,6 +1,6 @@
 # tools/ — how the plan is produced
 
-`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 190 tasks stay consistent in structure and can be edited in one place.
+`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 208 tasks stay consistent in structure and can be edited in one place.
 
 ```
 tools/
@@ -11,7 +11,7 @@ tools/
 ├── check_plan_consistency.py  # composes the above and adds id/dep/count/doc invariants
 ├── plan_data/
 │   ├── common.py          # Task + Phase dataclasses, renderer input
-│   ├── phase_00.py … phase_14.py
+│   ├── phase_00.py … phase_17.py
 └── README.md
 ```
 
@@ -42,7 +42,7 @@ Renumbering is forbidden: commit messages, status files and logs reference task 
 
 ## Why a generator
 
-190 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
+208 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
 
 - every task has the same required sections (`Goal`, `Skills`, `Deliverables`, `Steps`, `Acceptance criteria`, `Verification`, `Logging & Git`, `State after success`),
 - dependencies and phase membership are declared once,

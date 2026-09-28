@@ -13,10 +13,13 @@ Er liest dann alle Projektdateien und baut DroidRoute autonom, Task für Task.
 
 ## Was du tust
 
-Öffne ein Terminal in diesem Ordner und starte Claude Code:
+Du kannst direkt in diesem Ordner weiterarbeiten — oder frisch klonen, wenn du einen sauberen Ordner willst:
 
 ```bash
-cd ~/loki.route        # nach dem Umbenennen: ~/droidroute
+cd ~
+git clone https://github.com/mertgoevse-wq/droidroute.git droidroute
+cd droidroute
+bash scripts/bootstrap.sh      # prüft Werkzeuge, gleicht das Inventar ab, prüft den ganzen Plan
 claude
 ```
 
@@ -32,7 +35,7 @@ Mehr ist nicht nötig. Alles Weitere steht in den Dateien, die der Agent jetzt l
 
 1. Er liest [`AGENTS.md`](AGENTS.md) — die verbindlichen Regeln — und [`CLAUDE.md`](CLAUDE.md).
 2. Er liest den Zustand: `status/HANDOVER.md`, `status/PROGRESS.md`, `status/NEXT.md`, `status/DECISIONS.md`, `status/ERRORS.md`, `status/TOOLING.md`.
-3. Er liest [`plan/INDEX.md`](plan/INDEX.md) — **190 Tasks in 15 Phasen** — und beginnt bei [`T-001`](plan/phase-00-foundation/T-001-repository-hygiene.md).
+3. Er liest [`plan/INDEX.md`](plan/INDEX.md) — **208 Tasks in 18 Phasen** — und beginnt bei [`T-001`](plan/phase-00-foundation/T-001-repository-hygiene.md).
 4. Pro Task: zwei Skills **gleichzeitig** über Subagenten (einer davon prüft), jeder Schritt wird geloggt, am Ende **ein Commit und ein Push**.
 5. Er arbeitet weiter, bis alle Tasks fertig sind — ohne Rückfrage, außer ein Stop-Grund aus `AGENTS.md` §9 greift.
 
@@ -59,8 +62,9 @@ Ergebnis: eine installierbare Android-App, ein privates GitHub-Repo, vollständi
 ## Wenn du nachsehen willst, ob es gesund läuft
 
 ```bash
+bash scripts/bootstrap.sh                 # alles auf einmal: Werkzeuge, Inventar, Plan, Design, Secrets
 python3 tools/check_plan_consistency.py   # Plan und Dokumente stimmen überein
-python3 tools/generate_plan.py --check    # die 190 Task-Dateien passen zu den Daten
+python3 tools/generate_plan.py --check    # die 208 Task-Dateien passen zu den Daten
 python3 tools/check_links.py              # alle Querverweise stimmen
 python3 tools/check_skills.py             # jede Skill-Angabe zeigt auf etwas Installiertes
 python3 tools/check_design_slop.py        # kein verbotenes Design

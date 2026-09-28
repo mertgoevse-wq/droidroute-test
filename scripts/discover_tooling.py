@@ -24,6 +24,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -45,9 +46,9 @@ DOMAIN_HINTS = {
 }
 
 
-def run(cmd: list[str]) -> str | None:
+def run(cmd: list[str], cwd: Path | None = None) -> str | None:
     try:
-        out = subprocess.run(cmd, capture_output=True, text=True, timeout=20, check=False)
+        out = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=20, check=False)
     except (OSError, subprocess.SubprocessError):
         return None
     return out.stdout.strip() if out.returncode == 0 else None
@@ -178,12 +179,14 @@ def collect() -> dict:
             "platform": sys.platform,
             "machine": os.uname().machine if hasattr(os, "uname") else "unknown",
             "home": str(HOME),
-            "project": str(ROOT),
+            # No absolute checkout path: the inventory is committed, and a path from one
+            # machine's disk is noise in a file every clone reads. The repo identifies itself.
+            "repo": repo_identity(),
         },
         "global_skills_dir": str(global_skills_dir),
         "global_skills": global_skills,
         "global_skills_by_domain": categorise(global_skills),
-        "project_skills_dir": str(project_skills_dir),
+        "project_skills_dir": ".claude/skills",
         "project_skills": project_skills,
         "plugins": plugins,
         "marketplaces": sorted(marketplaces.keys()),
@@ -198,6 +201,15 @@ def collect() -> dict:
         "legacy_inventory_present": bool(legacy_inventory),
         "claude_agents_global_dir": (HOME / ".claude" / "agents").is_dir(),
     }
+
+
+def repo_identity() -> str:
+    """The clone's own identity: its origin URL, or a plain marker when there is none."""
+    out = run(["git", "remote", "get-url", "origin"], cwd=ROOT)
+    if out:
+        url = out.strip()
+        return re.sub(r"^https://[^@]*@", "https://", url).removesuffix(".git") or "(no remote)"
+    return "(no remote)"
 
 
 def render_md(inv: dict) -> str:

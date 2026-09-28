@@ -1,6 +1,6 @@
 # Build Workflow (One-Shot, Autonomous, Resumable)
 
-This repository is not documentation *about* a build — it *is* the build plan. A single agent session (Claude Code or Freebuff) executes `plan/` from T-001 to T-190 without human intervention, starting from the owner's code word in [`KICKOFF.md`](../KICKOFF.md).
+This repository is not documentation *about* a build — it *is* the build plan. A single agent session (Claude Code or Freebuff) executes `plan/` from T-001 to T-208 without human intervention, starting from the owner's code word in [`KICKOFF.md`](../KICKOFF.md).
 
 ## The task loop
 
@@ -80,4 +80,4 @@ Fully autonomous mode is allowed. The owner may also pause at any task boundary 
 
 ## Definition of done for the whole chain
 
-The chain is finished when every acceptance criterion in `docs/10-acceptance.md` is met, `status/PROGRESS.md` shows 190/190, and a fresh agent reading only `README.md` + `status/` can operate the app.
+The chain is finished when every acceptance criterion in `docs/10-acceptance.md` is met, `status/PROGRESS.md` shows 208/208, and a fresh agent reading only `README.md` + `status/` can operate the app.

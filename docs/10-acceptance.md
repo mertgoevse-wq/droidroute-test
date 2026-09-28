@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-The chain is done when all sixteen are met. Each one names how it is proven — a criterion without a command or a concrete observation is not accepted.
+The chain is done when all nineteen are met. Each one names how it is proven — a criterion without a command or a concrete observation is not accepted.
 
 | # | Criterion | How it is proven |
 |---|---|---|
@@ -21,10 +21,14 @@ The chain is done when all sixteen are met. Each one names how it is proven — 
 | A16 | The interface is the decided instrument panel of `docs/14-design-system.md` — not a generated dashboard — and that is provable | `python3 tools/check_design_slop.py` clean on the real tree **and** `--self-test` passing (a gate that no longer bites is a failure); T-186's proof table shows every rule failing on an injected violation and reverting clean; T-185 records zero token drift; T-188 records the measured contrast ratio of every used pair in both modes against its threshold; T-187 supplies both-mode screenshots per screen with a named focal element and a closed finding list; T-189 shows all five states per data screen; T-190 lists the residual weaknesses without softening them |
 | A15 | The app behaves like an Android app and stays current without the owner re-installing it by hand | T-177 tile/widget/share sheet work on the device and the widget produces no periodic wakeups; T-175 answers a request with connectivity off and a local model loaded; T-176 refuses metered traffic under policy and names the reason; T-180 detects a newer release, verifies its signature, and refuses one that does not match; T-181 applies a signed catalog pack without an app update and rejects a tampered one |
 
+| A17 | The security claims are checkable: a threat model with a test per threat, and a reviewed vault, network surface and app surface | `docs/16-threat-model.md` has no empty cell — every threat names a test, a task id, or a risk the owner accepted; T-193's nonce-uniqueness test runs over ≥ 10 000 encryptions and tampering fails closed; T-194 proves a non-local bind without a key is refused and cleartext to a public host is refused; T-195 proves no component is exported without a reason and the vault is excluded from backup; T-192 shows no dynamic dependency version remains; T-196 shows every third-party action pinned by SHA with minimal workflow permissions |
+| A18 | The visual claim is evidenced, not asserted | `design/screenshots/` holds the full matrix (both modes, both widths, every state) reproduced by one command; `tools/analyse_shots.py` reports measured contrast per text region and catches an injected off-token colour (proven once); `design/review/<date>.md` closes every finding with an after-picture and lists the residuals; the README gallery matches the files on disk (CI-checked); the launch video exists, is 15–25 s, shows the real interface, and its poster is in the README and the video attached to a release; the launcher icon renders in round and monochrome masks |
+| A19 | Starting is free and instant, DroidRoute's own keys are unreadable, and the agents use the tools that exist | T-203 reaches a verified working endpoint from a fresh install with one tap, no account and no key typed; T-205's test fails if any code path can reproduce a stored key after its one-time reveal, and revocation is immediate; `status/TOOLING-COVERAGE.md` gives every installed skill, plugin and MCP server a decision with a reason and CI fails while one is undecided; the workflow plugin exists in its own private repository with a leak check, and T-208 records a fresh clone passing `scripts/bootstrap.sh` and a fresh agent completing one task |
+
 ## Regression gate
 
 Every task's verification commands are the gate. A task that breaks a previously passing check is not complete, even if its own criteria pass — the failure goes to `status/ERRORS.md` and the task is repaired before the chain advances.
 
 ## Evidence trail
 
-For A1–A16, evidence is: the task log line, the verification command, and its raw output stored under `logs/tasks/`. Screenshots are attached to the task file only when the proof is visual (A3, A7).
+For A1–A19, evidence is: the task log line, the verification command, and its raw output stored under `logs/tasks/`. Screenshots are attached to the task file only when the proof is visual (A3, A7).

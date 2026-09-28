@@ -8,7 +8,7 @@ Rules: [handbooks/08-tooling-discovery.md](08-tooling-discovery.md) · inventory
 
 ## Why labels instead of hard-coded names
 
-Hard-coded skill names in 190 files go stale the moment a library is renamed, and a stale name is worse than a role name because it fails silently: the agent loads nothing and improvises. A label resolves through this one table, and `tools/check_skills.py` fails the build when a plan label has no mapping, or when a mapping points at something that is not installed.
+Hard-coded skill names in 208 files go stale the moment a library is renamed, and a stale name is worse than a role name because it fails silently: the agent loads nothing and improvises. A label resolves through this one table, and `tools/check_skills.py` fails the build when a plan label has no mapping, or when a mapping points at something that is not installed.
 
 `status/TOOLING.md` is the generated list of **what exists on this machine right now**. This file is the mapping from **what the work needs** to that list. When the two disagree, the checker wins and this page gets fixed.
 
@@ -42,6 +42,8 @@ Token syntax: `skill:<name>` = a Claude skill (global or project), `plugin:<name
 | `performance-android` | `skill:android-profiler`, `skill:optimize`, `plugin:application-performance` |
 | `persistence-room` | `plugin:database-design`, `plugin:database-migrations`, `plugin:database-cloud-optimization` |
 | `design-craft` | `skill:craft`, `skill:impeccable`, `skill:design-review`, `skill:polish`, `skill:layout`, `skill:typeset`, `skill:design-library` — the system itself is [docs/14](../docs/14-design-system.md) |
+| `visual-qa` | `skill:audit`, `skill:design-review`, `skill:critique`, `skill:android-cli` (device capture) — evidence rules: [docs/14](../docs/14-design-system.md) §11–§13 |
+| `launch-video` | `plugin:brag` (also provides `/brag-slim`); requires Node 22+, FFmpeg on `PATH`, and `npx hyperframes doctor` to pass |
 | `design-a11y` | `skill:accessibility`, `skill:audit`, `skill:polish`, `skill:adaptive` |
 | `provider-integration` | `skill:droidroute-provider-manifest`, `plugin:api-scaffolding` |
 | `llm-gateway-protocols` | `plugin:llm-application-dev`, `plugin:backend-api-security` |

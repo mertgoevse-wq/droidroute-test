@@ -46,7 +46,7 @@ Eine **Android-native App („DroidRoute")** auf dem Galaxy A56 des Besitzers, d
 - **Software-Umgebung:** Termux mit proot-distro **Debian**; darin laufen **Claude Code** und **Freebuff** (Coding-Agenten) bereits produktiv.
 - **Bestehende Abos:** Google AI Pro (Gemini), Perplexity Pro; diverse Provider-Konten mit Credits/Guthaben.
 - **Git/GitHub:** Ist auf dem Handy bereits eingerichtet (Login vorhanden). Es wird ein **privates Repo namens `droidroute`** verwendet.
-- **Projektordner:** Der aktuelle Arbeitsordner heißt derzeit `loki.code` und soll in **`droidroute`** umbenannt werden (Umbenennung bewusst als eigener, letzter Schritt nach der Spec-Erstellung, damit laufende Arbeit nicht abbricht).
+- **Projektordner:** heißt **`droidroute`**. Der frühere Arbeitsordner-Name ist entfallen; die Umbenennung wurde als eigener, letzter Schritt nach der Spec-Erstellung ausgeführt.
 - **Der Besitzer will einfache Worte:** Alle interviewbezogenen Dokumente erklären Fachbegriffe (siehe Wörterbuch). Die erzeugten .md-Dateien sind englisch, aber klar und einfach gehalten.
 
 ---
@@ -176,7 +176,7 @@ Eine **Android-native App („DroidRoute")** auf dem Galaxy A56 des Besitzers, d
 - **APK-Bau — beides:**
   1. **GitHub baut automatisch:** Bei jedem Hochladen baut GitHub (GitHub Actions, kostenlos) die APK; Besitzer lädt sie von der GitHub-Seite herunter und installiert sie.
   2. **Auf dem Handy bauen:** Lokaler Bau in Termux als **Notfall-Fallback** (ohne Internet; dauert ca. 10–30 Min, viel Akku).
-- **Ordner-Umbenennung:** Der aktuelle Projektordner `loki.code` wird in `droidroute` umbenannt (eigener, letzter Schritt nach der Spec — erledigt die Arbeitssitzung, die die Spec erstellt hat, direkt im Anschluss; bewusst zuletzt, um laufende Prozesse nicht zu unterbrechen).
+- **Ordner-Umbenennung:** erledigt — der Projektordner heißt `droidroute`. Frisch klonen geht mit `git clone https://github.com/mertgoevse-wq/droidroute.git droidroute` und danach `bash scripts/bootstrap.sh`.
 
 ---
 
@@ -204,7 +204,7 @@ Eine **Android-native App („DroidRoute")** auf dem Galaxy A56 des Besitzers, d
 20. **Maximale Status-Dateien** (PROGRESS/NEXT/DECISIONS/ERRORS + pro Bauteil + Tageszusammenfassung) für **Handover an jedes andere Modell/Programm**.
 21. **Privates Repo `droidroute`**; **niemals Schlüssel ins Repo**; Logs ins Repo mit **wöchentlichem Aufräumen**.
 22. **APK-Bau:** GitHub Actions automatisch + Termux-Fallback.
-23. Ordner **`loki.code` → `droidroute`** umbenennen (letzter Schritt).
+23. Projektordner heißt **`droidroute`** (Umbenennung erledigt).
 
 ---
 
