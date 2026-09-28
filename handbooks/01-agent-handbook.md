@@ -31,7 +31,7 @@ Every task file has: Goal · Skills · Deliverables · Steps · Acceptance crite
 
 ## 3. Work with at least two parallel subagents
 
-See [`handbooks/02-subagent-orchestration.md`](02-subagent-orchestration.md). Summary: split the task into separable workstreams (typically implement / test / document), give each a stated skill, run them in parallel, integrate in the main context. Four subagents are ready to dispatch in `.claude/agents/`: `implementer`, `verifier`, `chronicler`, `tooling-scout`. Never drop below two parallel workstreams plus one verification stream.
+See [`handbooks/02-subagent-orchestration.md`](02-subagent-orchestration.md). Summary: split the task into separable workstreams (typically implement / test / document), give each a stated skill, run them in parallel, integrate in the main context. The skill names in a task file are role labels — resolve them through [`handbooks/09-skill-resolution.md`](09-skill-resolution.md) to the installed skills, plugins and MCP servers before dispatching. Four subagents are ready to dispatch in `.claude/agents/`: `implementer`, `verifier`, `chronicler`, `tooling-scout`. Never drop below two parallel workstreams plus one verification stream.
 
 ## 4. Verify before claiming
 

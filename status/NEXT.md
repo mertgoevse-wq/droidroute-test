@@ -22,7 +22,7 @@ python3 scripts/discover_tooling.py --check-fresh  # tooling inventory must matc
 scripts/preflight-secrets.sh
 ```
 
-Pick your two skill streams from [`status/TOOLING.md`](TOOLING.md) — this task's own suggestion is `git-workflow` + `testing`, and the project skills [`droidroute-task-runner`](../.claude/skills/droidroute-task-runner/SKILL.md) and [`droidroute-verification`](../.claude/skills/droidroute-verification/SKILL.md) apply.
+Resolve this task's two role labels (`git-workflow` + `testing`) through [`handbooks/09-skill-resolution.md`](../handbooks/09-skill-resolution.md) — that table turns each label into the installed skills, plugins and MCP servers to load, and `python3 tools/check_skills.py` proves the mapping still points at something installed. The project skills [`droidroute-task-runner`](../.claude/skills/droidroute-task-runner/SKILL.md) and [`droidroute-verification`](../.claude/skills/droidroute-verification/SKILL.md) apply to every task. The full inventory is [`status/TOOLING.md`](TOOLING.md).
 
 ## After it is done
 

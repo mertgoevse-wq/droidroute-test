@@ -1,13 +1,15 @@
 # tools/ — how the plan is produced
 
-`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 147 tasks stay consistent in structure and can be edited in one place.
+`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 184 tasks stay consistent in structure and can be edited in one place.
 
 ```
 tools/
 ├── generate_plan.py       # writes plan/phase-*/T-*.md and plan/INDEX.md
+├── check_links.py         # every relative markdown link resolves
+├── check_skills.py        # every plan role label resolves to an installed skill/plugin/MCP server
 ├── plan_data/
 │   ├── common.py          # Task dataclass + renderer
-│   ├── phase_00.py … phase_11.py
+│   ├── phase_00.py … phase_13.py
 └── README.md
 ```
 
@@ -17,6 +19,8 @@ tools/
 python3 tools/generate_plan.py            # write all task files + INDEX.md
 python3 tools/generate_plan.py --check    # verify the files on disk match the data
 python3 tools/generate_plan.py --phase 6  # only phase 6
+python3 tools/check_links.py              # every relative markdown link resolves
+python3 tools/check_skills.py             # every role label resolves to something installed
 ```
 
 ## Adding or changing a task
@@ -30,7 +34,7 @@ Renumbering is forbidden: commit messages, status files and logs reference task 
 
 ## Why a generator
 
-147 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
+184 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
 
 - every task has the same required sections (`Goal`, `Skills`, `Deliverables`, `Steps`, `Acceptance criteria`, `Verification`, `Logging & Git`, `State after success`),
 - dependencies and phase membership are declared once,

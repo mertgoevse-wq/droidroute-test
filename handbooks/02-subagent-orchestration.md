@@ -44,7 +44,7 @@ For UI tasks the split becomes *structure / visual polish / accessibility*. For 
 
 ## Skill selection
 
-Each task file suggests skills with a stated role. That suggestion is a **default with freedom to deviate** — but never below the two-parallel-workstream floor. If you substitute, log the substitution and the reason. `handbooks/03-skills-catalog.md` lists the skills this project relies on; the host's real inventory may be larger, and you should prefer a specific skill over a generic one.
+Each task file suggests skills with a stated role. Those names are **role labels**, not tool names: resolve each one through [`handbooks/09-skill-resolution.md`](09-skill-resolution.md) to the installed skills, plugins and MCP servers to load (`tools/check_skills.py` enforces that every label resolves). That suggestion is a **default with freedom to deviate** — but never below the two-parallel-workstream floor. If you substitute, log the substitution and the reason. `handbooks/03-skills-catalog.md` lists the skills this project relies on; the host's real inventory may be larger, and you should prefer a specific skill over a generic one.
 
 ## Verification workstream is not optional
 

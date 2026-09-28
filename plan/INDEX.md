@@ -1,4 +1,4 @@
-# Build plan — 166 tasks
+# Build plan — 184 tasks
 
 The execution order is the numeric order of the task ids. Each task is one commit
 and one log file. Rules: [AGENTS.md](../AGENTS.md) · process: [docs/08-workflow.md](../docs/08-workflow.md) ·
@@ -21,6 +21,7 @@ resume: [handbooks/06-resume-protocol.md](../handbooks/06-resume-protocol.md).
 | [10 — Logging & handover](phase-10-logging-handover/) | T-127 … T-135 | 9 | Retention, status automation, evidence bundles and adversarial resume drills. |
 | [11 — Delivery](phase-11-delivery/) | T-136 … T-147 | 12 | Performance and security hardening, the acceptance run, the release pipeline and owner documentation. |
 | [12 — OmniRoute parity & power features](phase-12-parity-power/) | T-148 … T-166 | 19 | Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring. |
+| [13 — Competitive absorption & Android edge](phase-13-competitive-edge/) | T-167 … T-184 | 18 | Any-provider detection, migration importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-awareness, self-update. |
 
 ## All tasks
 
@@ -280,6 +281,31 @@ Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardra
 | [T-164](phase-12-parity-power/T-164-models-ordering-and-free-tier-view.md) | Canonical model ordering and free-tier catalogue view | T-069, T-082, T-095 | yes |
 | [T-165](phase-12-parity-power/T-165-cli-setup-and-remote-mode.md) | CLI setup helpers and remote mode with scoped tokens | T-016, T-021, T-022 | yes |
 | [T-166](phase-12-parity-power/T-166-build-agent-tooling-wiring.md) | Build-agent tooling wiring (skills, plugins, MCP) | T-131 | yes |
+
+### Phase 13 — Competitive absorption & Android edge
+
+Any-provider detection, migration importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-awareness, self-update.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-167](phase-13-competitive-edge/T-167-provider-autodetection.md) | Automatic provider detection from any URL | T-024, T-029, T-033 | yes |
+| [T-168](phase-13-competitive-edge/T-168-migration-importers.md) | Migration importers from other routers | T-024, T-033 | yes |
+| [T-169](phase-13-competitive-edge/T-169-local-first-and-noauth-providers.md) | Local-first and no-auth providers, with fail-closed semantics | T-025, T-027, T-031, T-113 | yes |
+| [T-170](phase-13-competitive-edge/T-170-extra-wire-surfaces.md) | Extra wire surfaces: OpenAI Responses API and Vertex AI | T-066, T-027, T-055 | yes |
+| [T-171](phase-13-competitive-edge/T-171-subscription-login-adapters.md) | Subscription login adapters and multi-account pools | T-057, T-081, T-030 | yes |
+| [T-172](phase-13-competitive-edge/T-172-tool-output-filters.md) | Tool-output compression filters (lossless tool results) | T-153 | yes |
+| [T-173](phase-13-competitive-edge/T-173-response-style-presets.md) | Response-style presets (terse and minimal-code), opt-in | T-153, T-066 | yes |
+| [T-174](phase-13-competitive-edge/T-174-conversation-affinity.md) | Conversation affinity (sticky provider) | T-154, T-087 | yes |
+| [T-175](phase-13-competitive-edge/T-175-offline-first-mode.md) | Offline-first mode with queued cloud requests | T-113, T-152 | yes |
+| [T-176](phase-13-competitive-edge/T-176-phone-aware-routing.md) | Battery, thermal and network-aware routing | T-113, T-084 | yes |
+| [T-177](phase-13-competitive-edge/T-177-android-surfaces.md) | Quick Settings tile, widget, share sheet and text-selection action | T-105, T-091 | yes |
+| [T-178](phase-13-competitive-edge/T-178-mobile-data-accounting.md) | Mobile-data accounting and budget | T-155, T-176 | yes |
+| [T-179](phase-13-competitive-edge/T-179-offline-model-catalog.md) | Offline model catalog pack | T-110, T-111 | yes |
+| [T-180](phase-13-competitive-edge/T-180-in-app-updater.md) | In-app updater with signature verification and rollback | T-144, T-009 | yes |
+| [T-181](phase-13-competitive-edge/T-181-signed-catalog-updates.md) | Catalog updates without an app release | T-164, T-180 | yes |
+| [T-182](phase-13-competitive-edge/T-182-debug-capture-mode.md) | Debug capture mode (redacted, time-bounded) | T-017, T-104 | yes |
+| [T-183](phase-13-competitive-edge/T-183-qr-config-portability.md) | Config portability by QR code (no cloud) | T-034, T-006 | yes |
+| [T-184](phase-13-competitive-edge/T-184-native-benchmark.md) | Native-versus-service benchmark on this device | T-136, T-180 | yes |
 ## Generated file
 
 This index and every task file are produced by `tools/generate_plan.py` from `tools/plan_data/`.

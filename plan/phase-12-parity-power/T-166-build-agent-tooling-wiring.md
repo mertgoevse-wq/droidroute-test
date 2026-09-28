@@ -18,13 +18,13 @@ Verification is never skipped. If you substitute a skill, log it — see [handbo
 ## Deliverables
 
 - `status/TOOLING.md` regenerated, with `--check` wired into CI and `--check-fresh` documented for local use
-- Project skills and subagents reviewed against the 13 phases; gaps filled or explicitly noted
+- Project skills and subagents reviewed against the 14 phases; gaps filled or explicitly noted
 
 ## Steps
 
 1. Run `python3 scripts/discover_tooling.py` and commit the refreshed inventory.
 2. Confirm the CI step validates structure (`--check`) and that freshness is a local duty (`--check-fresh`) — a runner without agent configuration must not fail the build for a reason it cannot control.
-3. Walk each phase in `handbooks/03-skills-catalog.md` and confirm a real skill exists for its primary and verification stream.
+3. Walk each phase in `handbooks/03-skills-catalog.md` and confirm a real skill exists for its primary and verification stream, resolving every role label through `handbooks/09-skill-resolution.md`.
 4. Verify the docs point at the inventory rather than repeating skill names that may drift.
 
 ## Acceptance criteria

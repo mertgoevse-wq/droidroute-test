@@ -1,12 +1,12 @@
 # Build Workflow (One-Shot, Autonomous, Resumable)
 
-This repository is not documentation *about* a build — it *is* the build plan. A single agent session (Claude Code or Freebuff) executes `plan/` from T-001 to T-147 without human intervention.
+This repository is not documentation *about* a build — it *is* the build plan. A single agent session (Claude Code or Freebuff) executes `plan/` from T-001 to T-184 without human intervention.
 
 ## The task loop
 
 ```
 for task in plan/**/T-*.md in numeric order:
-    0. refresh the tooling inventory if stale (status/TOOLING.md) and pick the skill pair
+    0. refresh the tooling inventory if stale (status/TOOLING.md) and resolve the task's two role labels (handbooks/09-skill-resolution.md)
     1. read the task file, its dependencies, and status/NEXT.md
     2. verify prerequisites are actually done (files exist, tests pass)
     3. run the task's skills IN PARALLEL as subagents (minimum 2, see below)
@@ -80,4 +80,4 @@ Fully autonomous mode is allowed. The owner may also pause at any task boundary 
 
 ## Definition of done for the whole chain
 
-The chain is finished when every acceptance criterion in `docs/10-acceptance.md` is met, `status/PROGRESS.md` shows 147/147, and a fresh agent reading only `README.md` + `status/` can operate the app.
+The chain is finished when every acceptance criterion in `docs/10-acceptance.md` is met, `status/PROGRESS.md` shows 184/184, and a fresh agent reading only `README.md` + `status/` can operate the app.

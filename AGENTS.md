@@ -4,7 +4,7 @@ Any agentic tool that builds this project reads this file. `CLAUDE.md` is the Cl
 
 ## 1. What this repository is
 
-The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **147 task files**. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
+The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **184 task files** across 14 phases. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
 
 ## 2. Boot sequence (no chat history assumed)
 
@@ -45,7 +45,7 @@ Do not skip tasks. Do not reorder them for convenience. Do not batch several tas
 - The task's skill suggestion is a default **with freedom to deviate** — but never below two parallel workstreams.
 - Subagents must not write the same file in the same round; serialise and log the reason if they must.
 - **Discover before you improvise.** `status/TOOLING.md` lists the installed skills (global and project), plugins and MCP servers; `.claude/agents/` holds the four project subagents. Precedence: project skill → global skill → community skill → write it yourself. Installing anything from the community index needs the owner's confirmation.
-- Full pattern: [`handbooks/02-subagent-orchestration.md`](handbooks/02-subagent-orchestration.md) · catalog: [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md) · discovery rules: [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md).
+- Full pattern: [`handbooks/02-subagent-orchestration.md`](handbooks/02-subagent-orchestration.md) · catalog: [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md) · discovery rules: [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md) · which label means which installed tool: [`handbooks/09-skill-resolution.md`](handbooks/09-skill-resolution.md).
 
 ## 5. Logging (everything)
 
@@ -99,5 +99,6 @@ Stop and report when: a criterion fails after one repair attempt; a user-visible
 | Definition of done | `docs/10-acceptance.md` |
 | Settled open questions | `docs/11-tbc-resolutions.md` |
 | OmniRoute feature parity and the owner's extras | `docs/12-omniroute-parity.md` |
+| What 9Router, CLIProxyAPI, LiteLLM and friends have, and where DroidRoute differs | `docs/13-competitive-landscape.md` |
 | What tools/skills/MCP servers exist | `status/TOOLING.md` |
 | Terms, explained in German | `docs/glossary-de.md` |

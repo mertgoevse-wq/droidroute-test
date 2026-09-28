@@ -6,7 +6,7 @@
 
 **Subagents.** Four are defined in [`.claude/agents/`](.claude/agents/): `implementer`, `verifier`, `chronicler`, `tooling-scout`. Dispatch at least `implementer` + `verifier` per task, add `chronicler` when docs/status/logs change, and `tooling-scout` when the right tool is unclear. Launch them in one message so they run concurrently. Give each subagent the task id, its workstream name, its exclusive file list, and the acceptance lines it owns. Never let two subagents edit the same file in one round.
 
-**Skills.** Prefer an installed skill over ad-hoc instructions. Read [`status/TOOLING.md`](status/TOOLING.md) (generated) to see what is actually installed — 100+ global skills, the project skills in [`.claude/skills/`](.claude/skills/), plugins such as `superpowers` and `context-mode`, plus any MCP servers. The selection matrix per phase is [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md); the rules are [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md). If you substitute or install, log `skill-substitution: <old> → <new> (<reason>)` and ask before installing anything from the community index.
+**Skills.** Prefer an installed skill over ad-hoc instructions. Read [`status/TOOLING.md`](status/TOOLING.md) (generated) to see what is actually installed — 100+ global skills, the project skills in [`.claude/skills/`](.claude/skills/), plugins such as `superpowers` and `context-mode`, plus any MCP servers. The selection matrix per phase is [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md); the rules are [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md); and [`handbooks/09-skill-resolution.md`](handbooks/09-skill-resolution.md) turns each role label a task names (`kotlin-core`, `provider-integration`, …) into the concrete installed skills, plugins and MCP servers to load — every token there is checked against the inventory by `tools/check_skills.py`. If you substitute or install, log `skill-substitution: <old> → <new> (<reason>)` and ask before installing anything from the community index.
 
 **Project skills override global ones.** When both cover the same ground, the project skill wins because it encodes this repository's constraints. Six are installed: `droidroute-task-runner`, `droidroute-verification`, `droidroute-provider-manifest`, `droidroute-routing`, `droidroute-compose-ui`, `droidroute-skill-scout`.
 
@@ -16,7 +16,7 @@
 
 **Shell continuity.** Termux has no persistent daemon across sessions — assume nothing about the previous session except what is in `git log`, `logs/`, and `status/`.
 
-**Context budget.** Do not read all 147 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
+**Context budget.** Do not read all 184 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
 
 ## The loop in Claude Code terms
 

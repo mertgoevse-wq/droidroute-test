@@ -13,6 +13,7 @@ on:
       - 'handbooks/**'
       - 'plan/**'
       - 'scripts/**'
+      - 'tools/**'
 
 permissions:
   contents: write
@@ -53,43 +54,20 @@ jobs:
         run: python3 scripts/discover_tooling.py --check
 
       - name: Check relative markdown links
-        run: |
-          python3 - <<'PY'
-          import os, re, sys, urllib.parse
-          root = os.getcwd()
-          bad = []
-          pattern = re.compile(r'\[[^\]]*\]\(([^)]+)\)')
-          for dirpath, dirnames, filenames in os.walk('.'):
-              dirnames[:] = [d for d in dirnames if d not in ('.git', 'build', 'logs', 'node_modules')]
-              for name in filenames:
-                  if not name.endswith('.md'):
-                      continue
-                  path = os.path.join(dirpath, name)
-                  with open(path, encoding='utf-8') as fh:
-                      text = fh.read()
-                  for target in pattern.findall(text):
-                      if target.startswith(('http://', 'https://', 'mailto:', '#')):
-                          continue
-                      clean = urllib.parse.unquote(target.split('#')[0].strip())
-                      if not clean:
-                          continue
-                      resolved = os.path.normpath(os.path.join(dirpath, clean))
-                      if not os.path.exists(resolved):
-                          bad.append(f"{path} -> {target}")
-          if bad:
-              print("Broken relative links:")
-              for line in bad:
-                  print("  " + line)
-              sys.exit(1)
-          print("all relative links resolve")
-          PY
+        run: python3 tools/check_links.py
+
+      - name: Plan matches its data
+        run: python3 tools/generate_plan.py --check
+
+      - name: Skill resolution is complete and installed
+        run: python3 tools/check_skills.py
 
       - name: Plan integrity
         run: |
           count=$(find plan -name 'T-*.md' | wc -l)
           echo "task files: $count"
-          if [ "$count" -lt 135 ]; then
-            echo "::error::expected at least 135 task files, found $count"
+          if [ "$count" -lt 180 ]; then
+            echo "::error::expected at least 180 task files, found $count"
             exit 1
           fi
           # every task file must carry the required sections

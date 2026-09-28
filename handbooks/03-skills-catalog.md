@@ -4,6 +4,8 @@
 
 This catalog is grounded in what is actually installed. The live list is `status/TOOLING.md` (generated); this page explains *which ones to reach for and why*.
 
+**Task files name role labels, not tool names** (`kotlin-core`, `provider-integration`, `testing`, …). [`handbooks/09-skill-resolution.md`](09-skill-resolution.md) is the table that turns each label into the installed skills, plugins and MCP servers to load, and `tools/check_skills.py` fails the build when a label has no row or a row points at something that is not installed. Resolve the labels there first; use this page to choose between the resulting tools.
+
 ## Project skills (authoritative here)
 
 | Skill | Use for |
@@ -67,14 +69,16 @@ Four matching subagents live in `.claude/agents/`: `implementer`, `verifier`, `c
 | 10 Logging & handover | `karpathy-wiki`, `writing-guidelines` | `droidroute-verification` |
 | 11 Delivery | `audit` + `security-audit` intent via `android-intent-security` | `testing-setup`, `r8-analyzer` |
 | 12 OmniRoute parity | `droidroute-routing`, `ai-governors` | `droidroute-verification`, `optimize` |
+| 13 Competitive edge | `droidroute-provider-manifest`, `android-platform` | `droidroute-verification`, `android-profiler`, `android-intent-security` |
 
 ## Choosing well
 
-1. **Specific beats generic.** `android-intent-security` outperforms a hand-rolled security checklist for intent review.
-2. **Project beats global** where both apply — the project skill carries this repository's constraints.
-3. **Verification is never optional.** One of the two streams must be able to say "no".
-4. **Deviate, but log it:** `skill-substitution: <old> -> <new> (<reason>)`.
-5. **Do not chain five skills "just in case".** Two or three focused streams beat a committee; extra streams cost context and produce conflicting edits.
+1. **Resolve the label first.** A role label is stable; the tool behind it can change. [`handbooks/09-skill-resolution.md`](09-skill-resolution.md) owns that mapping, and `tools/check_skills.py` proves it still points at something installed.
+2. **Specific beats generic.** `android-intent-security` outperforms a hand-rolled security checklist for intent review.
+3. **Project beats global** where both apply — the project skill carries this repository's constraints.
+4. **Verification is never optional.** One of the two streams must be able to say "no".
+5. **Deviate, but log it:** `skill-substitution: <old> -> <new> (<reason>)`.
+6. **Do not chain five skills "just in case".** Two or three focused streams beat a committee; extra streams cost context and produce conflicting edits.
 
 ## Searching beyond the installed set
 

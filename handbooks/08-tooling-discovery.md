@@ -72,6 +72,10 @@ skill-install-request: <owner/repo> — confirmed with owner before install
 tooling-stale: regenerated status/TOOLING.md (env changed since last commit)
 ```
 
+## Which tool a task label means
+
+Task files name role labels (`kotlin-core`, `provider-integration`, `testing`, …), not tool names, so the plan does not break when a library is renamed. [`handbooks/09-skill-resolution.md`](09-skill-resolution.md) is the table that resolves each label to the installed skills, plugins and MCP servers, and `tools/check_skills.py` fails the build when a label has no row or a row points at something that is not installed. Read that page before this one when you are starting a task; read this one when the mapping has to change.
+
 ## When nothing fits
 
 Order of escalation:

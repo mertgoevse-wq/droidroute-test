@@ -129,7 +129,21 @@ Consequence for the product: DroidRoute itself does the same thing at runtime (`
 
 **Decision: every parity row names a task, or says plainly that it is not planned and why.**
 
-`docs/12-omniroute-parity.md` is the contract, verified against OmniRoute's own README. Parity is the floor, never the ceiling. Three OmniRoute capabilities are deliberately **not** planned, with the reason recorded in the matrix: the Radar catalogue overlay (needs a network dependency the owner does not want), transparent MITM/TPROXY TLS interception (requires a CA in the device trust store and intercepts traffic on a personal phone), and vendor cloud-agent endpoints (a different product category). Everything else maps to a task in `plan/`, with phase 12 closing the gap that phase 11 (v0.1) does not cover.
+`docs/12-omniroute-parity.md` is the contract, verified against OmniRoute's own README. Parity is the floor, never the ceiling. Three OmniRoute capabilities are deliberately **not** planned, with the reason recorded in the matrix: the Radar catalogue overlay (needs a network dependency the owner does not want), transparent MITM/TPROXY TLS interception (requires a CA in the device trust store and intercepts traffic on a personal phone), and vendor cloud-agent endpoints (a different product category). Everything else maps to a task in `plan/`, with phase 12 closing the gap that phase 11 (v0.1) does not cover. Competitors beyond OmniRoute are handled by TBC-10.
+
+## TBC-10 — How far the comparison to other routers goes
+
+**Decision: absorb what is table stakes, refuse what conflicts with the owner's rules, and build what none of them can.**
+
+`docs/13-competitive-landscape.md` compares DroidRoute against 9Router, OmniRoute, CLIProxyAPI, LiteLLM, the hosted aggregators and the enterprise gateways. Three rules came out of it:
+
+| Rule | Consequence |
+|---|---|
+| Anything a competitor has that a router needs is a **task**, not a promise | Each absorbed capability names its task id in the matrix; a claim without a task is not allowed |
+| Competitor claims are **attributed**, never restated as fact | 9Router's package is private, so its feature list is marked as claims in the comparison |
+| A capability that changes the owner's output without consent is **refused** | Prompt-style presets exist (T-173) but default **off** and never apply to a request that did not ask for them; cloud config sync is refused in favour of QR transfer (T-183) |
+
+The genuinely phone-specific work — battery/thermal/network-aware routing (T-176), offline-first mode (T-175), conversation affinity (T-174), self-update with signature verification (T-180, T-181), an offline model catalog (T-179), mobile-data budgeting (T-178) and the Android surfaces (T-177) — exists precisely because every competitor is a server-side service.
 
 ---
 
@@ -142,3 +156,5 @@ Consequence for the product: DroidRoute itself does the same thing at runtime (`
 - `plan/phase-09-mcp-plugins/` carries discovery + bridge (TBC-4).
 - `plan/phase-11-delivery/` carries the SDK/CI matrix (TBC-3).
 - `plan/phase-12-parity-power/` carries the OmniRoute parity work and the owner's extras (TBC-9), including the build-agent tooling wiring (TBC-8, T-166).
+- `plan/phase-13-competitive-edge/` carries the competitor absorption and the Android-only differentiators (TBC-10): any-provider detection, migration importers, local-first providers, extra wire surfaces, subscription login adapters, tool-output filters, response-style presets, conversation affinity, offline-first mode, phone-aware routing, Android surfaces, mobile-data accounting, the offline model catalog, self-update, signed catalog packs, debug capture, QR config portability and the native benchmark.
+- `handbooks/09-skill-resolution.md` carries the mapping from the role labels used in `plan/` to the installed skills, plugins and MCP servers (TBC-8).
