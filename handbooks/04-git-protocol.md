@@ -49,6 +49,10 @@ git diff checkpoint/T-042..HEAD --stat       # what changed since
 git revert <sha>                             # preferred over reset, keeps history
 ```
 
+## Expected dirty file after a push
+
+`scripts/step-commit.sh` writes the push outcome to `logs/chain.log` **after** the commit exists, so the tree is left with exactly one modified file: that log line. This is by design, not a mistake — the next `step-commit.sh` sweeps it into its own commit. Do not `git checkout` it away; it is the record that the push happened.
+
 ## Push failure
 
 Sync problems are normal on a phone with intermittent connectivity:

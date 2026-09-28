@@ -50,6 +50,10 @@ Write with `scripts/log-step.sh` (shell) or the app's `LogWriter` (Kotlin). Both
 
 Key values, `Authorization` headers, cookies, session tokens, vault ciphertext, full MCP `env` blocks, personal data from the owner's documents. The redactor catches known patterns, but do not rely on it — do not pass a secret to the logger in the first place.
 
+## One deliberate exception
+
+The push outcome line in `chain.log` is appended after the commit it describes, so it stays uncommitted until the next commit. That is intentional: the alternative is rewriting history. Expect `git status` to show `M logs/chain.log` right after a push, and let the next task's commit include it.
+
 ## Rotation
 
 `scripts/weekly-cleanup.sh` (also scheduled by the `repo-hygiene` workflow):
