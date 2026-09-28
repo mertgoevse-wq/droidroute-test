@@ -1,4 +1,4 @@
-# Build plan — 147 tasks
+# Build plan — 166 tasks
 
 The execution order is the numeric order of the task ids. Each task is one commit
 and one log file. Rules: [AGENTS.md](../AGENTS.md) · process: [docs/08-workflow.md](../docs/08-workflow.md) ·
@@ -20,6 +20,7 @@ resume: [handbooks/06-resume-protocol.md](../handbooks/06-resume-protocol.md).
 | [09 — MCP & plugins](phase-09-mcp-plugins/) | T-118 … T-126 | 9 | Discover MCP servers from the host environment, aggregate them, and bridge tool calls over the local API. |
 | [10 — Logging & handover](phase-10-logging-handover/) | T-127 … T-135 | 9 | Retention, status automation, evidence bundles and adversarial resume drills. |
 | [11 — Delivery](phase-11-delivery/) | T-136 … T-147 | 12 | Performance and security hardening, the acceptance run, the release pipeline and owner documentation. |
+| [12 — OmniRoute parity & power features](phase-12-parity-power/) | T-148 … T-166 | 19 | Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring. |
 
 ## All tasks
 
@@ -253,6 +254,32 @@ Performance and security hardening, the acceptance run, the release pipeline and
 | [T-145](phase-11-delivery/T-145-owner-documentation.md) | Owner documentation in German | T-144 | yes |
 | [T-146](phase-11-delivery/T-146-repository-beauty-pass.md) | Repository presentation pass | T-145 | yes |
 | [T-147](phase-11-delivery/T-147-chain-closure.md) | Chain closure and final handover statement | T-146 | yes |
+
+### Phase 12 — OmniRoute parity & power features
+
+Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-148](phase-12-parity-power/T-148-combo-engine.md) | Combo engine and virtual auto models | T-083, T-084, T-089 | yes |
+| [T-149](phase-12-parity-power/T-149-full-strategy-set.md) | Complete the 19-strategy set | T-148 | yes |
+| [T-150](phase-12-parity-power/T-150-fusion-and-pipeline.md) | Fusion and pipeline strategies | T-149 | yes |
+| [T-151](phase-12-parity-power/T-151-auto-scoring-engine.md) | Multi-factor auto scoring engine | T-148, T-085, T-082 | yes |
+| [T-152](phase-12-parity-power/T-152-admission-control.md) | Adaptive admission, overload protection and rolling leases | T-087 | yes |
+| [T-153](phase-12-parity-power/T-153-token-compression.md) | Token compression engines | T-068, T-081 | yes |
+| [T-154](phase-12-parity-power/T-154-prompt-cache-pinning.md) | Prompt-cache pinning and cache-hit telemetry | T-149, T-081 | yes |
+| [T-155](phase-12-parity-power/T-155-cost-telemetry.md) | Cost telemetry headers and per-key USD budgets | T-095, T-081, T-017 | yes |
+| [T-156](phase-12-parity-power/T-156-quota-share.md) | Quota-Share across pooled keys | T-081, T-083 | yes |
+| [T-157](phase-12-parity-power/T-157-memory-subsystem.md) | Memory subsystem (opt-in, local) | T-066, T-006 | yes |
+| [T-158](phase-12-parity-power/T-158-prompt-injection-guard.md) | Prompt-injection guard | T-066, T-077 | yes |
+| [T-159](phase-12-parity-power/T-159-credential-masking-guardrail.md) | Credential-masking guardrail | T-008, T-066 | yes |
+| [T-160](phase-12-parity-power/T-160-modality-bridge.md) | Modality bridge (vision, audio, video) | T-075, T-073, T-026 | yes |
+| [T-161](phase-12-parity-power/T-161-ocr-audio-translation-websearch.md) | OCR, audio translation and web-search fallback | T-075, T-160 | yes |
+| [T-162](phase-12-parity-power/T-162-video-generation.md) | Video generation endpoint | T-160, T-075 | yes |
+| [T-163](phase-12-parity-power/T-163-a2a-server.md) | A2A server for agent delegation | T-120, T-151 | yes |
+| [T-164](phase-12-parity-power/T-164-models-ordering-and-free-tier-view.md) | Canonical model ordering and free-tier catalogue view | T-069, T-082, T-095 | yes |
+| [T-165](phase-12-parity-power/T-165-cli-setup-and-remote-mode.md) | CLI setup helpers and remote mode with scoped tokens | T-016, T-021, T-022 | yes |
+| [T-166](phase-12-parity-power/T-166-build-agent-tooling-wiring.md) | Build-agent tooling wiring (skills, plugins, MCP) | T-131 | yes |
 ## Generated file
 
 This index and every task file are produced by `tools/generate_plan.py` from `tools/plan_data/`.

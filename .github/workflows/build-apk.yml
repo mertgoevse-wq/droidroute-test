@@ -30,6 +30,9 @@ jobs:
       - name: Secrets preflight
         run: bash scripts/preflight-secrets.sh
 
+      - name: Tooling inventory is current
+        run: python3 scripts/discover_tooling.py --check
+
       - name: Scaffolded?
         id: scaffold
         run: |

@@ -2,6 +2,19 @@
 
 **Rule: minimum two skills working in parallel per task, always with one verification workstream.**
 
+## The four project subagents
+
+Defined in [`.claude/agents/`](../.claude/agents/), so you do not have to re-specify them:
+
+| Subagent | Workstream | Dispatch when |
+|---|---|---|
+| `implementer` | produces the deliverables in its file list | always |
+| `verifier` | tries to falsify the implementation | always |
+| `chronicler` | logs, status files, docs, handover bundle | the task changes docs/status/logs |
+| `tooling-scout` | finds the right skill, plugin or MCP server | the right tool is unclear, or the inventory looks stale |
+
+Add parallel `implementer` instances only when their file sets are disjoint. A second implementer working the same file is a conflict, not throughput.
+
 ## The standard split
 
 Most tasks decompose cleanly into three workstreams:

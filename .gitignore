@@ -10,6 +10,13 @@ local.properties
 captures/
 .cxx/
 
+# --- Claude Code / agent tooling -------------------------------------------
+# Project settings, skills and subagents ARE committed (they are part of the build system).
+# Only local overrides and caches are ignored.
+.claude/settings.local.json
+.claude/*/cache/
+.agents/skills/
+
 # --- IDE --------------------------------------------------------------------
 .idea/
 *.iml

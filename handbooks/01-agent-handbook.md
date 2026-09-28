@@ -5,13 +5,17 @@ You are building **DroidRoute**. This is the operating manual. Follow it literal
 ## 0. First five minutes
 
 ```bash
+cat status/HANDOVER.md      # two-minute state summary, if present
 cat status/PROGRESS.md      # what is already done
 cat status/NEXT.md          # what to do next
 cat status/ERRORS.md        # what is currently broken, if anything
+cat status/TOOLING.md       # which skills, plugins and MCP servers you actually have
 tail -n 50 logs/chain.log   # what happened last
 git status --short          # is the tree clean?
 cat docs/11-tbc-resolutions.md   # the decisions you must not re-litigate
 ```
+
+If `python3 scripts/discover_tooling.py --check` fails, regenerate the inventory first: an out-of-date list makes you skip tools that exist.
 
 If the tree is not clean, understand the uncommitted diff before writing anything. Never discard someone else's in-progress work with a reset.
 
@@ -27,7 +31,7 @@ Every task file has: Goal · Skills · Deliverables · Steps · Acceptance crite
 
 ## 3. Work with at least two parallel subagents
 
-See `handbooks/02-subagent-orchestration.md`. Summary: split the task into separable workstreams (typically implement / test / document), give each a stated skill, run them in parallel, integrate in the main context. Never drop below two parallel workstreams plus one verification stream.
+See [`handbooks/02-subagent-orchestration.md`](02-subagent-orchestration.md). Summary: split the task into separable workstreams (typically implement / test / document), give each a stated skill, run them in parallel, integrate in the main context. Four subagents are ready to dispatch in `.claude/agents/`: `implementer`, `verifier`, `chronicler`, `tooling-scout`. Never drop below two parallel workstreams plus one verification stream.
 
 ## 4. Verify before claiming
 

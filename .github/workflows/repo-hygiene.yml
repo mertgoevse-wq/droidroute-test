@@ -49,6 +49,9 @@ jobs:
       - name: Secrets preflight
         run: bash scripts/preflight-secrets.sh
 
+      - name: Tooling inventory is current
+        run: python3 scripts/discover_tooling.py --check
+
       - name: Check relative markdown links
         run: |
           python3 - <<'PY'
@@ -92,7 +95,7 @@ jobs:
           # every task file must carry the required sections
           missing=0
           for f in $(find plan -name 'T-*.md'); do
-            for section in '## Goal' '## Skills' '## Steps' '## Acceptance criteria' '## Verification'; do
+            for section in '## Goal' '## Skills' '## Deliverables' '## Steps' '## Acceptance criteria' '## Verification' '## Handover'; do
               if ! grep -qF "$section" "$f"; then
                 echo "::error file=$f::missing section $section"
                 missing=1

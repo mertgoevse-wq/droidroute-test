@@ -9,13 +9,17 @@ The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/
 ## 2. Boot sequence (no chat history assumed)
 
 ```
+status/HANDOVER.md   → two-minute summary: state, next action, blockers
 status/PROGRESS.md   → what is done
 status/NEXT.md       → the next task id
 status/DECISIONS.md  → decisions already settled (do not re-open)
 status/ERRORS.md     → known breakage
+status/TOOLING.md    → which skills, plugins and MCP servers you actually have
 logs/chain.log       → tail -n 80 for recent history
 git status --short   → must be clean before you start
 ```
+
+Keep the tooling inventory fresh: `python3 scripts/discover_tooling.py --check` (CI fails on a stale one).
 
 Details and edge cases: [`handbooks/06-resume-protocol.md`](handbooks/06-resume-protocol.md).
 
@@ -40,7 +44,8 @@ Do not skip tasks. Do not reorder them for convenience. Do not batch several tas
 - Verification is never optional and never skipped, even for a one-line change.
 - The task's skill suggestion is a default **with freedom to deviate** — but never below two parallel workstreams.
 - Subagents must not write the same file in the same round; serialise and log the reason if they must.
-- Full pattern: [`handbooks/02-subagent-orchestration.md`](handbooks/02-subagent-orchestration.md) · catalog: [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md).
+- **Discover before you improvise.** `status/TOOLING.md` lists the installed skills (global and project), plugins and MCP servers; `.claude/agents/` holds the four project subagents. Precedence: project skill → global skill → community skill → write it yourself. Installing anything from the community index needs the owner's confirmation.
+- Full pattern: [`handbooks/02-subagent-orchestration.md`](handbooks/02-subagent-orchestration.md) · catalog: [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md) · discovery rules: [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md).
 
 ## 5. Logging (everything)
 
@@ -68,9 +73,10 @@ Full list with examples: [`handbooks/07-anti-slop-rules.md`](handbooks/07-anti-s
 
 ## 8. Use the connected tooling
 
-- **MCP servers, plugins and connectors that are available must be used.** DroidRoute federates them (`docs/07-mcp-plugins.md`); before writing a tool yourself, check `GET /mcp/tools`.
+- **MCP servers, plugins and connectors that are available must be used.** Project servers come from `.mcp.json` (template [`.mcp.json.example`](.mcp.json.example), auto-enabled via `.claude/settings.json`); the full inventory — global, per-project and file scope — is in `status/TOOLING.md`. Once DroidRoute runs, agents can also use `GET /mcp/tools`.
 - Prefer an installed skill over a hand-rolled instruction; record substitutions in the task log.
-- If a tool is unavailable, proceed with the task's documented degraded path and log it.
+- If a tool is unavailable, proceed with the task's documented degraded path and log it. A missing server is never a reason to invent credentials or a URL.
+- Reusable project-specific procedure worth keeping? Add it as a project skill under `.claude/skills/<name>/SKILL.md` and it appears in the inventory.
 
 ## 9. Stop conditions
 
@@ -92,4 +98,6 @@ Stop and report when: a criterion fails after one repair attempt; a user-visible
 | Build + release | `docs/09-build-and-release.md` |
 | Definition of done | `docs/10-acceptance.md` |
 | Settled open questions | `docs/11-tbc-resolutions.md` |
+| OmniRoute feature parity and the owner's extras | `docs/12-omniroute-parity.md` |
+| What tools/skills/MCP servers exist | `status/TOOLING.md` |
 | Terms, explained in German | `docs/glossary-de.md` |

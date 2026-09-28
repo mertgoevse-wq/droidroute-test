@@ -1,0 +1,1391 @@
+{
+  "environment": {
+    "platform": "linux",
+    "machine": "aarch64",
+    "home": "/home/mert",
+    "project": "/home/mert/loki.route"
+  },
+  "global_skills_dir": "/home/mert/.claude/skills",
+  "global_skills": [
+    "accessibility",
+    "adapt",
+    "adaptive",
+    "agp-9-upgrade",
+    "ai-governors",
+    "ai-identifiers",
+    "ai-inputs",
+    "ai-trust-builders",
+    "ai-tuners",
+    "ai-wayfinders",
+    "android-cli",
+    "android-intent-security",
+    "android-profiler",
+    "animate",
+    "appfunctions",
+    "audit",
+    "autoresearch",
+    "bolder",
+    "brandkit",
+    "camerax",
+    "clarify",
+    "cognitive-load-conversion",
+    "colorize",
+    "craft",
+    "critique",
+    "delight",
+    "deploy-to-vercel",
+    "design-analysis",
+    "design-library",
+    "design-review",
+    "design-system",
+    "dieter-rams-principles",
+    "display-glasses-with-jetpack-compose-glimmer",
+    "distill",
+    "double-diamond",
+    "edge-to-edge",
+    "emil-design-eng",
+    "empathy-mapping",
+    "engage-sdk-integration",
+    "feature-prioritization",
+    "flylab-autonomous-orchestrator",
+    "full-output-enforcement",
+    "general-design-review",
+    "gpt-taste",
+    "higgsfield-brandkit",
+    "higgsfield-generate",
+    "higgsfield-marketplace-cards",
+    "higgsfield-product-photoshoot",
+    "higgsfield-soul-id",
+    "higgsfield-video-explainer",
+    "higgsfield-websites",
+    "higgsfield-youtube-thumbnail",
+    "high-end-visual-design",
+    "image-to-code",
+    "imagegen-frontend-mobile",
+    "imagegen-frontend-web",
+    "impeccable",
+    "journey-mapping",
+    "karpathy-audit",
+    "karpathy-diff",
+    "karpathy-refactor",
+    "karpathy-update",
+    "karpathy-wiki",
+    "layout",
+    "leanback-to-compose-tv-migration",
+    "like-wish-what-if",
+    "low-effort-high-reward",
+    "map-systems",
+    "media3-cast-integration",
+    "migrate-xml-views-to-jetpack-compose",
+    "minimalist-ui",
+    "ml-kit-genai-prompt-api",
+    "mobile-android-design",
+    "mobile-app-design",
+    "natprd",
+    "navigation-3",
+    "navigation-event",
+    "optimize",
+    "overdrive",
+    "persuasive-ux",
+    "pi-planning-with-files",
+    "planning-with-files",
+    "planning-with-files-ar",
+    "planning-with-files-de",
+    "planning-with-files-es",
+    "planning-with-files-zh",
+    "planning-with-files-zht",
+    "play-billing-library-version-upgrade",
+    "play-policy-insights",
+    "polish",
+    "project-stage-detect",
+    "quieter",
+    "r8-analyzer",
+    "redesign-existing-projects",
+    "restore-credentials",
+    "shape",
+    "start",
+    "stitch-design-taste",
+    "styles",
+    "testing-setup",
+    "typeset",
+    "ux-heuristics-review",
+    "ux-personas",
+    "ux-research-methods",
+    "ux-storyboard",
+    "vercel-cli-with-tokens",
+    "vercel-composition-patterns",
+    "vercel-optimize",
+    "vercel-react-best-practices",
+    "vercel-react-native-skills",
+    "vercel-react-view-transitions",
+    "verified-email",
+    "wear-compose-m3",
+    "web-design-guidelines",
+    "website",
+    "writing-guidelines"
+  ],
+  "global_skills_by_domain": {
+    "android": [
+      "android-cli",
+      "android-intent-security",
+      "android-profiler",
+      "camerax",
+      "display-glasses-with-jetpack-compose-glimmer",
+      "imagegen-frontend-mobile",
+      "leanback-to-compose-tv-migration",
+      "media3-cast-integration",
+      "migrate-xml-views-to-jetpack-compose",
+      "mobile-android-design",
+      "mobile-app-design",
+      "play-billing-library-version-upgrade",
+      "play-policy-insights",
+      "r8-analyzer",
+      "wear-compose-m3"
+    ],
+    "ui-design": [
+      "ai-trust-builders",
+      "colorize",
+      "craft",
+      "design-analysis",
+      "design-library",
+      "design-review",
+      "design-system",
+      "emil-design-eng",
+      "general-design-review",
+      "high-end-visual-design",
+      "layout",
+      "minimalist-ui",
+      "persuasive-ux",
+      "polish",
+      "quieter",
+      "redesign-existing-projects",
+      "stitch-design-taste",
+      "typeset",
+      "ux-heuristics-review",
+      "ux-personas",
+      "ux-research-methods",
+      "ux-storyboard",
+      "web-design-guidelines",
+      "writing-guidelines"
+    ],
+    "process": [
+      "audit",
+      "autoresearch",
+      "flylab-autonomous-orchestrator",
+      "karpathy-audit",
+      "karpathy-diff",
+      "karpathy-refactor",
+      "karpathy-update",
+      "karpathy-wiki",
+      "low-effort-high-reward",
+      "pi-planning-with-files",
+      "planning-with-files",
+      "planning-with-files-ar",
+      "planning-with-files-de",
+      "planning-with-files-es",
+      "planning-with-files-zh",
+      "planning-with-files-zht"
+    ],
+    "security": [
+      "ai-governors",
+      "restore-credentials"
+    ],
+    "backend": [
+      "ml-kit-genai-prompt-api",
+      "testing-setup"
+    ],
+    "media": [
+      "brandkit",
+      "higgsfield-brandkit",
+      "higgsfield-generate",
+      "higgsfield-marketplace-cards",
+      "higgsfield-product-photoshoot",
+      "higgsfield-soul-id",
+      "higgsfield-video-explainer",
+      "higgsfield-websites",
+      "higgsfield-youtube-thumbnail",
+      "image-to-code",
+      "imagegen-frontend-web"
+    ],
+    "other": [
+      "accessibility",
+      "adapt",
+      "adaptive",
+      "agp-9-upgrade",
+      "ai-identifiers",
+      "ai-inputs",
+      "ai-tuners",
+      "ai-wayfinders",
+      "animate",
+      "appfunctions",
+      "bolder",
+      "clarify",
+      "cognitive-load-conversion",
+      "critique",
+      "delight",
+      "deploy-to-vercel",
+      "dieter-rams-principles",
+      "distill",
+      "double-diamond",
+      "edge-to-edge",
+      "empathy-mapping",
+      "engage-sdk-integration",
+      "feature-prioritization",
+      "full-output-enforcement",
+      "gpt-taste",
+      "impeccable",
+      "journey-mapping",
+      "like-wish-what-if",
+      "map-systems",
+      "natprd",
+      "navigation-3",
+      "navigation-event",
+      "optimize",
+      "overdrive",
+      "project-stage-detect",
+      "shape",
+      "start",
+      "styles",
+      "vercel-cli-with-tokens",
+      "vercel-composition-patterns",
+      "vercel-optimize",
+      "vercel-react-best-practices",
+      "vercel-react-native-skills",
+      "vercel-react-view-transitions",
+      "verified-email",
+      "website"
+    ]
+  },
+  "project_skills_dir": "/home/mert/loki.route/.claude/skills",
+  "project_skills": [
+    "droidroute-compose-ui",
+    "droidroute-provider-manifest",
+    "droidroute-routing",
+    "droidroute-skill-scout",
+    "droidroute-task-runner",
+    "droidroute-verification"
+  ],
+  "plugins": [
+    {
+      "name": "frontend-design@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "skill-creator@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "superpowers@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "6.4.1"
+      ]
+    },
+    {
+      "name": "figma@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.2.120"
+      ]
+    },
+    {
+      "name": "code-review@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "context7@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "code-simplifier@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "playwright@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "github@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "claude-md-management@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "feature-dev@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "vercel@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.50.0"
+      ]
+    },
+    {
+      "name": "security-guidance@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.0.8"
+      ]
+    },
+    {
+      "name": "typescript-lsp@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "claude-code-setup@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "pr-review-toolkit@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "supabase@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.15"
+      ]
+    },
+    {
+      "name": "slack@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.0"
+      ]
+    },
+    {
+      "name": "chrome-devtools-mcp@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.9.0"
+      ]
+    },
+    {
+      "name": "brag@brag",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.4.0"
+      ]
+    },
+    {
+      "name": "context-mode@context-mode",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.169"
+      ]
+    },
+    {
+      "name": "commit-commands@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "hookify@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "playground@claude-plugins-official",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "fbe07fb6ce7d"
+      ]
+    },
+    {
+      "name": "pm-toolkit@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-product-strategy@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-product-discovery@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-market-research@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-data-analytics@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-marketing-growth@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-go-to-market@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-execution@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "pm-ai-shipping@pm-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.1.0"
+      ]
+    },
+    {
+      "name": "python-development@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "agent-orchestration@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.2"
+      ]
+    },
+    {
+      "name": "andrej-karpathy-skills@karpathy-skills",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "code-refactoring@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "context-management@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "data-engineering@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.2"
+      ]
+    },
+    {
+      "name": "agent-teams@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.3"
+      ]
+    },
+    {
+      "name": "api-scaffolding@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "api-testing-observability@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "application-performance@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "arm-cortex-microcontrollers@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "avoid-ai-writing@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "backend-api-security@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "backend-development@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.2"
+      ]
+    },
+    {
+      "name": "before-you-build@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.1"
+      ]
+    },
+    {
+      "name": "block-no-verify@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.1"
+      ]
+    },
+    {
+      "name": "blockchain-web3@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "brand-landingpage@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.1"
+      ]
+    },
+    {
+      "name": "business-analytics@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "c4-architecture@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.1"
+      ]
+    },
+    {
+      "name": "cicd-automation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "cloud-infrastructure@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.2"
+      ]
+    },
+    {
+      "name": "code-documentation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "codebase-cleanup@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "comprehensive-review@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "conductor@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.2"
+      ]
+    },
+    {
+      "name": "content-marketing@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "customer-sales-automation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "data-validation-suite@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "database-cloud-optimization@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "database-design@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "database-migrations@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "debugging-toolkit@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "dependency-management@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "deployment-strategies@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "deployment-validation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "developer-essentials@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.4"
+      ]
+    },
+    {
+      "name": "dgx-spark-ops@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "distributed-debugging@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "documentation-generation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "documentation-standards@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.1.0"
+      ]
+    },
+    {
+      "name": "dotnet-contribution@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.2"
+      ]
+    },
+    {
+      "name": "error-debugging@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "error-diagnostics@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "file-conversion@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "framework-migration@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.2"
+      ]
+    },
+    {
+      "name": "frontend-mobile-development@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "frontend-mobile-security@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "full-stack-orchestration@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "functional-programming@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "game-development@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "git-pr-workflows@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "hermes-tweet@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.13"
+      ]
+    },
+    {
+      "name": "hol-guard@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.0"
+      ]
+    },
+    {
+      "name": "hr-legal-compliance@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "incident-response@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.2"
+      ]
+    },
+    {
+      "name": "javascript-typescript@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "julia-development@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.1"
+      ]
+    },
+    {
+      "name": "jvm-languages@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "kubernetes-operations@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "llm-application-dev@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "2.0.6"
+      ]
+    },
+    {
+      "name": "llm-finetuning@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "machine-learning-ops@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.2"
+      ]
+    },
+    {
+      "name": "meigen-ai-design@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.9"
+      ]
+    },
+    {
+      "name": "multi-platform-apps@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "observability-monitoring@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "operating-kit@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "payment-processing@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "pensyve@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.0"
+      ]
+    },
+    {
+      "name": "performance-testing-review@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.2"
+      ]
+    },
+    {
+      "name": "plugin-eval@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.1"
+      ]
+    },
+    {
+      "name": "protect-mcp@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.3"
+      ]
+    },
+    {
+      "name": "quantitative-trading@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "reverse-engineering@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.1"
+      ]
+    },
+    {
+      "name": "security-compliance@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "seo-analysis-monitoring@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "seo-content-creation@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "seo-technical-optimization@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "shell-scripting@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "signed-audit-trails@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "0.1.2"
+      ]
+    },
+    {
+      "name": "skill-forge-essentials@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "social-publishing@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "superself@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.0"
+      ]
+    },
+    {
+      "name": "systems-programming@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.3"
+      ]
+    },
+    {
+      "name": "tdd-workflows@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.3.1"
+      ]
+    },
+    {
+      "name": "team-collaboration@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "ui-design@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.0.5"
+      ]
+    },
+    {
+      "name": "unit-testing@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    },
+    {
+      "name": "web-scripting@claude-code-workflows",
+      "scopes": [
+        "user"
+      ],
+      "versions": [
+        "1.2.1"
+      ]
+    }
+  ],
+  "marketplaces": [
+    "brag",
+    "claude-code-workflows",
+    "claude-plugins-official",
+    "context-mode",
+    "karpathy-skills",
+    "pm-skills"
+  ],
+  "slash_commands": [
+    "design",
+    "design-interview",
+    "design-skills"
+  ],
+  "design_library": {
+    "path": "/home/mert/.claude/design-skill-library",
+    "entries": 64,
+    "index": true
+  },
+  "skills_cli": true,
+  "mcp_servers": {},
+  "legacy_inventory_present": true,
+  "claude_agents_global_dir": false,
+  "fingerprint": "893d348102416020"
+}

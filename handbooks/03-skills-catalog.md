@@ -1,50 +1,87 @@
 # Skills Catalog
 
-Every task names at least two skills from this catalog (or a better one the host provides). A skill is an instruction pack, not a library. Use the specific skill over the generic one.
+**Rule: at least two skills per task, in parallel, one of them verification.**
 
-## Core build skills
+This catalog is grounded in what is actually installed. The live list is `status/TOOLING.md` (generated); this page explains *which ones to reach for and why*.
 
-| Skill | Purpose | Used in |
+## Project skills (authoritative here)
+
+| Skill | Use for |
+|---|---|
+| `droidroute-task-runner` | executing any task from `plan/` end to end |
+| `droidroute-verification` | the mandatory verification workstream |
+| `droidroute-provider-manifest` | adding or changing a provider (phases 2–4) |
+| `droidroute-routing` | routing, quotas, key chains, failover (phase 6, phase 12) |
+| `droidroute-compose-ui` | any Compose screen or visual work (phase 7) |
+| `droidroute-skill-scout` | finding the right tool before improvising |
+
+Four matching subagents live in `.claude/agents/`: `implementer`, `verifier`, `chronicler`, `tooling-scout`. Dispatch at least `implementer` + `verifier` per task, and `chronicler` when docs, status or logs change.
+
+## Global skills worth knowing (from the installed library)
+
+**Android / Kotlin — the project's home domain**
+
+| Skill | Use for |
+|---|---|
+| `mobile-android-design` | Material 3 structure and interaction defaults |
+| `adaptive`, `edge-to-edge` | window sizes, insets, multi-pane, modern system bars |
+| `testing-setup` | test infrastructure for a native Android app |
+| `navigation-3`, `navigation-event` | navigation graphs and predictive back |
+| `android-profiler`, `optimize` | jank, memory, battery, startup |
+| `android-cli` | device/emulator control from the command line |
+| `android-intent-security` | intent redirection and component exposure review |
+| `r8-analyzer`, `agp-9-upgrade` | build and shrinker work |
+| `play-policy-insights`, `restore-credentials`, `verified-email`, `ml-kit-genai-prompt-api`, `appfunctions` | specific platform integrations worth reading before writing custom code |
+| `styles` | the Compose Styles API, useful for the theme layer |
+
+**Design, UX and polish — for every screen**
+
+`impeccable`, `design-review`, `design-analysis`, `critique`, `audit`, `polish`, `craft`, `typeset`, `layout`, `colorize`, `bolder`, `quieter`, `distill`, `clarify`, `animate`, `delight`, `accessibility`, `high-end-visual-design`, `minimalist-ui`, `web-design-guidelines`, plus the curated `design-library` (~60 indexed entries) for on-demand depth.
+
+**Process — how the chain is run**
+
+`planning-with-files` (and its language variants), `flylab-autonomous-orchestrator`, `autoresearch`, `karpathy-audit` / `karpathy-diff` / `karpathy-refactor` / `karpathy-wiki`, `low-effort-high-reward`, `feature-prioritization`, `project-stage-detect`, `full-output-enforcement`, `writing-guidelines`.
+
+**AI behaviour — relevant because the product is an AI gateway**
+
+`ai-governors` (human-in-the-loop control), `ai-identifiers`, `ai-inputs`, `ai-trust-builders`, `ai-tuners`, `ai-wayfinders`.
+
+**Plugins that change how a session runs**
+
+`context-mode` (context-window reduction, session continuity, indexed search), `superpowers` (systematic debugging, test-driven development, plan execution), `feature-dev`, `code-review`, `code-simplifier`, `frontend-design`, `skill-creator`. Check `status/TOOLING.md` for the current list and versions.
+
+## Selection matrix by phase
+
+| Phase | Primary skill | Verification / second stream |
 |---|---|---|
-| `kotlin-core` | Idiomatic Kotlin 2.x: coroutines, flows, null-safety, data classes, sealed hierarchies | all app code |
-| `android-compose-ui` | Compose + Material 3 screens, state hoisting, theming, previews | `plan/phase-07-ui/` |
-| `android-platform` | Foreground service, notifications, permissions, Keystore, intents, doze | `phase-01`, `phase-05`, `phase-08` |
-| `ktor-server` | Embedded Ktor/CIO server, routing DSL, plugins, SSE | `phase-01`, `phase-05` |
-| `gradle-android` | Modules, version catalogs, flavors, signing, R8 | `phase-00`, `phase-11` |
-| `persistence-room` | Entities, DAOs, migrations, transactions | `phase-01`, `phase-02` |
+| 00 Foundation | `planning-with-files` | `droidroute-verification`, `writing-guidelines` |
+| 01 Core server | `mobile-android-design` + `android-intent-security` | `testing-setup` |
+| 02 Provider framework | `droidroute-provider-manifest` | `droidroute-verification` |
+| 03 Provider catalog | `droidroute-provider-manifest` | `droidroute-verification` |
+| 04 Accounts & OAuth | `android-intent-security` | `testing-setup`, `droidroute-verification` |
+| 05 Wire protocols | `droidroute-provider-manifest` | `testing-setup` |
+| 06 Routing | `droidroute-routing` | `droidroute-verification`, `android-profiler` |
+| 07 UI | `droidroute-compose-ui` + one design skill | `accessibility`, `optimize` |
+| 08 Local models | `android-profiler` + `local-inference` guidance in `docs/06` | `testing-setup` |
+| 09 MCP & plugins | `appfunctions` for capability thinking | `droidroute-verification` |
+| 10 Logging & handover | `karpathy-wiki`, `writing-guidelines` | `droidroute-verification` |
+| 11 Delivery | `audit` + `security-audit` intent via `android-intent-security` | `testing-setup`, `r8-analyzer` |
+| 12 OmniRoute parity | `droidroute-routing`, `ai-governors` | `droidroute-verification`, `optimize` |
 
-## Domain skills
+## Choosing well
 
-| Skill | Purpose | Used in |
-|---|---|---|
-| `llm-gateway-protocols` | OpenAI/Anthropic/Gemini wire formats, streaming, tool calls, error mapping | `phase-05` |
-| `provider-integration` | Reading a provider's real docs, writing a manifest, validating a key with a live call | `phase-02`, `phase-03` |
-| `llm-routing` | Candidate ordering, scoring, quota ledgers, circuit breaking, aliasing | `phase-06` |
-| `oauth-device-flow` | Google/GitHub/HuggingFace OAuth, token refresh, redirect handling on Android | `phase-04` |
-| `local-inference` | llama.cpp/whisper.cpp runtime resolution, GGUF quantisation, RAM budgeting | `phase-08` |
-| `mcp-protocol` | Discovery, stdio/http transports, JSON-RPC tool calls, schema handling | `phase-09` |
-| `security-audit` | Secret handling, redaction, bind modes, permission minimisation, threat review | every phase, mandatory in `phase-11` |
+1. **Specific beats generic.** `android-intent-security` outperforms a hand-rolled security checklist for intent review.
+2. **Project beats global** where both apply — the project skill carries this repository's constraints.
+3. **Verification is never optional.** One of the two streams must be able to say "no".
+4. **Deviate, but log it:** `skill-substitution: <old> -> <new> (<reason>)`.
+5. **Do not chain five skills "just in case".** Two or three focused streams beat a committee; extra streams cost context and produce conflicting edits.
 
-## Process skills
+## Searching beyond the installed set
 
-| Skill | Purpose | Used in |
-|---|---|---|
-| `testing` | Unit/instrumented test design, failure injection, flakiness control | every task's verify workstream |
-| `technical-writing` | Accurate, filler-free docs; decision records | all doc/status updates |
-| `git-workflow` | Commit hygiene, checkpoint tags, push recovery, conflict avoidance | every commit |
-| `ci-cd-github-actions` | Workflow authoring, caching, artifacts, signing secrets | `phase-00`, `phase-11` |
-| `performance-android` | Battery, memory, wake-locks, startup time, Compose recomposition | `phase-07`, `phase-11` |
-
-## Choosing for a task
-
-The default trio is `implement-skill` + `testing` + `technical-writing`. Replace one when the task is clearly about something else: an OAuth task wants `oauth-device-flow` + `security-audit` + `testing`; an MCP task wants `mcp-protocol` + `testing` + `technical-writing`.
-
-**Never** run a task with fewer than two parallel skills, and never without a verification skill.
-
-## Skills the host may have
-
-Claude Code and Freebuff each ship their own skill libraries; the inventory can differ from the names above. Before substituting, check the host's real inventory (Claude Code: its skill directory; Freebuff: `/plugins`-style listing). Prefer an installed skill with the same intent over a generic instruction. Record substitutions in the task log:
-
+```bash
+npx skills find <query>                              # community index
+npx skills add <owner/repo> --list                   # preview
+npx skills add <owner/repo> --skill <name> --yes     # install (ask the owner first)
 ```
-skill-substitution: security-audit → manual-checklist (host has no security skill installed)
-```
+
+Community skills are unvetted. Never install one that needs credentials you do not hold, and never install silently — `handbooks/08-tooling-discovery.md` has the rule.

@@ -107,6 +107,30 @@ any OpenAI- or Anthropic-compatible endpoint added by the owner via the provider
 
 Every provider ships a manifest (`assets/providers/<id>.json`) so the registry is data, not code. Adding a Tier 3 provider needs no app update.
 
+## TBC-8 — How the build agents find their tools (skills, plugins, MCP)
+
+**Decision: discover, publish, reference — never hard-code.**
+
+The owner requires that Claude Code (and Freebuff) find every plugin, MCP server and skill, globally and inside the project, and use the skill libraries intelligently. That list changes without a commit, so it is generated, not written by hand:
+
+| Concern | Answer |
+|---|---|
+| Where does the list come from? | `python3 scripts/discover_tooling.py` scans `~/.claude/skills`, `.claude/skills`, `~/.claude/plugins/*.json`, `~/.claude/commands`, `~/.claude/design-skill-library`, `npx skills` availability, and MCP servers from `~/.claude.json` (user + per-project), `.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json` |
+| Where is it published? | `status/TOOLING.md` (readable) and `status/tooling.json` (machine), both committed |
+| How does it stay true? | `--check` mode in CI (`.github/workflows/repo-hygiene.yml`); the acceptance criterion A13 requires it |
+| Precedence | project skill → project MCP → project subagent → global skill → global plugin → global MCP → community skill |
+| How are skills applied? | at least two per task in parallel, one of them verification; four project subagents in `.claude/agents/` (`implementer`, `verifier`, `chronicler`, `tooling-scout`) |
+| Community skills | `npx skills find/add` is available; installation requires the owner's confirmation and is logged |
+| Secrets | MCP environment values are reported by **name only**, never by value |
+
+Consequence for the product: DroidRoute itself does the same thing at runtime (`docs/07-mcp-plugins.md`), so the build-time behaviour and the shipped behaviour follow one rule instead of two.
+
+## TBC-9 — Scope of the OmniRoute parity claim
+
+**Decision: every parity row names a task, or says plainly that it is not planned and why.**
+
+`docs/12-omniroute-parity.md` is the contract, verified against OmniRoute's own README. Parity is the floor, never the ceiling. Three OmniRoute capabilities are deliberately **not** planned, with the reason recorded in the matrix: the Radar catalogue overlay (needs a network dependency the owner does not want), transparent MITM/TPROXY TLS interception (requires a CA in the device trust store and intercepts traffic on a personal phone), and vendor cloud-agent endpoints (a different product category). Everything else maps to a task in `plan/`, with phase 12 closing the gap that phase 11 (v0.1) does not cover.
+
 ---
 
 ## Consequences for the task plan
@@ -117,3 +141,4 @@ Every provider ships a manifest (`assets/providers/<id>.json`) so the registry i
 - `plan/phase-08-local-models/` carries the runtime resolution order (TBC-6).
 - `plan/phase-09-mcp-plugins/` carries discovery + bridge (TBC-4).
 - `plan/phase-11-delivery/` carries the SDK/CI matrix (TBC-3).
+- `plan/phase-12-parity-power/` carries the OmniRoute parity work and the owner's extras (TBC-9), including the build-agent tooling wiring (TBC-8, T-166).

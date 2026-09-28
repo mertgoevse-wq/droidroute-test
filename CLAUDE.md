@@ -4,9 +4,13 @@
 
 ## Claude Code specifics
 
-**Subagents.** Use the Task tool to run the task's skills in parallel — typically three: one implementing the deliverable, one writing and running tests, one updating integration/docs. Launch them in a single message so they run concurrently. Give each subagent the task id, its workstream name, its exclusive file list, and the acceptance lines it owns. Never let two subagents edit the same file in one round.
+**Subagents.** Four are defined in [`.claude/agents/`](.claude/agents/): `implementer`, `verifier`, `chronicler`, `tooling-scout`. Dispatch at least `implementer` + `verifier` per task, add `chronicler` when docs/status/logs change, and `tooling-scout` when the right tool is unclear. Launch them in one message so they run concurrently. Give each subagent the task id, its workstream name, its exclusive file list, and the acceptance lines it owns. Never let two subagents edit the same file in one round.
 
-**Skills.** Prefer an installed skill over ad-hoc instructions. The catalog this project expects is [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md); if you substitute, log `skill-substitution: <old> → <new> (<reason>)`.
+**Skills.** Prefer an installed skill over ad-hoc instructions. Read [`status/TOOLING.md`](status/TOOLING.md) (generated) to see what is actually installed — 100+ global skills, the project skills in [`.claude/skills/`](.claude/skills/), plugins such as `superpowers` and `context-mode`, plus any MCP servers. The selection matrix per phase is [`handbooks/03-skills-catalog.md`](handbooks/03-skills-catalog.md); the rules are [`handbooks/08-tooling-discovery.md`](handbooks/08-tooling-discovery.md). If you substitute or install, log `skill-substitution: <old> → <new> (<reason>)` and ask before installing anything from the community index.
+
+**Project skills override global ones.** When both cover the same ground, the project skill wins because it encodes this repository's constraints. Six are installed: `droidroute-task-runner`, `droidroute-verification`, `droidroute-provider-manifest`, `droidroute-routing`, `droidroute-compose-ui`, `droidroute-skill-scout`.
+
+**MCP.** Use a connected MCP tool before writing code that does the same thing. Project servers live in `.mcp.json` (template: [`.mcp.json.example`](.mcp.json.example)); all project servers are auto-enabled by `.claude/settings.json`. Check the MCP section of `status/TOOLING.md` — if it says none are configured, proceed without inventing one.
 
 **Plan mode.** Use it to read the task file and its dependencies before writing anything. The task file's *Steps* section is a suggestion; *Acceptance criteria* is the contract.
 
@@ -17,12 +21,14 @@
 ## The loop in Claude Code terms
 
 ```bash
-cat status/PROGRESS.md status/NEXT.md status/ERRORS.md; git status --short
+cat status/HANDOVER.md status/PROGRESS.md status/NEXT.md status/ERRORS.md; git status --short
+grep -E '^(## Summary|\| Global skills|\| MCP servers)' -A2 status/TOOLING.md   # what tools exist
+python3 scripts/discover_tooling.py --check || python3 scripts/discover_tooling.py  # refresh if stale
 cat plan/<phase>/T-0xx-*.md
-# dispatch subagents (≥2 skills, parallel)
+# dispatch subagents: implementer + verifier in parallel (add chronicler for doc/status work)
 # integrate, then verify:
 ./gradlew :app:testDebugUnitTest        # or the task's own command
-scripts/log-step.sh T-0xx "verify" "gradle tests" "pass"
+scripts/log-step.sh T-0xx "test" "gradle tests" "pass" --actor verify
 scripts/step-commit.sh "T-0xx: <task title>"
 ```
 

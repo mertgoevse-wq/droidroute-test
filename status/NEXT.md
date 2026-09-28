@@ -16,10 +16,13 @@ The plan's first task exists to prove the tooling works before any app code exis
 ## Before you start
 
 ```bash
-git status --short          # must be clean
-cat status/ERRORS.md        # must have no open entries
+git status --short                                # must be clean
+cat status/ERRORS.md                              # must have no open entries
+python3 scripts/discover_tooling.py --check       # tooling inventory must be current
 scripts/preflight-secrets.sh
 ```
+
+Pick your two skill streams from [`status/TOOLING.md`](TOOLING.md) — this task's own suggestion is `git-workflow` + `testing`, and the project skills [`droidroute-task-runner`](../.claude/skills/droidroute-task-runner/SKILL.md) and [`droidroute-verification`](../.claude/skills/droidroute-verification/SKILL.md) apply.
 
 ## After it is done
 

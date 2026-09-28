@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "Bash(scripts/log-step.sh:*)",
+      "Bash(scripts/step-commit.sh:*)",
+      "Bash(scripts/preflight-secrets.sh:*)",
+      "Bash(scripts/weekly-cleanup.sh:*)",
+      "Bash(scripts/termux-setup.sh:*)",
+      "Bash(scripts/build-apk-local.sh:*)",
+      "Bash(python3 tools/generate_plan.py:*)",
+      "Bash(python3 tools/check_links.py:*)",
+      "Bash(python3 tools/check_providers.py:*)",
+      "Bash(python3 tools/verify_chain.py:*)",
+      "Bash(python3 tools/update_status.py:*)",
+      "Bash(python3 tools/gen_daily_summary.py:*)",
+      "Bash(python3 tools/handover_bundle.py:*)",
+      "Bash(python3 scripts/discover_tooling.py:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Read(./status/**)",
+      "Read(./plan/**)"
+    ],
+    "deny": [
+      "Read(./logs/archive/**)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}

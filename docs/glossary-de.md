@@ -54,3 +54,23 @@ Für den Besitzer — alle Fachwörter, die im Projekt vorkommen, in einfachen W
 | **Compose / Material 3** | Googles moderne Bauweise für Android-Oberflächen. |
 | **TBC** | „To be confirmed" — noch offener Punkt. Alle 7 sind in `docs/11-tbc-resolutions.md` entschieden. |
 | **Anti-Slop** | Regeln gegen KI-Füllstoff: keine Platzhalter, keine erfundenen Adressen, keine unnötigen Änderungen. |
+| **Skill-Bibliothek** | Eine Sammlung fertiger Fähigkeits-Anleitungen (Skills), die ein Agent laden kann. |
+| **Projekt-Skill** | Ein Skill, der nur für dieses Projekt gilt (`.claude/skills/`) und die Projektregeln enthält. Gewinnt gegen globale Skills. |
+| **Plugin-Marktplatz** | Eine Quelle, aus der Plugins installiert werden (z.B. das offizielle Anthropic-Repository). |
+| **Inventar (TOOLING.md)** | Automatisch erzeugte Liste: welche Skills, Plugins, MCP-Server und Befehle gerade da sind. |
+| **Combo** | Eine Kette von Modellen: Läuft eins aus oder fällt aus, geht es automatisch zum nächsten. |
+| **Virtuelles Modell (auto)** | Ein Name wie `auto/fast`, hinter dem kein echtes Modell steht, sondern eine Auswahlregel. |
+| **Fusion** | Mehrere Modelle antworten, ein Richter-Modell fasst zusammen. Teurer, oft besser. |
+| **Pipeline** | Die Ausgabe von Schritt 1 geht als Eingabe in Schritt 2 (und so weiter). |
+| **Token-Kompression** | Lange Eingaben werden gekürzt (verlustfrei wo möglich), damit weniger Tokens bezahlt werden. |
+| **Cache-Treffer** | Der Anbieter erkennt eine schon bekannte Eingabe und rechnet sie günstiger ab. |
+| **Kosten-Telemetrie** | Zahlen zu Verbrauch und Kosten, sichtbar als Kopfzeilen (`X-DroidRoute-*`) und im Armaturenbrett. |
+| **Quota-Share** | Ein gemeinsames Konto wird gerecht über mehrere Schlüssel aufgeteilt; ungenutztes Kontingent wird verliehen. |
+| **Gedächtnis (Memory)** | Optionale Erinnerung an Fakten und Entscheidungen. Standard: ausgeschaltet. |
+| **A2A** | Agent-zu-Agent: Ein anderer Agent darf Aufgaben an DroidRoute übergeben. |
+| **Agent-Card** | Die „Visitenkarte", die sagt, was DroidRoute auf Anfrage wirklich kann. |
+| **OCR** | Texterkennung aus Bildern und Dokumenten. |
+| **Modality-Bridge** | Die Brücke, die Bild-, Ton- und Video-Anfragen an ein passendes Modell weiterleitet. |
+| **Prompt-Injection** | Ein Angriff, bei dem fremder Text dem Modell heimlich Befehle gibt. |
+| **Guardrail** | Schutzregel, z.B. gegen Prompt-Injection oder dafür, dass Geheimnisse nicht nach außen gelangen. |
+| **Parität** | Gleichstand bei den Funktionen — hier: DroidRoute kann alles, was OmniRoute kann. |
