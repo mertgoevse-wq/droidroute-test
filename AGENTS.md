@@ -19,7 +19,7 @@ logs/chain.log       → tail -n 80 for recent history
 git status --short   → must be clean before you start
 ```
 
-Keep the tooling inventory fresh: `python3 scripts/discover_tooling.py --check` (CI fails on a stale one).
+Keep the tooling inventory fresh: `python3 scripts/discover_tooling.py --check-fresh` (on a machine with tools; CI only validates its structure).
 
 Details and edge cases: [`handbooks/06-resume-protocol.md`](handbooks/06-resume-protocol.md).
 

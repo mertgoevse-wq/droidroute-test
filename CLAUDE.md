@@ -23,7 +23,7 @@
 ```bash
 cat status/HANDOVER.md status/PROGRESS.md status/NEXT.md status/ERRORS.md; git status --short
 grep -E '^(## Summary|\| Global skills|\| MCP servers)' -A2 status/TOOLING.md   # what tools exist
-python3 scripts/discover_tooling.py --check || python3 scripts/discover_tooling.py  # refresh if stale
+python3 scripts/discover_tooling.py --check-fresh || python3 scripts/discover_tooling.py   # refresh if stale
 cat plan/<phase>/T-0xx-*.md
 # dispatch subagents: implementer + verifier in parallel (add chronicler for doc/status work)
 # integrate, then verify:

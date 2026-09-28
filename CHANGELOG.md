@@ -12,7 +12,7 @@ All notable changes to DroidRoute. Format follows [Keep a Changelog](https://kee
 - Agent operating rules (`AGENTS.md`, `CLAUDE.md`) and handbooks for subagent orchestration, git protocol, logging, resume and anti-slop.
 - CI: `build-apk` (debug on push, signed release on tag) and `repo-hygiene` (weekly log rotation, link and secret checks).
 - Scripts: `step-commit.sh`, `log-step.sh`, `preflight-secrets.sh`, `weekly-cleanup.sh`, `termux-setup.sh`, `build-apk-local.sh`.
-- **Build-agent tooling layer**: `scripts/discover_tooling.py` scans global and project scope for skills, plugins, marketplaces, slash commands and MCP servers and publishes `status/TOOLING.md` + `status/tooling.json`; CI fails on a stale inventory (acceptance A13).
+- **Build-agent tooling layer**: `scripts/discover_tooling.py` scans global and project scope for skills, plugins, marketplaces, slash commands and MCP servers and publishes `status/TOOLING.md` + `status/tooling.json`. CI validates the inventory's structure (`--check`); freshness is checked on the device with `--check-fresh`, because a CI runner has no agent configuration. Acceptance criterion A13 covers both.
 - Six project skills (`.claude/skills/`): task runner, verification, provider manifest, routing, Compose UI, skill scout.
 - Four project subagents (`.claude/agents/`): implementer, verifier, chronicler, tooling-scout.
 - Project settings (`.claude/settings.json`) allowing the project scripts and auto-enabling project MCP servers; `.mcp.json.example` as the server template.

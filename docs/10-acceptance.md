@@ -16,7 +16,7 @@ The chain is done when all thirteen are met. Each one names how it is proven —
 | A10 | A different model or program can take over from the repository alone | Fresh session with no chat history: read `status/` and complete one task end to end |
 | A11 | APK builds automatically on GitHub and is installable; the Termux fallback is documented and tested once | Green workflow run + installed artifact; a local `assembleDebug` run recorded in `logs/` |
 | A12 | Repository hygiene: no secrets, logs pruned weekly, README accurate | `scripts/preflight-secrets.sh` clean; cleanup workflow ran at least once; README links all resolve |
-| A13 | Build agents can see and use every available skill, plugin and MCP server | `python3 scripts/discover_tooling.py --check` passes and is wired into CI; `status/TOOLING.md` lists the real installed skills/plugins/MCP servers; every phase in `handbooks/03-skills-catalog.md` names skills that exist in that inventory; a task log shows a skill substitution recorded |
+| A13 | Build agents can see and use every available skill, plugin and MCP server | `python3 scripts/discover_tooling.py --check` passes in CI and `--check-fresh` passes on the device; `status/TOOLING.md` lists the real installed skills/plugins/MCP servers; every phase in `handbooks/03-skills-catalog.md` names skills that exist in that inventory; a task log shows a skill substitution recorded |
 
 ## Regression gate
 

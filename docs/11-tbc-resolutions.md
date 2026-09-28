@@ -117,7 +117,7 @@ The owner requires that Claude Code (and Freebuff) find every plugin, MCP server
 |---|---|
 | Where does the list come from? | `python3 scripts/discover_tooling.py` scans `~/.claude/skills`, `.claude/skills`, `~/.claude/plugins/*.json`, `~/.claude/commands`, `~/.claude/design-skill-library`, `npx skills` availability, and MCP servers from `~/.claude.json` (user + per-project), `.mcp.json`, `.cursor/mcp.json`, `.vscode/mcp.json` |
 | Where is it published? | `status/TOOLING.md` (readable) and `status/tooling.json` (machine), both committed |
-| How does it stay true? | `--check` mode in CI (`.github/workflows/repo-hygiene.yml`); the acceptance criterion A13 requires it |
+| How does it stay true? | `--check` (structure) runs in CI, `--check-fresh` (matches this machine) runs on the device — a CI runner has no agent configuration, so content comparison there would fail for the wrong reason. A13 requires both |
 | Precedence | project skill → project MCP → project subagent → global skill → global plugin → global MCP → community skill |
 | How are skills applied? | at least two per task in parallel, one of them verification; four project subagents in `.claude/agents/` (`implementer`, `verifier`, `chronicler`, `tooling-scout`) |
 | Community skills | `npx skills find/add` is available; installation requires the owner's confirmation and is logged |

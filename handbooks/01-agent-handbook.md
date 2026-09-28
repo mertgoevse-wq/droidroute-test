@@ -15,7 +15,7 @@ git status --short          # is the tree clean?
 cat docs/11-tbc-resolutions.md   # the decisions you must not re-litigate
 ```
 
-If `python3 scripts/discover_tooling.py --check` fails, regenerate the inventory first: an out-of-date list makes you skip tools that exist.
+If `python3 scripts/discover_tooling.py --check-fresh` fails, regenerate the inventory first: an out-of-date list makes you skip tools that exist.
 
 If the tree is not clean, understand the uncommitted diff before writing anything. Never discard someone else's in-progress work with a reset.
 

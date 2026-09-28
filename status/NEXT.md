@@ -18,7 +18,7 @@ The plan's first task exists to prove the tooling works before any app code exis
 ```bash
 git status --short                                # must be clean
 cat status/ERRORS.md                              # must have no open entries
-python3 scripts/discover_tooling.py --check       # tooling inventory must be current
+python3 scripts/discover_tooling.py --check-fresh  # tooling inventory must match this machine
 scripts/preflight-secrets.sh
 ```
 

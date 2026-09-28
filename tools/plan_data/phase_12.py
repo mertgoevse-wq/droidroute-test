@@ -606,22 +606,23 @@ TASKS = [
             ("karpathy-audit", "audit the instruction files for contradictions and dead weight after the growth"),
         ],
         deliverables=[
-            "`status/TOOLING.md` regenerated and wired into CI (`--check`)",
+            "`status/TOOLING.md` regenerated, with `--check` wired into CI and `--check-fresh` documented for local use",
             "Project skills and subagents reviewed against the 13 phases; gaps filled or explicitly noted",
         ],
         steps=[
             "Run `python3 scripts/discover_tooling.py` and commit the refreshed inventory.",
-            "Add the `--check` step to `.github/workflows/repo-hygiene.yml` so a stale inventory fails CI.",
+            "Confirm the CI step validates structure (`--check`) and that freshness is a local duty (`--check-fresh`) — a runner without agent configuration must not fail the build for a reason it cannot control.",
             "Walk each phase in `handbooks/03-skills-catalog.md` and confirm a real skill exists for its primary and verification stream.",
             "Verify the docs point at the inventory rather than repeating skill names that may drift.",
         ],
         accept=[
-            "CI fails when `status/TOOLING.md` is stale (proven once, then reverted)",
+            "CI fails when `status/TOOLING.md` is malformed, and passes on a runner with no agent configuration (proven once for each, then reverted)",
+            "`--check-fresh` fails on the device when the inventory is out of date (proven once, then reverted)",
             "Every phase names skills that exist in the inventory",
-            "No document duplicates the inventory as a hard-coded list of names without linking to it",
         ],
         verify=[
             "python3 scripts/discover_tooling.py --check",
+            "python3 scripts/discover_tooling.py --check-fresh",
             "python3 tools/check_links.py",
         ],
         state="The build agents can always see, and are required to use, the skills and tools that exist.",
