@@ -1,6 +1,6 @@
 # Progress
 
-**Chain status:** not started · **Tasks complete:** 0 / 208 · **Last commit:** scaffold
+**Chain status:** running · **Tasks complete:** 1 / 208 · **Last commit:** T-001
 
 Updated in the same commit as every completed task. A task is ticked only when its acceptance criteria were verified and evidenced in `logs/tasks/`.
 
@@ -8,7 +8,7 @@ Updated in the same commit as every completed task. A task is ticked only when i
 
 | Phase | Tasks | Focus | Status |
 |---|---|---|---|
-| [00 — Foundation](../plan/phase-00-foundation/) | T-001 … T-010 | repo hygiene, toolchain, scaffold, CI smoke | ⬜ 0/10 |
+| [00 — Foundation](../plan/phase-00-foundation/) | T-001 … T-010 | repo hygiene, toolchain, scaffold, CI smoke | ✅ 1/10 |
 | [01 — Core server](../plan/phase-01-core-server/) | T-011 … T-023 | foreground service, Ktor, port, bind modes, vault | ⬜ 0/13 |
 | [02 — Provider framework](../plan/phase-02-provider-framework/) | T-024 … T-036 | manifest registry, generic adapters, discovery, keys | ⬜ 0/13 |
 | [03 — Provider catalog](../plan/phase-03-provider-catalog/) | T-037 … T-054 | Tier 1 free gateways, Tier 2 majors, custom providers | ⬜ 0/18 |
@@ -29,11 +29,9 @@ Updated in the same commit as every completed task. A task is ticked only when i
 
 ## Completed tasks
 
-_None yet. The first task is [T-001](../plan/phase-00-foundation/T-001-repository-hygiene.md)._
-
 | Task | Title | Commit |
 |---|---|---|
-| — | — | — |
+| [T-001](../plan/phase-00-foundation/T-001-repository-hygiene.md) | Repository hygiene and baseline checks | (filled by commit script) |
 
 ## Tooling inventory
 
@@ -47,6 +45,7 @@ Per-component detail lives in [`status/components/`](components/).
 
 | Component | State |
 |---|---|
+| foundation | ✅ tooling proven (T-001): preflight blocks planted keys, logging writes valid JSON, cleanup is safe |
 | core-server | ⬜ not started |
 | provider-layer | ⬜ not started |
 | accounts-oauth | ⬜ not started |

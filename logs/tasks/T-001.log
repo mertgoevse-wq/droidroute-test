@@ -1,4 +1,3 @@
-{"ts":"2026-09-28T16:48:15+00:00","task":"chain","actor":"main","level":"info","action":"start","target":"scaffold","result":"docs, handbooks, tooling, CI and the 147-task plan committed; private repo created","extra":{"task_files":147,"md_files":190}}
 {"ts":"2026-09-28T20:30:17+00:00","task":"T-001","actor":"main","level":"info","action":"verify","target":"preflight","result":"pass","extra":{}}
 {"ts":"2026-09-28T20:34:11+00:00","task":"T-001","actor":"verify","level":"info","action":"verify","target":"preflight-clean+planted","result":"pass","extra":{}}
 {"ts":"2026-09-28T20:35:20+00:00","task":"T-001","actor":"main","level":"info","action":"finish","target":"task-complete","result":"all-criteria-verified","extra":{}}

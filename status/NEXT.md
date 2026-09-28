@@ -1,11 +1,11 @@
 # Next Task
 
-**Resume here:** [`T-001 — Repository hygiene and baseline checks`](../plan/phase-00-foundation/T-001-repository-hygiene.md)
+**Resume here:** [`T-002 — Android toolchain and build prerequisites`](../plan/phase-00-foundation/T-002-android-toolchain.md)
 
 | | |
 |---|---|
 | Phase | 00 — Foundation |
-| Depends on | — (first task) |
+| Depends on | T-001 |
 | Parallel-safe | yes |
 | Est. agent time | 20–40 min |
 
@@ -27,8 +27,12 @@ Resolve this task's two role labels (`git-workflow` + `testing`) through [`handb
 
 ## After it is done
 
-Update this file to point at `T-002`, tick T-001 in [`PROGRESS.md`](PROGRESS.md), and commit both in the same commit as the task:
+Update this file to point at `T-003`, tick T-002 in [`PROGRESS.md`](PROGRESS.md), and commit both in the same commit as the task:
 
 ```bash
-scripts/step-commit.sh "T-001: repository hygiene and baseline checks"
+scripts/step-commit.sh "T-002: Android toolchain and build prerequisites"
 ```
+
+## T-001 evidence
+
+Preflight blocks planted keys (exit 1, FAIL line), passes clean in ~17s (optimised combined-scan path, semantics unchanged), `log-step.sh` writes well-formed JSON records, `weekly-cleanup.sh --dry-run` reports without moving anything. See `logs/tasks/T-001.log`.

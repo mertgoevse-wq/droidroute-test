@@ -25,6 +25,11 @@ PATTERNS=(
 ALLOWLIST_REGEX='example|placeholder|your[-_]?key|<redacted>|redacted|xxxx|\.example\.json'
 SKIP_EXT_REGEX='\.(gguf|onnx|apk|aab|png|jpe?g|webp|gif|ico|jar|zip|so)$'
 
+# One combined scan per file, then classify hits per pattern only when a file
+# actually matched. Semantics are identical to per-pattern scanning; this only
+# removes ~10 fork/exec calls per file on the common (clean) path.
+COMBINED_PATTERN="$(IFS='|'; echo "${PATTERNS[*]}")"
+
 fail=0
 LIST="$(mktemp)"
 trap 'rm -f "$LIST"' EXIT
@@ -49,6 +54,8 @@ while IFS= read -r f; do
   if grep -qI . "$f" 2>/dev/null; then :; else continue; fi
 
   scanned=$((scanned + 1))
+  any_hit="$(grep -Eo "$COMBINED_PATTERN" "$f" 2>/dev/null | head -1)"
+  [ -n "$any_hit" ] || continue
   for p in "${PATTERNS[@]}"; do
     if grep -Eq "$p" "$f" 2>/dev/null; then
       hits="$(grep -Eo "$p" "$f" 2>/dev/null | sort -u | head -3)"
