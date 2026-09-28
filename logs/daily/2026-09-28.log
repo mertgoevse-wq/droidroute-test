@@ -2,3 +2,5 @@
 {"ts":"2026-09-28T20:30:17+00:00","task":"T-001","actor":"main","level":"info","action":"verify","target":"preflight","result":"pass","extra":{}}
 {"ts":"2026-09-28T20:34:11+00:00","task":"T-001","actor":"verify","level":"info","action":"verify","target":"preflight-clean+planted","result":"pass","extra":{}}
 {"ts":"2026-09-28T20:35:20+00:00","task":"T-001","actor":"main","level":"info","action":"finish","target":"task-complete","result":"all-criteria-verified","extra":{}}
+{"ts":"2026-09-28T20:38:32+00:00","task":"T-002","actor":"verify","level":"info","action":"verify","target":"toolchain-versions+catalog-toml","result":"pass","extra":{}}
+{"ts":"2026-09-28T20:39:44+00:00","task":"T-002","actor":"verify","level":"info","action":"verify","target":"jdk17-user-install-temurin","result":"pass","extra":{}}
