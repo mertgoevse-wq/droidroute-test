@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-The chain is done when all fifteen are met. Each one names how it is proven — a criterion without a command or a concrete observation is not accepted.
+The chain is done when all sixteen are met. Each one names how it is proven — a criterion without a command or a concrete observation is not accepted.
 
 | # | Criterion | How it is proven |
 |---|---|---|
@@ -18,6 +18,7 @@ The chain is done when all fifteen are met. Each one names how it is proven — 
 | A12 | Repository hygiene: no secrets, logs pruned weekly, README accurate | `scripts/preflight-secrets.sh` clean; cleanup workflow ran at least once; README links all resolve |
 | A13 | Build agents can see and use every available skill, plugin and MCP server | `python3 scripts/discover_tooling.py --check` passes in CI and `--check-fresh` passes on the device; `status/TOOLING.md` lists the real installed skills/plugins/MCP servers; every phase in `handbooks/03-skills-catalog.md` names skills that exist in that inventory; `python3 tools/check_skills.py` passes, proving every role label a task names resolves to an installed tool; a task log shows a skill substitution recorded |
 | A14 | An unknown provider can be added by pasting a URL, and a rival router's configuration can be imported | T-167 detects each of the four stub dialects and refuses to enable a provider whose probe returned nothing; T-168 imports each fixture format, with any credential found moved to the vault rather than into a manifest |
+| A16 | The interface is the decided instrument panel of `docs/14-design-system.md` — not a generated dashboard — and that is provable | `python3 tools/check_design_slop.py` clean on the real tree **and** `--self-test` passing (a gate that no longer bites is a failure); T-186's proof table shows every rule failing on an injected violation and reverting clean; T-185 records zero token drift; T-188 records the measured contrast ratio of every used pair in both modes against its threshold; T-187 supplies both-mode screenshots per screen with a named focal element and a closed finding list; T-189 shows all five states per data screen; T-190 lists the residual weaknesses without softening them |
 | A15 | The app behaves like an Android app and stays current without the owner re-installing it by hand | T-177 tile/widget/share sheet work on the device and the widget produces no periodic wakeups; T-175 answers a request with connectivity off and a local model loaded; T-176 refuses metered traffic under policy and names the reason; T-180 detects a newer release, verifies its signature, and refuses one that does not match; T-181 applies a signed catalog pack without an app update and rejects a tampered one |
 
 ## Regression gate
@@ -26,4 +27,4 @@ Every task's verification commands are the gate. A task that breaks a previously
 
 ## Evidence trail
 
-For A1–A15, evidence is: the task log line, the verification command, and its raw output stored under `logs/tasks/`. Screenshots are attached to the task file only when the proof is visual (A3, A7).
+For A1–A16, evidence is: the task log line, the verification command, and its raw output stored under `logs/tasks/`. Screenshots are attached to the task file only when the proof is visual (A3, A7).

@@ -2,7 +2,7 @@
 
 A Task carries only the substance (goal, steps, acceptance, evidence). The
 structure — headings, links, commit protocol — is stamped by the renderer in
-``tools/generate_plan.py`` so that all 184 files stay identical in shape.
+``tools/generate_plan.py`` so that all 190 files stay identical in shape.
 """
 
 from dataclasses import dataclass, field
@@ -35,6 +35,13 @@ class Phase:
     title: str
     summary: str
     tasks: Sequence[Task] = field(default_factory=tuple)
+    design: str = ""
+    """Phase-level design contract, rendered into every task of the phase.
+
+    Only phases whose work has a visual surface set this. It lives here rather
+    than in each task so the contract is stated once and cannot drift between
+    sibling screens.
+    """
 
     @property
     def folder(self) -> str:

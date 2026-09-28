@@ -1,15 +1,17 @@
 # tools/ — how the plan is produced
 
-`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 184 tasks stay consistent in structure and can be edited in one place.
+`plan/` is **generated**. The task files are built from the phase data in `tools/plan_data/`, so the 190 tasks stay consistent in structure and can be edited in one place.
 
 ```
 tools/
 ├── generate_plan.py       # writes plan/phase-*/T-*.md and plan/INDEX.md
 ├── check_links.py         # every relative markdown link resolves
 ├── check_skills.py        # every plan role label resolves to an installed skill/plugin/MCP server
+├── check_design_slop.py   # the design gate from docs/14 (with --self-test)
+├── check_plan_consistency.py  # composes the above and adds id/dep/count/doc invariants
 ├── plan_data/
-│   ├── common.py          # Task dataclass + renderer
-│   ├── phase_00.py … phase_13.py
+│   ├── common.py          # Task + Phase dataclasses, renderer input
+│   ├── phase_00.py … phase_14.py
 └── README.md
 ```
 
@@ -21,7 +23,13 @@ python3 tools/generate_plan.py --check    # verify the files on disk match the d
 python3 tools/generate_plan.py --phase 6  # only phase 6
 python3 tools/check_links.py              # every relative markdown link resolves
 python3 tools/check_skills.py             # every role label resolves to something installed
+python3 tools/check_design_slop.py        # no banned aesthetic, no unmanaged value
+python3 tools/check_plan_consistency.py   # the whole set, plus ids, deps, counts and the code word
 ```
+
+`check_plan_consistency.py` is the one to run when something feels off: it calls the other four and
+adds the invariants none of them own (unique ids, backwards-only dependencies, no empty task,
+every `T-0xx` in the documents exists, every stated task count matches reality).
 
 ## Adding or changing a task
 
@@ -34,7 +42,7 @@ Renumbering is forbidden: commit messages, status files and logs reference task 
 
 ## Why a generator
 
-184 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
+190 hand-written files drift — one task loses its acceptance criteria, another grows a third style of heading. The generator guarantees:
 
 - every task has the same required sections (`Goal`, `Skills`, `Deliverables`, `Steps`, `Acceptance criteria`, `Verification`, `Logging & Git`, `State after success`),
 - dependencies and phase membership are declared once,

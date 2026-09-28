@@ -76,15 +76,26 @@ export OPENAI_BASE_URL=http://127.0.0.1:8787/v1
 
 5. **Verify** — `curl http://127.0.0.1:8787/health`
 
+## Letting an agent build it
+
+Open a terminal in this folder, start Claude Code, and give it the code word from [`KICKOFF.md`](KICKOFF.md):
+
+```text
+Anlauf-8787
+```
+
+It reads the rules, picks up where the state files say, and works through the plan task by task — two skills in parallel per task, every step logged, one commit and push per task, resumable at any point.
+
 ## This repository builds itself
 
-This repo is not documentation *about* DroidRoute — it is the build plan. [`plan/`](plan/INDEX.md) holds **184 task files** across 14 phases; an agent (Claude Code or Freebuff) executes them in order, using **at least two skills in parallel via subagents** per task, logging every step and committing + pushing after each one. Any other model can resume from [`status/`](status/PROGRESS.md) alone.
+This repo is not documentation *about* DroidRoute — it is the build plan. [`plan/`](plan/INDEX.md) holds **190 task files** across 15 phases; an agent (Claude Code or Freebuff) executes them in order, using **at least two skills in parallel via subagents** per task, logging every step and committing + pushing after each one. Any other model can resume from [`status/`](status/PROGRESS.md) alone.
 
 | Start here | Purpose |
 |---|---|
 | [`AGENTS.md`](AGENTS.md) | operating rules for any coding agent (canonical) |
 | [`CLAUDE.md`](CLAUDE.md) | Claude Code entry point |
-| [`plan/INDEX.md`](plan/INDEX.md) | all 184 tasks, phases and dependencies |
+| [`KICKOFF.md`](KICKOFF.md) | **the start file** — hand its code word to an agent and it builds the whole project |
+| [`plan/INDEX.md`](plan/INDEX.md) | all 190 tasks, phases and dependencies |
 | [`status/PROGRESS.md`](status/PROGRESS.md) | what is done — resume from here |
 | [`status/TOOLING.md`](status/TOOLING.md) | which skills, plugins and MCP servers are installed and how to use them |
 | [`.claude/skills/`](.claude/skills/) | six project skills (task runner, verification, provider, routing, UI, scout) |
@@ -101,11 +112,11 @@ This repo is not documentation *about* DroidRoute — it is the build plan. [`pl
 .claude/     project skills, four subagents, settings (permissions, project MCP auto-enable)
 docs/        architecture, protocols, providers, routing, security, acceptance, OmniRoute parity, competitive landscape, TBC resolutions, DE glossary
 handbooks/   agent handbook, subagent orchestration, skills catalog, git + logging + resume protocol, tooling discovery, anti-slop rules
-plan/        184 task files in 14 phases, plus INDEX.md
+plan/        190 task files in 15 phases, plus INDEX.md
 status/      PROGRESS · NEXT · DECISIONS · ERRORS · TOOLING (generated inventory) · per-component state · daily summaries
 logs/        chain log, per-task logs, daily roll-ups (pruned weekly)
 scripts/     step-commit, log-step, secrets preflight, tooling discovery, weekly cleanup, termux setup, local APK build
-tools/       plan generator + phase data (how the 184 task files are produced from the spec), link and skill checkers
+tools/       plan generator + phase data (how the 190 task files are produced from the spec), link, skill, design and consistency checkers
 .github/     build-apk + repo-hygiene workflows, issue/PR templates
 ```
 

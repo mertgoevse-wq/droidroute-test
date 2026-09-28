@@ -15,6 +15,7 @@ This catalog is grounded in what is actually installed. The live list is `status
 | `droidroute-provider-manifest` | adding or changing a provider (phases 2–4) |
 | `droidroute-routing` | routing, quotas, key chains, failover (phase 6, phase 12) |
 | `droidroute-compose-ui` | any Compose screen or visual work (phase 7) |
+| `design-craft` / `design-a11y` | craft and accessibility streams for UI work; the system they apply is [docs/14-design-system.md](../docs/14-design-system.md) (phase 7, phase 14) |
 | `droidroute-skill-scout` | finding the right tool before improvising |
 
 Four matching subagents live in `.claude/agents/`: `implementer`, `verifier`, `chronicler`, `tooling-scout`. Dispatch at least `implementer` + `verifier` per task, and `chronicler` when docs, status or logs change.
@@ -63,13 +64,14 @@ Four matching subagents live in `.claude/agents/`: `implementer`, `verifier`, `c
 | 04 Accounts & OAuth | `android-intent-security` | `testing-setup`, `droidroute-verification` |
 | 05 Wire protocols | `droidroute-provider-manifest` | `testing-setup` |
 | 06 Routing | `droidroute-routing` | `droidroute-verification`, `android-profiler` |
-| 07 UI | `droidroute-compose-ui` + one design skill | `accessibility`, `optimize` |
+| 07 UI | `droidroute-compose-ui` + `design-craft` | `design-a11y`, `performance-android` |
 | 08 Local models | `android-profiler` + `local-inference` guidance in `docs/06` | `testing-setup` |
 | 09 MCP & plugins | `appfunctions` for capability thinking | `droidroute-verification` |
 | 10 Logging & handover | `karpathy-wiki`, `writing-guidelines` | `droidroute-verification` |
 | 11 Delivery | `audit` + `security-audit` intent via `android-intent-security` | `testing-setup`, `r8-analyzer` |
 | 12 OmniRoute parity | `droidroute-routing`, `ai-governors` | `droidroute-verification`, `optimize` |
 | 13 Competitive edge | `droidroute-provider-manifest`, `android-platform` | `droidroute-verification`, `android-profiler`, `android-intent-security` |
+| 14 Design audit | `design-craft` | `design-a11y`, `droidroute-verification` |
 
 ## Choosing well
 

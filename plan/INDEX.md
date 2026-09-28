@@ -1,4 +1,4 @@
-# Build plan — 184 tasks
+# Build plan — 190 tasks
 
 The execution order is the numeric order of the task ids. Each task is one commit
 and one log file. Rules: [AGENTS.md](../AGENTS.md) · process: [docs/08-workflow.md](../docs/08-workflow.md) ·
@@ -22,6 +22,7 @@ resume: [handbooks/06-resume-protocol.md](../handbooks/06-resume-protocol.md).
 | [11 — Delivery](phase-11-delivery/) | T-136 … T-147 | 12 | Performance and security hardening, the acceptance run, the release pipeline and owner documentation. |
 | [12 — OmniRoute parity & power features](phase-12-parity-power/) | T-148 … T-166 | 19 | Combos, all 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring. |
 | [13 — Competitive absorption & Android edge](phase-13-competitive-edge/) | T-167 … T-184 | 18 | Any-provider detection, migration importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-awareness, self-update. |
+| [14 — Design audit & release polish](phase-14-design-audit/) | T-185 … T-190 | 6 | Token conformance, a proven gate, screen-by-screen craft review, measured contrast and accessibility, state completeness, design acceptance. |
 
 ## All tasks
 
@@ -306,6 +307,19 @@ Any-provider detection, migration importers, local-first providers, extra wire s
 | [T-182](phase-13-competitive-edge/T-182-debug-capture-mode.md) | Debug capture mode (redacted, time-bounded) | T-017, T-104 | yes |
 | [T-183](phase-13-competitive-edge/T-183-qr-config-portability.md) | Config portability by QR code (no cloud) | T-034, T-006 | yes |
 | [T-184](phase-13-competitive-edge/T-184-native-benchmark.md) | Native-versus-service benchmark on this device | T-136, T-180 | yes |
+
+### Phase 14 — Design audit & release polish
+
+Token conformance, a proven gate, screen-by-screen craft review, measured contrast and accessibility, state completeness, design acceptance.
+
+| Task | Title | Depends on | Parallel |
+|---|---|---|---|
+| [T-185](phase-14-design-audit/T-185-token-conformance-audit.md) | Token conformance audit across the whole UI | T-092, T-106 | yes |
+| [T-186](phase-14-design-audit/T-186-prove-the-gate-bites.md) | Prove the design gate bites on the real source tree | T-185 | yes |
+| [T-187](phase-14-design-audit/T-187-craft-review-and-fixes.md) | Screen-by-screen craft review with the four tests | T-185 | yes |
+| [T-188](phase-14-design-audit/T-188-contrast-and-accessibility-evidence.md) | Measured contrast, motion and accessibility evidence | T-106 | yes |
+| [T-189](phase-14-design-audit/T-189-state-completeness-pass.md) | State completeness pass (loading, empty, error, partial, offline) | T-187 | yes |
+| [T-190](phase-14-design-audit/T-190-design-acceptance.md) | Design acceptance and the closing statement | T-186, T-188, T-189 | yes |
 ## Generated file
 
 This index and every task file are produced by `tools/generate_plan.py` from `tools/plan_data/`.

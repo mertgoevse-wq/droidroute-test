@@ -42,7 +42,7 @@ jobs:
           fi
 
   integrity:
-    name: Secrets, links and plan integrity
+    name: Secrets, design, consistency and plan integrity
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -53,14 +53,13 @@ jobs:
       - name: Tooling inventory is current
         run: python3 scripts/discover_tooling.py --check
 
-      - name: Check relative markdown links
-        run: python3 tools/check_links.py
+      - name: Design gate bites (self-test) and passes (real scan)
+        run: |
+          python3 tools/check_design_slop.py --self-test
+          python3 tools/check_design_slop.py
 
-      - name: Plan matches its data
-        run: python3 tools/generate_plan.py --check
-
-      - name: Skill resolution is complete and installed
-        run: python3 tools/check_skills.py
+      - name: Plan consistency (links, plan freshness, skill labels, ids, counts, code word)
+        run: python3 tools/check_plan_consistency.py
 
       - name: Plan integrity
         run: |
@@ -73,7 +72,7 @@ jobs:
           # every task file must carry the required sections
           missing=0
           for f in $(find plan -name 'T-*.md'); do
-            for section in '## Goal' '## Skills' '## Deliverables' '## Steps' '## Acceptance criteria' '## Verification' '## Handover'; do
+            for section in '## Goal' '## Read first' '## Skills' '## Deliverables' '## Steps' '## Acceptance criteria' '## Verification' '## Definition of done' '## Rules that always apply' '## Logging & Git' '## State after success' '## Stop conditions' '## Handover'; do
               if ! grep -qF "$section" "$f"; then
                 echo "::error file=$f::missing section $section"
                 missing=1

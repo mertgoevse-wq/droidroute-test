@@ -12,11 +12,13 @@
 
 **MCP.** Use a connected MCP tool before writing code that does the same thing. Project servers live in `.mcp.json` (template: [`.mcp.json.example`](.mcp.json.example)); all project servers are auto-enabled by `.claude/settings.json`. Check the MCP section of `status/TOOLING.md` — if it says none are configured, proceed without inventing one.
 
+**Design work.** Every UI task carries a *Design contract* section and every UI document defers to [`docs/14-design-system.md`](docs/14-design-system.md). Load the `design-craft` skill (and `design-a11y` for the accessibility pass) and run `python3 tools/check_design_slop.py` before committing — a passing gate is necessary, not sufficient: the four craft tests in `docs/14` §11 still have to be run.
+
 **Plan mode.** Use it to read the task file and its dependencies before writing anything. The task file's *Steps* section is a suggestion; *Acceptance criteria* is the contract.
 
 **Shell continuity.** Termux has no persistent daemon across sessions — assume nothing about the previous session except what is in `git log`, `logs/`, and `status/`.
 
-**Context budget.** Do not read all 184 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
+**Context budget.** Do not read all 190 task files. Read `status/NEXT.md`, the target task, its `Depends on` tasks' *Acceptance criteria* only, and the docs the task links to.
 
 ## The loop in Claude Code terms
 
@@ -24,6 +26,7 @@
 cat status/HANDOVER.md status/PROGRESS.md status/NEXT.md status/ERRORS.md; git status --short
 grep -E '^(## Summary|\| Global skills|\| MCP servers)' -A2 status/TOOLING.md   # what tools exist
 python3 scripts/discover_tooling.py --check-fresh || python3 scripts/discover_tooling.py   # refresh if stale
+python3 tools/check_plan_consistency.py   # plan, docs and tooling agree (run it when anything feels off)
 cat plan/<phase>/T-0xx-*.md
 # dispatch subagents: implementer + verifier in parallel (add chronicler for doc/status work)
 # integrate, then verify:

@@ -37,7 +37,7 @@ The owner runs Claude Code and Freebuff inside Termux (proot-distro Debian) on a
 
 ## The build system
 
-This repository is designed to be built by agents. `plan/` holds **184 task files** across 14 phases; `handbooks/` holds the orchestration rules; `status/` holds the resume state — including `status/TOOLING.md`, the generated inventory of installed skills, plugins and MCP servers, so an agent uses what exists instead of re-inventing it. A single agent (Claude Code *or* Freebuff) can execute the plan end to end: every task names at least two skills to run **in parallel via subagents** (four are predefined in `.claude/agents/`), and every completed step is logged, committed and pushed so any other model can take over mid-flight.
+This repository is designed to be built by agents. `plan/` holds **190 task files** across 15 phases; `handbooks/` holds the orchestration rules; `status/` holds the resume state — including `status/TOOLING.md`, the generated inventory of installed skills, plugins and MCP servers, so an agent uses what exists instead of re-inventing it. A single agent (Claude Code *or* Freebuff) can execute the plan end to end: every task names at least two skills to run **in parallel via subagents** (four are predefined in `.claude/agents/`), and every completed step is logged, committed and pushed so any other model can take over mid-flight.
 
 Start reading at [`CLAUDE.md`](../CLAUDE.md) (Claude Code) or [`AGENTS.md`](../AGENTS.md) (any other agent).
 

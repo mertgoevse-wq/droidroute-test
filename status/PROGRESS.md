@@ -1,6 +1,6 @@
 # Progress
 
-**Chain status:** not started · **Tasks complete:** 0 / 184 · **Last commit:** scaffold
+**Chain status:** not started · **Tasks complete:** 0 / 190 · **Last commit:** scaffold
 
 Updated in the same commit as every completed task. A task is ticked only when its acceptance criteria were verified and evidenced in `logs/tasks/`.
 
@@ -22,6 +22,7 @@ Updated in the same commit as every completed task. A task is ticked only when i
 | [11 — Delivery](../plan/phase-11-delivery/) | T-136 … T-147 | hardening, acceptance run, CI release, docs (v0.1) | ⬜ 0/12 |
 | [12 — OmniRoute parity & power features](../plan/phase-12-parity-power/) | T-148 … T-166 | combos, 19 strategies, fusion/pipeline, compression, cost telemetry, guardrails, memory, A2A, tooling wiring (v0.2) | ⬜ 0/19 |
 | [13 — Competitive absorption & Android edge](../plan/phase-13-competitive-edge/) | T-167 … T-184 | any-provider detection, importers, local-first providers, extra wire surfaces, token savers, affinity, offline mode, phone-aware routing, self-update (v0.3) | ⬜ 0/18 |
+| [14 — Design audit & release polish](../plan/phase-14-design-audit/) | T-185 … T-190 | token conformance, a proven gate, craft review, measured contrast, state completeness, design acceptance | ⬜ 0/6 |
 
 ## Completed tasks
 
@@ -53,3 +54,4 @@ Per-component detail lives in [`status/components/`](components/).
 | mcp | ⬜ not started |
 | delivery | ⬜ not started |
 | competitive-edge | ⬜ not started |
+| design | ⬜ not started |

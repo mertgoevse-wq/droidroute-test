@@ -4,9 +4,11 @@ Any agentic tool that builds this project reads this file. `CLAUDE.md` is the Cl
 
 ## 1. What this repository is
 
-The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **184 task files** across 14 phases. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
+The build plan for **DroidRoute**, an Android-native AI gateway. [`plan/`](plan/INDEX.md) contains **190 task files** across 15 phases. Your job is to execute them in numeric order — completely, verifiably, and without human intervention.
 
 ## 2. Boot sequence (no chat history assumed)
+
+Started from the owner's code word in [`KICKOFF.md`](KICKOFF.md)? Continue with the sequence below — nothing else is needed.
 
 ```
 status/HANDOVER.md   → two-minute summary: state, next action, blockers
@@ -100,5 +102,6 @@ Stop and report when: a criterion fails after one repair attempt; a user-visible
 | Settled open questions | `docs/11-tbc-resolutions.md` |
 | OmniRoute feature parity and the owner's extras | `docs/12-omniroute-parity.md` |
 | What 9Router, CLIProxyAPI, LiteLLM and friends have, and where DroidRoute differs | `docs/13-competitive-landscape.md` |
+| How the interface looks and why (tokens, type, space, motion, bans) | `docs/14-design-system.md` |
 | What tools/skills/MCP servers exist | `status/TOOLING.md` |
 | Terms, explained in German | `docs/glossary-de.md` |

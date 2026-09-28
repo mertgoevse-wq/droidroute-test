@@ -7,6 +7,22 @@ PHASE = Phase(
     slug="ui",
     title="UI",
     summary="Compose shell, dashboard, provider and key management, routing controls, settings, onboarding.",
+    design="""Every task in this phase produces something a person looks at, so the craft rules apply as strictly as the functional ones. Read [docs/14-design-system.md](../../docs/14-design-system.md) before writing a composable, and load the `design-craft` skill alongside the skills listed on the task.
+
+**The direction, in one line:** a graphite instrument panel with hairline borders, one brass accent for the single primary action, real status lamps, and the request path made visible. Not a dark SaaS dashboard, not glass, not gradients. The banned list is binding: [handbooks/07-anti-slop-rules.md](../../handbooks/07-anti-slop-rules.md) §11.
+
+Before writing any composable:
+
+1. **Name the focal element of the screen** and how it wins (size, weight, contrast, space). If you cannot name it, the screen is a list and should look like one. [docs/14 §8](../../docs/14-design-system.md)
+2. **Use a token for every colour, space, radius and type role** from `ui/theme/Tokens.kt`. A value that does not exist yet is added to the token file first, with its reason, in the same commit.
+3. **Hierarchy comes from size + weight + colour together**, never size alone. Contrast is not a substitute for hierarchy.
+4. **Centering is an accent, not a default:** allowed for the onboarding hero, empty states and a single large metric. Body text, list rows, labels, settings and log lines stay left-aligned.
+5. **Numbers are platform monospace with tabular figures** so a counting value does not shift its neighbours.
+6. **Depth is borders only** — no shadow, no elevation, no blur, no glow.
+7. **Every screen ships its states:** loading, empty, error, partial, offline, plus disabled states with a reason. A screen that only works when everything succeeds is not finished.
+8. **Motion must explain something** and stays under 300 ms. Reduced motion removes movement, never information.
+
+Before declaring the task done, run the four craft tests from [docs/14 §11](../../docs/14-design-system.md): **Swap** (would a stock template look the same?), **Squint** (is the hierarchy still readable, is nothing shouting?), **Signature** (point at five places where the product's idea appears), **Token** (do the token names belong to this product?). Then `python3 tools/check_design_slop.py` — a passing gate is necessary, not sufficient.""",
 )
 
 TASKS = [
@@ -46,32 +62,40 @@ TASKS = [
         id=92,
         slug="theme-and-visuals",
         title="Theme, dark/light and typography",
-        goal="A coherent Material 3 theme with dynamic colour, proper dark mode, and a typographic scale that stays readable on a phone.",
+        goal=(
+            "Implement the design system as tokens: the graphite surface scale, the four ink levels, the single brass accent, "
+            "the real status lamps, and the type, space and shape scales from docs/14-design-system.md §5–§7. This task creates "
+            "`ui/theme/Tokens.kt`, which every later screen reads from."
+        ),
         deps=[91],
-        est="40-80 min",
+        est="90-180 min",
         skills=[
-            ("android-compose-ui", "colour scheme, dynamic colour, typography scale"),
+            ("design-craft", "translating a specified system into Compose without inventing values"),
+            ("android-compose-ui", "colour scheme, typography scale, dynamic colour as an opt-in"),
             ("performance-android", "no overdraw, no recomposition from theme objects"),
         ],
         deliverables=[
-            "`ui/theme/` with light, dark and dynamic variants",
-            "Status colours for provider health that are distinguishable in both modes",
+            "`ui/theme/Tokens.kt` — OKLCH values from docs/14 §5–§7 expressed as Compose tokens (surfaces, ink levels, borders, accent, status, type roles, spacing, radii)",
+            "Light and dark schemes built from those tokens, and the gate script able to resolve every colour to one",
         ],
         steps=[
-            "Define light/dark schemes and enable dynamic colour on Android 12+ with a static fallback.",
-            "Give health states a colour plus a shape or label, so colour is never the only signal.",
-            "Verify contrast ratios for text on both schemes.",
-            "Document the palette in the design note inside the theme package.",
+            "Write the tokens exactly as specified in docs/14 §5–§7. Do not invent an additional level: the scale is the scale.",
+            "Build the light and dark schemes from the tokens; keep one hue and shift only lightness across surfaces.",
+            "Make dynamic colour an **opt-in setting, default off** — the designed scheme is what ships, so the app has an identity that can be verified.",
+            "Give every status a colour **plus a shape plus a word**, so colour is never the only carrier (docs/14 §5.5).",
+            "Expose the type roles as one `Typography` so no screen declares its own `TextStyle`, and set tabular monospace for numbers.",
         ],
         accept=[
-            "Both modes render every screen without unreadable text",
-            "Health states are distinguishable without relying on colour alone",
-            "Text contrast meets the documented ratio",
+            "`ui/theme/Tokens.kt` contains the values from docs/14 §5–§7, and no screen file declares a colour of its own",
+            "Dynamic colour is off by default and documented as the owner's opt-in",
+            "Every status has a shape and a word beside its colour, asserted by a test or a preview",
+            "Both modes render every existing screen without unreadable text",
         ],
         verify=[
             "./gradlew :app:assembleDebug",
+            "python3 tools/check_design_slop.py",
         ],
-        state="The app looks intentional in both modes and stays legible.",
+        state="The design system exists as code, and every later screen inherits it instead of deciding its own look.",
     ),
     Task(
         id=93,
@@ -121,13 +145,19 @@ TASKS = [
             "Empty state that says what to do first (connect a provider)",
         ],
         steps=[
+            "Build the **Signalweg** first (docs/14 §4.2): the client line, the switch, and the provider lines, with a lamp per endpoint whose colour is the real health state and a marker that moves while a request is in flight.",
+            "Make the marker stop at the hop that failed and carry that hop's reason string — a failure must show *where*, not just *that*.",
             "Render server state, port, bind mode and current client keys in use.",
-            "Render per-provider tokens today, error count and p50/p95 latency from `/v1/usage`.",
+            "Render per-provider tokens today, error count and p50/p95 latency from `/v1/usage` as a demoted list, not as a grid of equal cards.",
             "Show parked keys with their reset times so a quiet provider is explainable.",
             "Poll at a sane interval (e.g. 5 s in the foreground, paused in the background).",
         ],
         accept=[
             "Numbers on the dashboard match `/v1/usage` for the same window",
+            "The Signalweg encodes real state: no movement without a request, no lamp without a health verdict, and *unknown* where a value is not known",
+            "A failed request visibly stops at the failing hop with the reason on it",
+            "The Signalweg is the focal element and the hero number sits beside it — the squint test finds it in under a second",
+            "With reduced motion the path is static, readable and still truthful",
             "A parked key is visible with its reset time",
             "The empty state names the next action instead of showing zeros",
         ],
@@ -154,13 +184,16 @@ TASKS = [
         ],
         steps=[
             "Aggregate from the usage table with a bounded query (indexed by timestamp).",
+            "Apply the chart rules from docs/14 §9: one accent series plus at most one comparison hue, zero-baseline bars, direct labels before a legend, tabular monospace figures.",
             "Show free providers with an explicit '0 (free)' rather than hiding them.",
-            "Mark estimates as estimates; never present a guess as a measurement.",
+            "Mark estimates as estimates and render an unknown price as *unknown* (hatched, labelled) — never a fabricated number.",
+            "Draw the bars on a canvas sized by Compose; colour them from the tokens. No charting dependency.",
             "Add a test comparing the aggregate with a hand-computed fixture.",
         ],
         accept=[
             "The aggregate matches a fixture dataset exactly",
-            "Unknown pricing is labelled, not filled with a fabricated number",
+            "No chart shows more than two series, contains a gradient fill, a 3D effect or a non-zero baseline",
+            "Unknown pricing is labelled and hatched, not filled with a fabricated number",
             "The query stays under 50 ms for a month of records (measured)",
         ],
         verify=[
@@ -499,15 +532,19 @@ TASKS = [
             "Layout bookkeeping in the UI component status file",
         ],
         steps=[
-            "Audit each screen with a screen reader; fix missing or misleading descriptions.",
+            "Audit each screen with a screen reader; fix missing or misleading descriptions. The Signalweg must be announced as words, never as an unlabelled graphic.",
             "Test at 200 % font scale and fix truncation and overlap.",
             "Add tablet-width layouts where a list+detail split is clearly better (providers, logs).",
-            "Verify minimum touch target sizes.",
+            "Verify minimum touch target sizes against docs/14 §12 (48dp, never below 44dp, never overlapping).",
+            "Compute and record the contrast ratio of every used foreground/background pair in both modes. The measurement table belongs to [T-188](../../plan/phase-14-design-audit/T-188-contrast-and-accessibility-evidence.md); this task removes the failures it finds.",
+            "Set the animation scale to 0 and confirm every screen loses movement but no information.",
         ],
         accept=[
             "Every interactive element has a meaningful description",
             "No screen breaks at 200 % font scale",
             "Touch targets meet the documented minimum size",
+            "Every contrast failure found by the measurement pass is fixed by adjusting a token, not by hiding content",
+            "With reduced motion enabled, no screen loses information",
         ],
         verify=[
             "./gradlew :app:lintDebug",
