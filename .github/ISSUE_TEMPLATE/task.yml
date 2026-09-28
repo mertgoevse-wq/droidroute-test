@@ -1,0 +1,49 @@
+name: Task
+description: A new task for the DroidRoute build plan
+title: "T-XXX: "
+labels: ["task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when a task must be added to `plan/`. Prefer editing the plan
+        data (`tools/plan_data/`) and regenerating, so the tasks stay consistent.
+  - type: input
+    id: phase
+    attributes:
+      label: Phase
+      description: Which phase folder does this belong to, e.g. phase-06-routing?
+      placeholder: phase-06-routing
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: One paragraph. What is true after this task that was not true before?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Objective, checkable lines. Each one must name how it is proven.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: input
+    id: depends
+    attributes:
+      label: Depends on
+      description: Task ids that must be complete first.
+      placeholder: "T-010, T-012"
+  - type: dropdown
+    id: parallel
+    attributes:
+      label: Parallel-safe
+      description: Can this task be worked on ahead of time without breaking the chain?
+      options: ["yes", "no"]
+    validations:
+      required: true

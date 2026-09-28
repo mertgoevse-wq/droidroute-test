@@ -1,0 +1,157 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m -Dorg.gradle.daemon=false"
+
+jobs:
+  verify:
+    name: Lint, test and secrets preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secrets preflight
+        run: bash scripts/preflight-secrets.sh
+
+      - name: Scaffolded?
+        id: scaffold
+        run: |
+          if [ -f gradlew ] && [ -f settings.gradle.kts ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Android project not scaffolded yet - skipping Gradle steps."
+          fi
+
+      - uses: actions/setup-java@v4
+        if: steps.scaffold.outputs.ready == 'true'
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        if: steps.scaffold.outputs.ready == 'true'
+
+      - name: Unit tests
+        if: steps.scaffold.outputs.ready == 'true'
+        run: ./gradlew testDebugUnitTest --no-daemon
+
+      - name: Lint
+        if: steps.scaffold.outputs.ready == 'true'
+        run: ./gradlew lintDebug --no-daemon
+
+  apk-debug:
+    name: Debug APK
+    needs: verify
+    if: github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scaffolded?
+        id: scaffold
+        run: |
+          if [ -f gradlew ] && [ -f settings.gradle.kts ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Nothing to build yet - the plan starts at plan/phase-00-foundation/T-001."
+          fi
+
+      - uses: actions/setup-java@v4
+        if: steps.scaffold.outputs.ready == 'true'
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        if: steps.scaffold.outputs.ready == 'true'
+
+      - name: Assemble debug
+        if: steps.scaffold.outputs.ready == 'true'
+        run: ./gradlew :app:assembleDebug --no-daemon
+
+      - name: Upload APK
+        if: steps.scaffold.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: droidroute-debug-${{ github.sha }}
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 14
+          if-no-files-found: error
+
+  apk-release:
+    name: Signed release APK
+    needs: verify
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode signing keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "::error::SIGNING_KEYSTORE_BASE64 is not configured."
+            exit 1
+          fi
+          mkdir -p "$RUNNER_TEMP/signing"
+          printf '%s' "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/signing/release.jks"
+          cat > keystore.properties <<EOF
+          storeFile=$RUNNER_TEMP/signing/release.jks
+          storePassword=${{ secrets.SIGNING_STORE_PASSWORD }}
+          keyAlias=${{ secrets.SIGNING_KEY_ALIAS }}
+          keyPassword=${{ secrets.SIGNING_KEY_PASSWORD }}
+          EOF
+          chmod 600 keystore.properties
+
+      - name: Assemble release
+        run: ./gradlew :app:assembleRelease --no-daemon
+
+      - name: Checksums
+        run: |
+          cd app/build/outputs/apk/release
+          sha256sum *.apk > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: droidroute-release-${{ github.ref_name }}
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/apk/release/SHA256SUMS.txt
+          retention-days: 90
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/apk/release/SHA256SUMS.txt
+          generate_release_notes: true
