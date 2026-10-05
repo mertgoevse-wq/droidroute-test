@@ -1,0 +1,5 @@
+
+## Log rotation 2026-10-05T10:31:09+00:00
+- daily: keep 14, tasks: keep 60
+- archived to `logs/archive/` (local only, not committed)
+- chain.log untouched
